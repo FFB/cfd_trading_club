@@ -1,0 +1,19 @@
+
+<Plugin::Authentication>
+    default_realm           members
+    <realms>
+        <members>
+            <credential>
+                class           Password
+                password_field  password
+                password_type   clear
+            </credential>
+            <store>
+                class           DBIx::Class
+                user_model      cfd_trading_club::Users
+                role_relation   role
+                role_field      role
+            </store>
+        </members>
+    </realms>
+</Plugin::Authentication>
