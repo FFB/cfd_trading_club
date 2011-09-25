@@ -42,7 +42,7 @@ sub login :Local {
         if ($c->authenticate({ username => $username,
                                password => $password,
                              })) {
-            $c->flash( userdata => $c->user );
+            $c->flash( userdata => $c->user->get('upi') );
         }
         else {
             $c->res->redirect($c->uri_for('/'));
