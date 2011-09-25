@@ -13,7 +13,7 @@ CREATE TABLE users (
 
 CREATE TABLE role (
     id          SERIAL PRIMARY KEY,
-    role        VARCHAR
+    rolename    VARCHAR
 );
 
 CREATE TABLE user_role (
@@ -23,7 +23,7 @@ CREATE TABLE user_role (
 );
 
 CREATE TABLE predictor (
-    id          SERIAL PRIMARY KEY
+    id          SERIAL PRIMARY KEY,
     ticker      VARCHAR,
     open_time   TIMETZ NOT NULL,
     close_time  TIMETZ NOT NULL
@@ -49,5 +49,9 @@ CREATE TABLE prediction (
     est_id      INTEGER REFERENCES estimate(id) ON DELETE CASCADE,
     conf_id     INTEGER REFERENCES confidence(id) ON DELETE CASCADE
 );
+
+INSERT INTO users VALUES (1, 'zane', 'zane15', 'zmos003', 'zjmoser@gmail.com', 'zane', 'moser', '021 163 5403');
+INSERT INTO role (rolename) VALUES ('member'), ('admin');
+INSERT INTO user_role VALUES (1,1), (1,2);
 
 COMMIT;

@@ -1,3 +1,6 @@
+<%args>
+    %userdata => undef
+</%args>
 <html>
 
     <body>
@@ -16,6 +19,8 @@
                 </tr>
             </table>
         </form>
+%   use Data::Dump qw/dump/;
+    <% dump($c->flash->{userdata}) %>
     </body>
 
 </html>

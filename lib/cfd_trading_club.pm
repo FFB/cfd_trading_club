@@ -18,6 +18,11 @@ use Catalyst qw/
     CDN
 
     StackTrace
+
+    Authentication
+    Session
+    Session::Store::FastMmap
+    Session::State::Cookie
 /;
 
 extends 'Catalyst';

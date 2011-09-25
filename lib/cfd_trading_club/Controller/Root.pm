@@ -26,8 +26,30 @@ The root page (/)
 
 =cut
 
+use Data::Dump qw/dump/;
+
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
+}
+
+sub login :Local {
+    my ( $self, $c ) = @_;
+
+    my $username = $c->req->params->{username};
+    my $password = $c->req->params->{password};
+
+    if ($username and $password) {
+        if ($c->authenticate({ username => $username,
+                               password => $password,
+                             })) {
+            $c->flash( userdata => $c->user );
+        }
+        else {
+            $c->res->redirect($c->uri_for('/'));
+        }
+    }
+
+    $c->res->redirect($c->uri_for('/'));
 }
 
 =head2 default
