@@ -1,4 +1,5 @@
 <%args>
+    $page
 </%args>
 <html>
 
@@ -16,13 +17,13 @@
         </div>
         <div id="navigation-bar">
             <ul>
-                <li class="current"><a href="/">Home</a></li>
-                <li class=""><a href="/about">About Us</a></li>
-                <li class=""><a href="/register">Register</a></li>
-                <li class=""><a href="/competition">Competiion</a></li>
-                <li class=""><a href="/predict">Predict</a></li>
-                <li class=""><a href="/stats">Statistics</a></li>
-                <li class=""><a href="/links">Links</a></li>
+                <li <% $page->{home}        ? 'class="current"' : '' %> ><a href="/">Home</a></li>
+                <li <% $page->{about}       ? 'class="current"' : '' %> ><a href="/about">About Us</a></li>
+                <li <% $page->{register}    ? 'class="current"' : '' %> ><a href="/register">Register</a></li>
+                <li <% $page->{competition} ? 'class="current"' : '' %> ><a href="/competition">Competiion</a></li>
+                <li <% $page->{predict}     ? 'class="current"' : '' %> ><a href="/predict">Predict</a></li>
+                <li <% $page->{stats}       ? 'class="current"' : '' %> ><a href="/stats">Statistics</a></li>
+                <li <% $page->{links}       ? 'class="current"' : '' %> ><a href="/links">Links</a></li>
                 <li class="last"></li>
             </ul>
         </div>

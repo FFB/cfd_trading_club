@@ -29,30 +29,37 @@ The root page (/)
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
+    $c->stash->{page}->{home} = 1;
 }
 
 sub about :Local {
     my ( $self, $c ) = @_;
+    $c->stash->{page}->{about} = 1;
 }
 
 sub register :Local {
     my ( $self, $c ) = @_;
+    $c->stash->{page}->{register} = 1;
 }
 
 sub competition :Local {
     my ( $self, $c ) = @_;
+    $c->stash->{page}->{competition} = 1;
 }
 
 sub predict :Local {
     my ( $self, $c ) = @_;
+    $c->stash->{page}->{predict} = 1;
 }
 
 sub stats :Local {
     my ( $self, $c ) = @_;
+    $c->stash->{page}->{stats} = 1;
 }
 
 sub links :Local {
     my ( $self, $c ) = @_;
+    $c->stash->{page}->{links} = 1;
 }
 
 sub login :Local {
