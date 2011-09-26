@@ -1,0 +1,30 @@
+<html>
+
+<head>
+<title>CFD Trading Club</title>
+<link rel='stylesheet' href="<% $c->cdn('css/styles.css') %>" type='text/css'/>
+<link rel="shortcut icon" href="<% $c->cdn('images/favico.ico') %>">
+<script type="text/javascript" src="<% $c->cdn('js/jquery-1.4.4.min.js') %>"></script>
+<script type="text/javascript" src="<% $c->cdn('js/jquery-ui-1.8.6.custom.min.js') %>"></script>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-inner">
+        </div>
+        <div id="navigation-bar">
+            <ul>
+                <li class="current"><a href="/">Home</a></li>
+                <li class=""><a href="/about">About Us</a></li>
+                <li class=""><a href="/register">Register</a></li>
+                <li class=""><a href="/predict">Predict</a></li>
+                <li class=""><a href="/stats">Statistics</a></li>
+                <li class=""><a href="/Links">Links</a></li>
+                <li class="last"></li>
+            </ul>
+        </div>
+    </div>
+% $m->call_next;
+</body>
+</html>
+

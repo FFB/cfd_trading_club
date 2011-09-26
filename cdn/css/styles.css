@@ -1,0 +1,73 @@
+* {
+    margin:  0;
+    padding: 0;
+    font-family: Arial;
+    font-size:   11px;
+}
+
+#header {
+    background: transparent url(/images/header-bg.png) top left repeat-x;
+}
+
+/*
+ * TODO: adjust minimum width and padding
+ */
+#header-inner {
+    max-width:  1400px;
+    margin:     0 auto;
+    padding:    15px 15px 5px 15px;
+    position:   relative;
+    height:     50px;
+}
+
+#header #navigation-bar {
+    background: transparent url(/images/nav-header-bg.png) top left repeat-x;
+    position:   relative;
+}
+
+/*
+ * TODO: adjust minimum width and padding
+ */
+#header #navigation-bar ul {
+    max-width:      1400px;
+    margin:         0 auto;
+    min-width:      970px;
+    padding-left:   5px;
+    background:     transparent url(/images/nav-header-left-spacer.png) top left no-repeat;
+    height:         38px;
+}
+
+#header #navigation-bar ul li.current {
+    background: transparent url(/images/nav-header-item-current-l.png) top left repeat-x;
+}
+
+#header #navigation-bar ul li {
+    line-height: 12px;
+    background: transparent url(/images/nav-header-item-l.png) top left repeat-x;
+}
+
+#header #navigation-bar ul li.current a {
+    color:  #2896BE;
+}
+
+#header #navigation-bar ul li a {
+    display:        block;
+    float:          left;
+    padding:        10px 25px 0 25px;
+    height:         28px;
+    color:          white;
+    font-weight:    bold;
+}
+
+#header #navigation-bar ul li.last {
+    background: transparent url(/images/nav-item-last-r.png) top left repeat-x;
+    display:    block;
+    height:     34px;
+    width:      3px;
+}
+
+#header ul li {
+    list-style-type: none;
+    display: block;
+    float: left;
+}
