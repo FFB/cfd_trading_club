@@ -10,11 +10,116 @@
 }
 
 #header-inner {
+    max-width:  1400px;
     margin:     0 auto;
     padding:    15px 15px 5px 15px;
     position:   relative;
     height:     50px;
 }
+
+#account-widget {
+    display:    block;
+    color:      black;
+    margin-top: 16px;
+    padding:    0 10px;
+    position:   absolute;
+    z-index:    10;
+    right:      0;
+    top:        0;
+}
+
+/* Used by login buttons */
+#account-widget .button * {
+    display:    inline-block;
+    float:      left;
+}
+
+/* Used by login buttons */
+#account-widget .button {
+    font-weight:    bold;
+    height:         27px;
+    margin:         0 10px;
+}
+
+/* Used by login buttons */
+#account-widget .button a {
+    height:         27px;
+    line-height:    25px;
+    padding:        0 10px;
+    background-color:   white;
+}
+
+#account-widget .anonymous span, #account-widget .anonymous div {
+    vertical-align: top;
+    display:        inline-block;
+}
+
+#account-widget .spacer {
+    height: 27px;
+    width:  20px;
+}
+
+#account-widget .anonymous .credentials {
+    font-weight:    bold;
+    width:          290px;
+}
+
+#account-widget p {
+    margin: 0;
+}
+
+#account-widget .anonymous .login-error form {
+    display:    none;
+}
+
+#account-widget .anonymous .login-error .error {
+    display:    block;
+}
+
+#account-widget .anonymous .error {
+    display:    none;
+}
+
+#account-widget .error {
+    border:     1px solid #D82F2C;
+    color:      #D82F2C;
+    background: #FDE8E7;
+    font-weight:normal;
+}
+
+#account-widget .error .alert {
+    padding:    4px 5px 4px 26px;
+    background: transparent url(/images/icon-alert.png) 8px 5px no-repeat;
+}
+
+/* TODO: adjust input styles */
+#account-widget input {
+    border:     1px solid #666;
+    background: white;
+    color:      black;
+}
+
+/* submit button */
+#account-widget .submit input {
+    height:         27px;
+    line-height:    25px;
+    padding:        0 10px;
+    background-color:   white;
+}
+
+/* username and password fields */
+#account-widget .login input {
+    box-sizing: border-box;
+    width:      105px;
+    padding:    4px 8px;
+}
+
+/* Cant access your account text */
+#account-widget .anonymous .credentials .lost-account a {
+    color:  white;
+}
+
+/* Navigation bar styles */
 
 #header #navigation-bar {
     float:      left;

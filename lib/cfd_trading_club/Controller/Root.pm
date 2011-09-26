@@ -27,39 +27,48 @@ The root page (/)
 
 =cut
 
+# Check if a user is logged in and set state of
+# account widget
+sub auto :Private {
+    my ( $self, $c ) = @_;
+
+    $c->stash->{logged_in} = $c->user_exists ? 1 : 0;
+    return 1;
+}
+
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-    $c->stash->{page}->{home} = 1;
+    $c->stash->{page} = 'home';
 }
 
 sub about :Local {
     my ( $self, $c ) = @_;
-    $c->stash->{page}->{about} = 1;
+    $c->stash->{page} = 'about';
 }
 
 sub register :Local {
     my ( $self, $c ) = @_;
-    $c->stash->{page}->{register} = 1;
+    $c->stash->{page} = 'register';
 }
 
 sub competition :Local {
     my ( $self, $c ) = @_;
-    $c->stash->{page}->{competition} = 1;
+    $c->stash->{page} = 'competition';
 }
 
 sub predict :Local {
     my ( $self, $c ) = @_;
-    $c->stash->{page}->{predict} = 1;
+    $c->stash->{page} = 'predict';
 }
 
 sub stats :Local {
     my ( $self, $c ) = @_;
-    $c->stash->{page}->{stats} = 1;
+    $c->stash->{page} = 'stats';
 }
 
 sub links :Local {
     my ( $self, $c ) = @_;
-    $c->stash->{page}->{links} = 1;
+    $c->stash->{page} = 'links';
 }
 
 sub login :Local {
@@ -67,19 +76,16 @@ sub login :Local {
 
     my $username = $c->req->params->{username};
     my $password = $c->req->params->{password};
+    my $page     = $c->req->params->{page};
 
-    if ($username and $password) {
-        if ($c->authenticate({ username => $username,
-                               password => $password,
-                             })) {
-            $c->flash( userdata => $c->user->get('upi') );
-        }
-        else {
-            $c->res->redirect($c->uri_for('/'));
-        }
+    if ($username and $password and $c->authenticate({username => $username, password => $password,})) {
+        $c->session->{user} = $c->user;
+    }
+    else {
+        $c->flash->{login_error} = 1;
     }
 
-    $c->res->redirect($c->uri_for('/'));
+    $c->res->redirect($c->uri_for("/$page"));
 }
 
 =head2 default
