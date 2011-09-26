@@ -9,11 +9,7 @@
     background: transparent url(/images/header-bg.png) top left repeat-x;
 }
 
-/*
- * TODO: adjust minimum width and padding
- */
 #header-inner {
-    max-width:  1400px;
     margin:     0 auto;
     padding:    15px 15px 5px 15px;
     position:   relative;
@@ -21,20 +17,19 @@
 }
 
 #header #navigation-bar {
+    float:      left;
+    width:      100%;
     background: transparent url(/images/nav-header-bg.png) top left repeat-x;
     position:   relative;
+    overflow:   hidden;
 }
 
-/*
- * TODO: adjust minimum width and padding
- */
 #header #navigation-bar ul {
-    max-width:      1400px;
+    float:          left;
     margin:         0 auto;
-    min-width:      970px;
-    padding-left:   5px;
-    background:     transparent url(/images/nav-header-left-spacer.png) top left no-repeat;
     height:         38px;
+    position:       relative;
+    left:           50%;
 }
 
 #header #navigation-bar ul li.current {
@@ -42,8 +37,10 @@
 }
 
 #header #navigation-bar ul li {
-    line-height: 12px;
-    background: transparent url(/images/nav-header-item-l.png) top left repeat-x;
+    line-height:    12px;
+    background:     transparent url(/images/nav-header-item-l.png) top left repeat-x;
+    position:       relative;
+    right:          50%;
 }
 
 #header #navigation-bar ul li.current a {

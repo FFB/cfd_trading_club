@@ -1,6 +1,7 @@
 package cfd_trading_club::Controller::Root;
 use Moose;
 use namespace::autoclean;
+use Data::Dump qw/dump/;
 
 BEGIN { extends 'Catalyst::Controller' }
 
@@ -26,9 +27,31 @@ The root page (/)
 
 =cut
 
-use Data::Dump qw/dump/;
-
 sub index :Path :Args(0) {
+    my ( $self, $c ) = @_;
+}
+
+sub about :Local {
+    my ( $self, $c ) = @_;
+}
+
+sub register :Local {
+    my ( $self, $c ) = @_;
+}
+
+sub competition :Local {
+    my ( $self, $c ) = @_;
+}
+
+sub predict :Local {
+    my ( $self, $c ) = @_;
+}
+
+sub stats :Local {
+    my ( $self, $c ) = @_;
+}
+
+sub links :Local {
     my ( $self, $c ) = @_;
 }
 

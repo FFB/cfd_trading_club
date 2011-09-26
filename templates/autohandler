@@ -1,3 +1,5 @@
+<%args>
+</%args>
 <html>
 
 <head>
@@ -17,14 +19,17 @@
                 <li class="current"><a href="/">Home</a></li>
                 <li class=""><a href="/about">About Us</a></li>
                 <li class=""><a href="/register">Register</a></li>
+                <li class=""><a href="/competition">Competiion</a></li>
                 <li class=""><a href="/predict">Predict</a></li>
                 <li class=""><a href="/stats">Statistics</a></li>
-                <li class=""><a href="/Links">Links</a></li>
+                <li class=""><a href="/links">Links</a></li>
                 <li class="last"></li>
             </ul>
         </div>
     </div>
+    <div id="content">
 % $m->call_next;
+    </div>
 </body>
 </html>
 
