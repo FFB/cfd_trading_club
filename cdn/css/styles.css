@@ -41,7 +41,7 @@
     margin:         0 10px;
 }
 
-/* Used by login buttons */
+/* Used by Join Now */
 #account-widget .button a {
     height:         27px;
     line-height:    25px;
@@ -54,6 +54,7 @@
     display:        inline-block;
 }
 
+/* Gap between Join Now and input fields */
 #account-widget .spacer {
     height: 27px;
     width:  20px;
@@ -66,20 +67,25 @@
 
 #account-widget p {
     margin: 0;
+    float:  left;
 }
 
+/* Handles invalid login */
 #account-widget .anonymous .login-error form {
     display:    none;
 }
 
+/* Handles invalid login */
 #account-widget .anonymous .login-error .error {
     display:    block;
 }
 
+/* Handles invalid login */
 #account-widget .anonymous .error {
     display:    none;
 }
 
+/* Error message style */
 #account-widget .error {
     border:     1px solid #D82F2C;
     color:      #D82F2C;
@@ -87,6 +93,7 @@
     font-weight:normal;
 }
 
+/* Error message icon */
 #account-widget .error .alert {
     padding:    4px 5px 4px 26px;
     background: transparent url(/images/icon-alert.png) 8px 5px no-repeat;
@@ -99,7 +106,7 @@
     color:      black;
 }
 
-/* submit button */
+/* Login and Logout buttons */
 #account-widget .submit input {
     height:         27px;
     line-height:    25px;
@@ -117,6 +124,13 @@
 /* Cant access your account text */
 #account-widget .anonymous .credentials .lost-account a {
     color:  white;
+}
+
+/* Welcome message */
+#account-widget .welcome {
+    float:      left;
+    color:      white;
+    padding:    10px;
 }
 
 /* Navigation bar styles */

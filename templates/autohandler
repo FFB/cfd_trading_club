@@ -1,6 +1,7 @@
 <%args>
     $logged_in
     $page
+    $username => undef
 </%args>
 <html>
 
@@ -17,19 +18,26 @@
         <div id="header-inner">
             <div id="account-widget">
                 <span class="state anonymous">
+%   if (not $logged_in) {
                     <span class="button join">
                         <a href="register">Join now</a>
                     </span>
                     <span class="spacer"></span>
+%   }
                     <span class="credentials <% $c->flash->{login_error} ? 'login-error' : '' %>">
-                        <form id="login-main-form" action="/login" method="POST">
-                            <p class="login" style="float: left;">
+%   if ($logged_in) {
+                        <span class="welcome">Welcome, <% $username %>!</span>
+%   }
+                        <form id="login-main-form" action="/<% $logged_in ? 'logout' : 'login' %>" method="POST">
+                            <input type="hidden" name="page" value="<% $page %>">
+%   if (not $logged_in) {
+                            <p class="login">
                                 <input type="text" name="username" placeholder="Username">
                                 <input type="password" name="password" placeholder="Password">
-                                <input type="hidden" name="page" value="<% $page %>">
                             </p>
+%   }
                             <span class="button submit">
-                                <input type="submit" value="Login">
+                                <input type="submit" value="<% $logged_in ? 'Logout' : 'Login' %>">
                             </span>
                         </form>
                         <span class="error">
@@ -38,9 +46,11 @@
                                 <a class="reset" href>Try again</a>
                             </span>
                         </span>
+%   if (not $logged_in) {
                         <p class="lost-account">
-                            <a class="js-infopanel" href>Can't access your account?</a>
+                            <a href>Can't access your account?</a>
                         </p>
+%   }
                     </span>
                 </span>
             </div>
@@ -59,7 +69,7 @@
         </div>
     </div>
     <div id="content">
-    <% $logged_in %>
+% use Data::Dump qw/dump/;
 % $m->call_next;
     </div>
 </body>

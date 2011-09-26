@@ -33,6 +33,7 @@ sub auto :Private {
     my ( $self, $c ) = @_;
 
     $c->stash->{logged_in} = $c->user_exists ? 1 : 0;
+    $c->stash->{username}  = $c->session->{user}->get('username');
     return 1;
 }
 
@@ -77,14 +78,25 @@ sub login :Local {
     my $username = $c->req->params->{username};
     my $password = $c->req->params->{password};
     my $page     = $c->req->params->{page};
+    $page = '/' if $page eq 'home';
 
     if ($username and $password and $c->authenticate({username => $username, password => $password,})) {
-        $c->session->{user} = $c->user;
+        #$c->session->{user}     = $c->user;
+        #$c->session->{username} = $c->user->get('username');
     }
     else {
         $c->flash->{login_error} = 1;
     }
 
+    $c->res->redirect($c->uri_for("/$page"));
+}
+
+sub logout :Local {
+    my ( $self, $c ) = @_;
+    my $page     = $c->req->params->{page};
+    $page = '/' if $page eq 'home';
+
+    $c->logout();
     $c->res->redirect($c->uri_for("/$page"));
 }
 
