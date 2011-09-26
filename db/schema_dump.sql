@@ -50,13 +50,6 @@ ALTER SEQUENCE confidence_id_seq OWNED BY confidence.id;
 
 
 --
--- Name: confidence_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zany
---
-
-SELECT pg_catalog.setval('confidence_id_seq', 1, false);
-
-
---
 -- Name: estimate; Type: TABLE; Schema: public; Owner: zany; Tablespace: 
 --
 
@@ -88,13 +81,6 @@ ALTER TABLE public.estimate_id_seq OWNER TO zany;
 --
 
 ALTER SEQUENCE estimate_id_seq OWNED BY estimate.id;
-
-
---
--- Name: estimate_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zany
---
-
-SELECT pg_catalog.setval('estimate_id_seq', 1, false);
 
 
 --
@@ -135,13 +121,6 @@ ALTER SEQUENCE prediction_id_seq OWNED BY prediction.id;
 
 
 --
--- Name: prediction_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zany
---
-
-SELECT pg_catalog.setval('prediction_id_seq', 1, false);
-
-
---
 -- Name: predictor; Type: TABLE; Schema: public; Owner: zany; Tablespace: 
 --
 
@@ -177,13 +156,6 @@ ALTER SEQUENCE predictor_id_seq OWNED BY predictor.id;
 
 
 --
--- Name: predictor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zany
---
-
-SELECT pg_catalog.setval('predictor_id_seq', 1, false);
-
-
---
 -- Name: role; Type: TABLE; Schema: public; Owner: zany; Tablespace: 
 --
 
@@ -214,13 +186,6 @@ ALTER TABLE public.role_id_seq OWNER TO zany;
 --
 
 ALTER SEQUENCE role_id_seq OWNED BY role.id;
-
-
---
--- Name: role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zany
---
-
-SELECT pg_catalog.setval('role_id_seq', 2, true);
 
 
 --
@@ -275,13 +240,6 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zany
---
-
-SELECT pg_catalog.setval('users_id_seq', 1, false);
-
-
---
 -- Name: id; Type: DEFAULT; Schema: public; Owner: zany
 --
 
@@ -321,67 +279,6 @@ ALTER TABLE role ALTER COLUMN id SET DEFAULT nextval('role_id_seq'::regclass);
 --
 
 ALTER TABLE users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
-
-
---
--- Data for Name: confidence; Type: TABLE DATA; Schema: public; Owner: zany
---
-
-COPY confidence (id, name, value) FROM stdin;
-\.
-
-
---
--- Data for Name: estimate; Type: TABLE DATA; Schema: public; Owner: zany
---
-
-COPY estimate (id, name, icon) FROM stdin;
-\.
-
-
---
--- Data for Name: prediction; Type: TABLE DATA; Schema: public; Owner: zany
---
-
-COPY prediction (id, p_id, user_id, "time", est_id, conf_id) FROM stdin;
-\.
-
-
---
--- Data for Name: predictor; Type: TABLE DATA; Schema: public; Owner: zany
---
-
-COPY predictor (id, ticker, open_time, close_time) FROM stdin;
-\.
-
-
---
--- Data for Name: role; Type: TABLE DATA; Schema: public; Owner: zany
---
-
-COPY role (id, rolename) FROM stdin;
-1	member
-2	admin
-\.
-
-
---
--- Data for Name: user_role; Type: TABLE DATA; Schema: public; Owner: zany
---
-
-COPY user_role (user_id, role_id) FROM stdin;
-1	1
-1	2
-\.
-
-
---
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: zany
---
-
-COPY users (id, username, password, upi, email, first_name, last_name, mobile) FROM stdin;
-1	zane	zane15	zmos003	zjmoser@gmail.com	zane	moser	021 163 5403
-\.
 
 
 --
