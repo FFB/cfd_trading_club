@@ -32,8 +32,12 @@ The root page (/)
 sub auto :Private {
     my ( $self, $c ) = @_;
 
-    $c->stash->{logged_in} = $c->user_exists ? 1 : 0;
-    $c->stash->{username}  = $c->session->{user}->get('username');
+    $c->stash->{logged_in} = 0;
+
+    if ($c->user_exists) {
+        $c->stash->{logged_in} = 1;
+        $c->stash->{username} = $c->session->{username};
+    }
     return 1;
 }
 
@@ -82,7 +86,7 @@ sub login :Local {
 
     if ($username and $password and $c->authenticate({username => $username, password => $password,})) {
         #$c->session->{user}     = $c->user;
-        #$c->session->{username} = $c->user->get('username');
+        $c->session->{username} = $c->user->get('username');
     }
     else {
         $c->flash->{login_error} = 1;
