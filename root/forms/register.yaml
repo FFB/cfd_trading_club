@@ -32,26 +32,70 @@ elements:
       label: Email Address
 
     - type: Text
-      name: confirm_email
+      name: confirm-email
       label: Confirm Email Address
 
     - type: Text
       name: mobile
       label: Mobile Number
 
-    - type: Radiogroup
-      name: degree
+    - type: Select
+      name: experience
+      label: Trading Experience
+      empty_first: 1
       options:
-        - [ 'BA'    ,       'BA' ]
-        - [ 'BBIM'  ,       'BBIM' ]
-        - [ 'BCom'  ,       'BCom' ]
-        - [ 'BE'    ,       'BE' ]
-        - [ 'BProp' ,       'BProp' ]
-        - [ 'BSc'   ,       'BSc' ]
+        - [ 'none',     'None' ]
+        - [ 'little',   'Little (CMC Markets Competition)' ]
+        - [ 'some',     'Experienced (Online CFD Trading)' ]
+        - [ 'much',     'Very Experienced (Investment Bank Trading Internship)' ]
+
+    - type: Select
+      name: degree
+      label: Degree
+      empty_first: 1
+      options:
+        - [ 'BA',           'BA' ]
+        - [ 'BBIM',         'BBIM' ]
+        - [ 'BCom',         'BCom' ]
+        - [ 'BE',           'BE' ]
+        - [ 'BProp',        'BProp' ]
+        - [ 'BSc',          'BSc' ]
         - [ 'BA/LLB',       'BA/LLB' ]
         - [ 'BCom/BA',      'BCom/BA' ]
         - [ 'BCom/BE',      'BCom/BE' ]
         - [ 'BCom/BProp',   'BCom/BProp' ]
         - [ 'BCom/BSc',     'BCom/BSc' ]
         - [ 'BCom/LLB',     'BCom/LLB' ]
-        - [ 'other',        'Other:' ]
+        - [ 'other',        'Other' ]
+
+    - type: Text
+      name: major
+      label: Proposed Major
+
+    - type: Select
+      name: year
+      label: Year of Study
+      empty_first: 1
+      options:
+        - [ '1', '1st Year' ]
+        - [ '2', '2nd Year' ]
+        - [ '3', '3rd Year' ]
+        - [ '4', '4th Year' ]
+        - [ '5', '5th Year' ]
+        - [ '6', '6th Year or above' ]
+        - [ 'pg', 'Postgraduate (does NOT include Honours)' ]
+
+    - type: Fieldset
+
+    - type: Text
+      name: username
+      label: Username
+
+    - type: Password
+      name: password
+      label: Password
+
+    - type: Password
+      name: confirm-password
+      label: Confirm Password
+
