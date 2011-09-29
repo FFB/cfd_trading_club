@@ -51,11 +51,6 @@ sub about :Local {
     $c->stash->{page} = 'about';
 }
 
-sub register :Local {
-    my ( $self, $c ) = @_;
-    $c->stash->{page} = 'register';
-}
-
 sub competition :Local {
     my ( $self, $c ) = @_;
     $c->stash->{page} = 'competition';

@@ -1,0 +1,7 @@
+<%args>
+    $form
+</%args>
+
+Registration form!
+
+%print $form;

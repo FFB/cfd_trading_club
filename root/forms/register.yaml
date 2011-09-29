@@ -1,0 +1,57 @@
+---
+id: form
+auto_id: '%f-%n'
+default_args:
+    elements:
+        RadioGroup:
+            auto_id: '%f-%n-%c'
+
+        Checkboxgroup:
+            auto_id: '%f-%n-%c'
+
+auto_fieldset: 1
+elements:
+    - type: Text
+      name: firstname
+      label: First Name
+
+    - type: Text
+      name: lastname
+      label: Last Name
+
+    - type: Text
+      name: student_id
+      label: Student ID Number
+
+    - type: Text
+      name: upi
+      label: UPI
+
+    - type: Text
+      name: email
+      label: Email Address
+
+    - type: Text
+      name: confirm_email
+      label: Confirm Email Address
+
+    - type: Text
+      name: mobile
+      label: Mobile Number
+
+    - type: Radiogroup
+      name: degree
+      options:
+        - [ 'BA'    ,       'BA' ]
+        - [ 'BBIM'  ,       'BBIM' ]
+        - [ 'BCom'  ,       'BCom' ]
+        - [ 'BE'    ,       'BE' ]
+        - [ 'BProp' ,       'BProp' ]
+        - [ 'BSc'   ,       'BSc' ]
+        - [ 'BA/LLB',       'BA/LLB' ]
+        - [ 'BCom/BA',      'BCom/BA' ]
+        - [ 'BCom/BE',      'BCom/BE' ]
+        - [ 'BCom/BProp',   'BCom/BProp' ]
+        - [ 'BCom/BSc',     'BCom/BSc' ]
+        - [ 'BCom/LLB',     'BCom/LLB' ]
+        - [ 'other',        'Other:' ]
