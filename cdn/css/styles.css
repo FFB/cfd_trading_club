@@ -2,7 +2,15 @@
     margin:  0;
     padding: 0;
     font-family: Arial;
+}
+
+label, a {
     font-size:   11px;
+}
+
+#content {
+    max-width:  1024px;
+    margin:     0 auto;
 }
 
 #header {
@@ -186,4 +194,41 @@
     list-style-type: none;
     display: block;
     float: left;
+}
+
+/*
+ * Registration form CSS
+ */
+
+#registration-form div {
+    position:   relative;
+    margin: 10px;
+    padding: 5px;
+}
+
+#registration-form fieldset {
+    max-width: 1024;
+    margin: 10px auto;
+    padding: 10px;
+}
+
+#registration-form .label label {
+    display: inline-block;
+    min-width: 110px;
+    padding: 5px;
+    text-align: right;
+}
+
+#registration-form input, #registration-form select {
+    width: 150px;
+}
+
+#registration-form .error {
+    color:      #D82F2C;
+    background: #FDE8E7;
+}
+
+#registration-form .error .error_message {
+    position: absolute;
+    left: 300px;
 }

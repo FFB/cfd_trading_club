@@ -31,6 +31,14 @@ sub index :Path :Args(0) :FormConfig('register') {
     #$form->load_config_file('register.yaml');
 
     #$c->stash->{form} = $form;
+
+    $c->stash->{form}->constraint({
+        name => 'upi',
+        type => 'Regex',
+        regex => q/a/,
+    });
+
+    $c->stash->{form}->process;
 }
 
 

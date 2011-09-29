@@ -1,5 +1,5 @@
 ---
-id: form
+id: registration-form
 auto_id: '%f-%n'
 default_args:
     elements:
@@ -9,45 +9,55 @@ default_args:
         Checkboxgroup:
             auto_id: '%f-%n-%c'
 
-auto_fieldset: 1
+auto_fieldset: { id:     personal-details,
+                 legend: Personal Details }
+auto_constraint_class: '%t'
 elements:
     - type: Text
       name: firstname
       label: First Name
+      constraint:
+        - type: Required
 
     - type: Text
       name: lastname
       label: Last Name
+      constraint:
+        - type: Required
 
     - type: Text
       name: student_id
       label: Student ID Number
+      constraint:
+        - type: Required
+        - type: Integer
 
     - type: Text
       name: upi
       label: UPI
+      constraint:
+        - type: Required
+        # Regex constraint added by controller
 
     - type: Text
       name: email
       label: Email Address
+      constraint:
+        - type: Required
+        - type: Email
+        - type: Equal
+          others: confirm-email
 
     - type: Text
       name: confirm-email
       label: Confirm Email Address
+      constraint:
+        - type: Required
+        - type: Email
 
     - type: Text
       name: mobile
       label: Mobile Number
-
-    - type: Select
-      name: experience
-      label: Trading Experience
-      empty_first: 1
-      options:
-        - [ 'none',     'None' ]
-        - [ 'little',   'Little (CMC Markets Competition)' ]
-        - [ 'some',     'Experienced (Online CFD Trading)' ]
-        - [ 'much',     'Very Experienced (Investment Bank Trading Internship)' ]
 
     - type: Select
       name: degree
@@ -67,6 +77,9 @@ elements:
         - [ 'BCom/BSc',     'BCom/BSc' ]
         - [ 'BCom/LLB',     'BCom/LLB' ]
         - [ 'other',        'Other' ]
+      constraint:
+        - type: Required
+        - type: AutoSet
 
     - type: Text
       name: major
@@ -83,19 +96,49 @@ elements:
         - [ '4', '4th Year' ]
         - [ '5', '5th Year' ]
         - [ '6', '6th Year or above' ]
-        - [ 'pg', 'Postgraduate (does NOT include Honours)' ]
+        - [ 'pg', 'Postgraduate' ]
+      constraint:
+        - type: Required
+        - type: AutoSet
+
+    - type: Select
+      name: experience
+      label: Trading Experience
+      empty_first: 1
+      options:
+        - [ 'none',     'None' ]
+        - [ 'little',   'Little (CMC Markets Competition)' ]
+        - [ 'some',     'Experienced (Online CFD Trading)' ]
+        - [ 'much',     'Very Experienced (Trading Internship)' ]
+      constraint:
+        - type: Required
+        - type: AutoSet
 
     - type: Fieldset
+      id: login-details
+      legend: Login Details
 
     - type: Text
       name: username
       label: Username
+      constraint:
+        - type: Required
 
     - type: Password
       name: password
       label: Password
+      constraint:
+        - type: Required
+        - type: Equal
+          others: confirm-password
 
     - type: Password
       name: confirm-password
       label: Confirm Password
+      constraint:
+        - type: Required
+
+    - type: Submit
+      name: submit
+      value: Submit
 
