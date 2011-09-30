@@ -209,10 +209,15 @@ CREATE TABLE users (
     username character varying NOT NULL,
     password character varying NOT NULL,
     upi character varying NOT NULL,
+    student_id integer NOT NULL,
     email character varying NOT NULL,
     first_name character varying NOT NULL,
     last_name character varying NOT NULL,
-    mobile character varying
+    mobile character varying,
+    degree character varying NOT NULL,
+    major character varying,
+    year character varying NOT NULL,
+    experience character varying NOT NULL
 );
 
 
@@ -330,11 +335,43 @@ ALTER TABLE ONLY user_role
 
 
 --
+-- Name: users_email_key; Type: CONSTRAINT; Schema: public; Owner: zany; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_email_key UNIQUE (email);
+
+
+--
 -- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: zany; Tablespace: 
 --
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_student_id_key; Type: CONSTRAINT; Schema: public; Owner: zany; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_student_id_key UNIQUE (student_id);
+
+
+--
+-- Name: users_upi_key; Type: CONSTRAINT; Schema: public; Owner: zany; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_upi_key UNIQUE (upi);
+
+
+--
+-- Name: users_username_key; Type: CONSTRAINT; Schema: public; Owner: zany; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_username_key UNIQUE (username);
 
 
 --

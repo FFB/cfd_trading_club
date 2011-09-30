@@ -81,8 +81,8 @@ COPY predictor (id, ticker, open_time, close_time) FROM stdin;
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: zany
 --
 
-COPY users (id, username, password, upi, email, first_name, last_name, mobile) FROM stdin;
-1	zane	zane15	zmos003	zjmoser@gmail.com	zane	moser	021 163 5403
+COPY users (id, username, password, upi, student_id, email, first_name, last_name, mobile, degree, major, year, experience) FROM stdin;
+1	zane	z	zmos003	4893512	zjmoser@gmail.com	zane	moser	021 163 5403	BCom/BE	Eco, Fin, SE	4th Year	experienced
 \.
 
 

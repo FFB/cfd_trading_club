@@ -2,13 +2,18 @@ BEGIN;
 
 CREATE TABLE users (
     id          SERIAL PRIMARY KEY,
-    username    VARCHAR NOT NULL,
+    username    VARCHAR NOT NULL UNIQUE,
     password    VARCHAR NOT NULL,
-    upi         VARCHAR NOT NULL,
-    email       VARCHAR NOT NULL,
+    upi         VARCHAR NOT NULL UNIQUE,
+    student_id  INTEGER NOT NULL UNIQUE,
+    email       VARCHAR NOT NULL UNIQUE,
     first_name  VARCHAR NOT NULL,
     last_name   VARCHAR NOT NULL,
-    mobile      VARCHAR
+    mobile      VARCHAR,
+    degree      VARCHAR NOT NULL,
+    major       VARCHAR,
+    year        VARCHAR NOT NULL,
+    experience  VARCHAR NOT NULL
 );
 
 CREATE TABLE role (
@@ -50,7 +55,7 @@ CREATE TABLE prediction (
     conf_id     INTEGER REFERENCES confidence(id) ON DELETE CASCADE
 );
 
-INSERT INTO users VALUES (1, 'zane', 'zane15', 'zmos003', 'zjmoser@gmail.com', 'zane', 'moser', '021 163 5403');
+INSERT INTO users VALUES (1, 'zane', 'z', 'zmos003', 4893512, 'zjmoser@gmail.com', 'zane', 'moser', '021 163 5403', 'BCom/BE', 'Eco, Fin, SE', '4th Year', 'experienced');
 INSERT INTO role (rolename) VALUES ('member'), ('admin');
 INSERT INTO user_role VALUES (1,1), (1,2);
 
