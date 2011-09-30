@@ -14,13 +14,13 @@ auto_fieldset: { id:     personal-details,
 auto_constraint_class: '%t'
 elements:
     - type: Text
-      name: firstname
+      name: first_name
       label: First Name
       constraint:
         - type: Required
 
     - type: Text
-      name: lastname
+      name: last_name
       label: Last Name
       constraint:
         - type: Required
@@ -47,6 +47,7 @@ elements:
         - type: Email
         - type: Equal
           others: confirm-email
+          message: Email addresses do not match
 
     - type: Text
       name: confirm-email
@@ -54,6 +55,9 @@ elements:
       constraint:
         - type: Required
         - type: Email
+        - type: Equal
+          others: email
+          message: Email addresses do not match
 
     - type: Text
       name: mobile
@@ -131,12 +135,16 @@ elements:
         - type: Required
         - type: Equal
           others: confirm-password
+          message: Passwords do not match
 
     - type: Password
       name: confirm-password
       label: Confirm Password
       constraint:
         - type: Required
+        - type: Equal
+          others: password
+          message: Passwords do not match
 
     - type: Submit
       name: submit

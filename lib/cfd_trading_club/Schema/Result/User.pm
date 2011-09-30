@@ -8,7 +8,7 @@ use warnings;
 
 use base 'DBIx::Class::Core';
 
-__PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp");
+__PACKAGE__->load_components("InflateColumn::DateTime");
 
 =head1 NAME
 
@@ -45,6 +45,11 @@ __PACKAGE__->table("users");
   is_nullable: 0
   original: {data_type => "varchar"}
 
+=head2 student_id
+
+  data_type: 'integer'
+  is_nullable: 0
+
 =head2 email
 
   data_type: 'text'
@@ -67,6 +72,30 @@ __PACKAGE__->table("users");
 
   data_type: 'text'
   is_nullable: 1
+  original: {data_type => "varchar"}
+
+=head2 degree
+
+  data_type: 'text'
+  is_nullable: 0
+  original: {data_type => "varchar"}
+
+=head2 major
+
+  data_type: 'text'
+  is_nullable: 1
+  original: {data_type => "varchar"}
+
+=head2 year
+
+  data_type: 'text'
+  is_nullable: 0
+  original: {data_type => "varchar"}
+
+=head2 experience
+
+  data_type: 'text'
+  is_nullable: 0
   original: {data_type => "varchar"}
 
 =cut
@@ -97,6 +126,8 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
     original    => { data_type => "varchar" },
   },
+  "student_id",
+  { data_type => "integer", is_nullable => 0 },
   "email",
   {
     data_type   => "text",
@@ -121,8 +152,36 @@ __PACKAGE__->add_columns(
     is_nullable => 1,
     original    => { data_type => "varchar" },
   },
+  "degree",
+  {
+    data_type   => "text",
+    is_nullable => 0,
+    original    => { data_type => "varchar" },
+  },
+  "major",
+  {
+    data_type   => "text",
+    is_nullable => 1,
+    original    => { data_type => "varchar" },
+  },
+  "year",
+  {
+    data_type   => "text",
+    is_nullable => 0,
+    original    => { data_type => "varchar" },
+  },
+  "experience",
+  {
+    data_type   => "text",
+    is_nullable => 0,
+    original    => { data_type => "varchar" },
+  },
 );
 __PACKAGE__->set_primary_key("id");
+__PACKAGE__->add_unique_constraint("users_upi_key", ["upi"]);
+__PACKAGE__->add_unique_constraint("users_email_key", ["email"]);
+__PACKAGE__->add_unique_constraint("users_username_key", ["username"]);
+__PACKAGE__->add_unique_constraint("users_student_id_key", ["student_id"]);
 
 =head1 RELATIONS
 
@@ -157,8 +216,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-09-25 19:50:59
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:de/jBKMLIkKLvAw1lkyEBw
+# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-09-30 14:24:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:OgmFMfeO+7MOpbY8Dy3TzA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

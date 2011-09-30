@@ -192,8 +192,8 @@ label, a {
 
 #header ul li {
     list-style-type: none;
-    display: block;
-    float: left;
+    display:         block;
+    float:           left;
 }
 
 /*
@@ -202,20 +202,24 @@ label, a {
 
 #registration-form div {
     position:   relative;
-    margin: 10px;
-    padding: 5px;
+    margin:     10px;
+    padding:    5px;
+}
+
+#registration-form .required label:after {
+    content: '*';
 }
 
 #registration-form fieldset {
-    max-width: 1024;
-    margin: 10px auto;
-    padding: 10px;
+    max-width:  1024;
+    margin:     10px auto;
+    padding:    10px;
 }
 
 #registration-form .label label {
-    display: inline-block;
-    min-width: 110px;
-    padding: 5px;
+    display:    inline-block;
+    min-width:  120px;
+    padding:    5px;
     text-align: right;
 }
 
@@ -224,11 +228,17 @@ label, a {
 }
 
 #registration-form .error {
+    border:     1px solid #D82F2C;
     color:      #D82F2C;
     background: #FDE8E7;
 }
 
 #registration-form .error .error_message {
     position: absolute;
-    left: 300px;
+    left:     300px;
+}
+
+/* Stop overlapping error messages */
+#registration-form .error_constraint_equal.error_constraint_required .error_message.error_constraint_required {
+    display: none;
 }

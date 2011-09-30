@@ -26,19 +26,24 @@ sub index :Path :Args(0) :FormConfig('register') {
     my ( $self, $c ) = @_;
     $c->stash->{page} = 'register';
 
-    #my $form = $c->stash->{form};
+    my $form = $c->stash->{form};
 
-    #$form->load_config_file('register.yaml');
+    if ($form->submitted_and_valid) {
+        my $new_user = $c->model('DB::User')->new_result({});
 
-    #$c->stash->{form} = $form;
+        $form->model->update($new_user);
+        $c->flash->{status_msg} = "Form Submitted";
+        return;
+    }
 
-    $c->stash->{form}->constraint({
+    $form->constraint({
         name => 'upi',
         type => 'Regex',
         regex => q/a/,
     });
+    $form->process;
 
-    $c->stash->{form}->process;
+    $c->stash->{form} = $form;
 }
 
 
