@@ -31,6 +31,8 @@ elements:
       constraint:
         - type: Required
         - type: Integer
+          message: Must be a number
+      validator: 'cfd_trading_club::IDValidator'
 
     - type: Text
       name: upi
@@ -38,6 +40,7 @@ elements:
       constraint:
         - type: Required
         # Regex constraint added by controller
+      validator: 'cfd_trading_club::UPIValidator'
 
     - type: Text
       name: email
@@ -45,9 +48,11 @@ elements:
       constraint:
         - type: Required
         - type: Email
+          message: Not a valid email address
         - type: Equal
           others: confirm-email
           message: Email addresses do not match
+      validator: 'cfd_trading_club::EmailValidator'
 
     - type: Text
       name: confirm-email
@@ -55,9 +60,11 @@ elements:
       constraint:
         - type: Required
         - type: Email
+          message: Not a valid email address
         - type: Equal
           others: email
           message: Email addresses do not match
+      validator: 'cfd_trading_club::EmailValidator'
 
     - type: Text
       name: mobile
@@ -122,11 +129,25 @@ elements:
       id: login-details
       legend: Login Details
 
-    - type: Text
-      name: username
-      label: Username
-      constraint:
-        - type: Required
+    - type: Block
+      id:   usercheck
+      elements:
+
+        - type: Text
+          name: username
+          label: Username
+          constraint:
+            - type: Required
+          validator: 'cfd_trading_club::UsernameValidator'
+
+        - type: Button
+          id:   check_availability
+          value: Check!
+
+        - type: Block
+          tag:  span
+          attributes:
+            class: check_message
 
     - type: Password
       name: password

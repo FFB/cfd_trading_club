@@ -1,5 +1,9 @@
+<%once>
+    use JSON::XS;
+</%once>
 <%args>
     $form
+    @users => undef
 </%args>
 
 <h1>CFD Trading Club Registration Form</h1>
@@ -8,3 +12,26 @@
 <% $c->flash->{status_msg} %>
 
 <% $form %>
+
+<script>
+    // Checks if the username is taken already
+    function checkUser() {
+        var thisUser = $('#registration-form-username').val();
+        $('#registration-form #usercheck .text').removeClass('error');
+        $('#usercheck .error_message').addClass('hidden');
+
+        // If the user doesn't exist
+        if ($.inArray(thisUser, <% encode_json(\@users) | n %>) == -1) {
+            $('#usercheck .check_message').addClass('available');
+            $('#usercheck .check_message').html('Available');
+        } else {
+            $('#usercheck .check_message').html('Not available');
+            $('#usercheck .check_message').addClass('error');
+            $('#usercheck .check_message').removeClass('available');
+        }
+    };
+
+    $('#check_availability').click(function() {
+        checkUser();
+    });
+</script>

@@ -33,14 +33,34 @@ sub index :Path :Args(0) :FormConfig('register') {
 
         $form->model->update($new_user);
         $c->flash->{status_msg} = "Form Submitted";
-        return;
+
+        $c->res->redirect($c->uri_for('/login'));
     }
 
+    $c->forward('finish_form');
+
+    my @users = $c->model('DB::User')->get_column('username')->all;
+    $c->stash->{users} = \@users;
+}
+
+sub finish_form :Private {
+    my ( $self, $c ) = @_;
+
+    my $form = $c->stash->{form};
+
+    # Add regex constraint to UPI
     $form->constraint({
         name => 'upi',
         type => 'Regex',
-        regex => q/a/,
+        regex => q/^[a-zA-Z]{4}\d{3}/,
+        message => "UPI must be of the form 'abcd123'",
     });
+
+    # Change default error messages for required fields
+    my $required_constraints = $form->get_constraints({ type => 'Required' });
+    for my $required (@$required_constraints) {
+        $required->{message} = 'Field required';
+    }
     $form->process;
 
     $c->stash->{form} = $form;

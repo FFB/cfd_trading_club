@@ -4,8 +4,20 @@
     font-family: Arial;
 }
 
-label, a {
+span, label, a {
     font-size:   11px;
+}
+
+.error {
+    border:     1px solid #D82F2C;
+    color:      #D82F2C;
+    background: #FDE8E7;
+    font-weight:normal;
+    font-size:  11px;
+}
+
+.hidden {
+    display: none;
 }
 
 #content {
@@ -227,18 +239,60 @@ label, a {
     width: 150px;
 }
 
-#registration-form .error {
-    border:     1px solid #D82F2C;
-    color:      #D82F2C;
-    background: #FDE8E7;
-}
-
 #registration-form .error .error_message {
     position: absolute;
     left:     300px;
+    padding:  5px;
 }
 
 /* Stop overlapping error messages */
 #registration-form .error_constraint_equal.error_constraint_required .error_message.error_constraint_required {
     display: none;
 }
+
+/* Stop overlapping error messages */
+#registration-form .error_constraint_equal.error_constraint_email .error_message.error_constraint_equal {
+    display: none;
+}
+
+/* Div containing username field */
+#registration-form #usercheck, #registration-form #usercheck .button {
+    margin:  0px;
+    padding: 0px;
+}
+
+/* Div containing Check button */
+#registration-form #usercheck div.button {
+    position: absolute;
+    left: 300px;
+    top: 5px;
+    z-index: 10;
+}
+
+/* Check availability button */
+#registration-form #check_availability {
+    width: auto;
+    padding: 2px 5px;
+}
+
+/* Class of the span containing availability message */
+#registration-form #usercheck .check_message {
+    position: absolute;
+    padding:  5px;
+    top:      5px;
+    left:     365px;
+    z-index:  10;
+}
+
+/* Modify position of error message */
+#registration-form #usercheck .error_message {
+    left:     350px;
+    padding:  5px;
+}
+
+#registration-form #usercheck .available {
+    border:     1px solid #2FD82C;
+    color:      #006600;
+    background: #99FF99;
+}
+
