@@ -20,8 +20,13 @@
         $('#registration-form #usercheck .text').removeClass('error');
         $('#usercheck .error_message').addClass('hidden');
 
+        if (thisUser == "") {
+            $('#usercheck .check_message').html('Invalid');
+            $('#usercheck .check_message').addClass('error');
+            $('#usercheck .check_message').removeClass('available');
+        }
         // If the user doesn't exist
-        if ($.inArray(thisUser, <% encode_json(\@users) | n %>) == -1) {
+        else if ($.inArray(thisUser, <% encode_json(\@users) | n %>) == -1) {
             $('#usercheck .check_message').addClass('available');
             $('#usercheck .check_message').html('Available');
         } else {
