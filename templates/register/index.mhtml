@@ -4,14 +4,22 @@
 <%args>
     $form
     @users => undef
+    $logged_in
+    $username => undef
 </%args>
 
 <h1>CFD Trading Club Registration Form</h1>
 <p>Registration is <b>FREE</b> so complete the form below to sign up and create an account.</p>
-
-<% $c->flash->{status_msg} %>
-
-<% $form %>
+<br/>
+%if ($logged_in) {
+    <div class="logged_in">
+        <p>You are currently logged in as <b><% $username %></b>.</p>
+        <p>Please logout if you are not this user and want to create a new account.</p>
+    </div>
+%}
+%else {
+    <% $form %>
+%}
 
 <script>
     // Checks if the username is taken already
