@@ -34,7 +34,9 @@ sub index :Path :Args(0) :FormConfig('register') {
         $form->model->update($new_user);
         $c->flash->{status_msg} = "Form Submitted";
 
-        $c->res->redirect($c->uri_for('/login'));
+        $c->authenticate({username => $form->param_value('username'), password => $form->param_value('password')});
+        $c->session->{username} = $c->user->get('username');
+        $c->res->redirect('/register');
     }
 
     $c->forward('finish_form');

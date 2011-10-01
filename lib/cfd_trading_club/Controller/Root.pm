@@ -80,7 +80,6 @@ sub login :Local {
     $page = '/' if $page eq 'home';
 
     if ($username and $password and $c->authenticate({username => $username, password => $password,})) {
-        #$c->session->{user}     = $c->user;
         $c->session->{username} = $c->user->get('username');
     }
     else {
