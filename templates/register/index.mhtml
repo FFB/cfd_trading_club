@@ -1,6 +1,3 @@
-<%once>
-    use JSON::XS;
-</%once>
 <%args>
     $form
     @users => undef
