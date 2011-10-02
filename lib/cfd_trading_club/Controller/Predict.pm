@@ -1,6 +1,7 @@
 package cfd_trading_club::Controller::Predict;
 use Moose;
 use namespace::autoclean;
+use DateTime;
 
 BEGIN {extends 'Catalyst::Controller'; }
 
@@ -25,14 +26,27 @@ sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
     $c->stash->{page} = 'predict';
 
-    my @tickers = ("SPX");
-    my %ticker_images  = ( SPX => 'images/SP-500.jpg' );
+    my @predictors;
+    my %data = (
+        ticker => 'SPX',
+        image  => 'images/SP-500.jpg',
+    );
+    push @predictors, \%data;
     my @confidence_levels = ('Good guess', 'Ballsy', 'Sensei');
 
-    $c->stash(  tickers => \@tickers,
-                ticker_images  => \%ticker_images,
-                confidence_levels => \@confidence_levels,
-            );
+    # Determine current time
+    my $dt = DateTime->now;
+    my %time_remaining = (
+        hours => 0,
+        mins  => 1,
+        secs  => 10,
+    );
+
+    $c->stash(
+        predictors        => \@predictors,
+        confidence_levels => \@confidence_levels,
+        time_remaining    => \%time_remaining,
+    );
 }
 
 =head1 AUTHOR

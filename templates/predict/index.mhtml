@@ -1,14 +1,61 @@
 <%args>
-    @tickers
-    %ticker_images
+    @predictors
     @confidence_levels
+    %time_remaining
 </%args>
-Users make predictions here
+<h1>You have <span id="hours" class="time">01</span>:<span id="mins" class="time">02</span>:<span id="secs" class="time">03</span> to make your prediction for</h1>
 
-% for my $ticker (@tickers) {
+% for my $predictor (@predictors) {
     <& predictor.mhtml,
-            ticker            => $ticker,
-            image             => $ticker_images{$ticker},
+            ticker            => $predictor->{ticker},
+            image             => $predictor->{image},
             confidence_levels => \@confidence_levels
     &>
 % }
+
+<script>
+    var countingDown = false;
+    var hours = <% $time_remaining{hours} %>;
+    var mins  = <% $time_remaining{mins} %>;
+    var secs  = <% $time_remaining{secs} %>;
+
+    function count_down_next() {
+        secs -= 1;
+        if (secs < 0) {
+            secs = 59;
+            mins -= 1;
+            if (mins < 0) {
+                mins = 59;
+                hours -= 1;
+                if (hours < 0) {
+                    // Do some intense shit
+                    return;
+                }
+            }
+        }
+        var hour_html = addLeadingZero(hours);
+        var min_html = addLeadingZero(mins);
+        var sec_html = addLeadingZero(secs);
+        $("#hours").html(hour_html);
+        $("#mins").html(min_html);
+        $("#secs").html(sec_html);
+        setTimeout("count_down_next()", 1000);
+    }
+
+    function startCountDown() {
+        if (!countingDown) {
+            countingDown = true;
+            count_down_next();
+        }
+    }
+
+    function addLeadingZero(num) {
+        num = String(num);
+        while (num.length < 2) {
+            num = "0" + num;
+        }
+        return num;
+    }
+
+    startCountDown();
+</script>

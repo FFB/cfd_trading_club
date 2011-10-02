@@ -296,6 +296,10 @@ span, label, a {
     background: #99FF99;
 }
 
+/* Predict Page Styles */
+.time {
+    font-size: 100%;
+}
 
 /* Predictor styles */
 /*  TODO: replace box shadow with a background image
@@ -345,5 +349,3 @@ span, label, a {
     background: transparent url(/images/arrow_icons/up_green.png) top left no-repeat;
 }
 
-.slider {
-}
