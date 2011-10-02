@@ -1,7 +1,7 @@
 <%args>
     $ticker => "SPX"
     $image => "images/SP-500.jpg";
-    @confidence_levels => ('None', 'Little', 'Some', 'A lot')
+    %confidence_levels
 </%args>
 
 <div class="predictor">
@@ -10,17 +10,17 @@
         <div class="arrow down-arrow"></div>
         <div class="arrow up-arrow"></div>
     </div>
-    <div id="slider"></div>
-    <div id="<% $ticker %>-confd-msg"><% $confidence_levels[0] %></div>
+    <div id="<% $ticker %>-slider" class="sliderbox"></div>
+    <div id="<% $ticker %>-confd-msg" class="confd-msg"><% $confidence_levels{1} %></div>
 </div>
 
 <script>
-    var confd_array = <% encode_json(\@confidence_levels) | n %>;
+    var confd_array = <% encode_json(\%confidence_levels) | n %>;
     $(function() {
-        $("#slider").slider({
-            value:  0,
-            min:    0,
-            max:    <% scalar @confidence_levels -1 %>,
+        $("#<% $ticker %>-slider").slider({
+            value:  1,
+            min:    1,
+            max:    <% scalar keys(%confidence_levels) %>,
             step:   1,
             slide:  function( event, ui ) {
                 $("#<% $ticker %>-confd-msg").html(confd_array[ui.value]);

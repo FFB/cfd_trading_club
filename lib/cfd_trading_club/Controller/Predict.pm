@@ -32,11 +32,13 @@ sub index :Path :Args(0) {
         image  => 'images/SP-500.jpg',
     );
     push @predictors, \%data;
-    my @confidence_levels = ('Good guess', 'Ballsy', 'Sensei');
+
+    # Gets a hashref mapping confidence value to a text description
+    my $confidence_levels = $c->model('DB')->get_confidence_levels;
 
     $c->stash(
         predictors        => \@predictors,
-        confidence_levels => \@confidence_levels,
+        confidence_levels => $confidence_levels,
     );
     $c->forward('stash_time_to_close');
     $c->forward('stash_next_prediction_period');

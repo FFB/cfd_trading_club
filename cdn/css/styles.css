@@ -349,3 +349,24 @@ span, label, a {
     background: transparent url(/images/arrow_icons/up_green.png) top left no-repeat;
 }
 
+/* Slider stuff */
+.predictor .sliderbox {
+    margin: 0 auto;
+    width: 150px;
+}
+.predictor .ui-slider {
+    height: 0.4em;
+}
+
+.predictor .ui-slider .ui-slider-handle {
+    height: 2.4em;
+    width:  1.2em;
+    top:    -0.95em;
+    border-radius: 2px;
+}
+.predictor .confd-msg {
+    margin: 10px 0;
+    text-align: center;
+    font-size:  11px;
+}
+

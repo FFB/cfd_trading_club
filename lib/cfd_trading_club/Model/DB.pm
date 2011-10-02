@@ -13,6 +13,19 @@ __PACKAGE__->config(
     }
 );
 
+my %confidence_levels = (
+    1 => 'Complete guess',
+    2 => 'Quietly confident',
+    3 => 'You\'d bet your left testicle',
+    4 => 'You\'d bet both of your testicles',
+    5 => 'You feel like a Japanese Sensei',
+);
+
+sub get_confidence_levels {
+    my $self = shift;
+    return \%confidence_levels;
+}
+
 =head1 NAME
 
 cfd_trading_club::Model::DB - Catalyst DBIC Schema Model

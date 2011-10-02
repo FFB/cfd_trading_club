@@ -12,31 +12,10 @@ SET escape_string_warning = off;
 SET search_path = public, pg_catalog;
 
 --
--- Name: confidence_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zany
---
-
-SELECT pg_catalog.setval('confidence_id_seq', 1, false);
-
-
---
--- Name: estimate_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zany
---
-
-SELECT pg_catalog.setval('estimate_id_seq', 1, false);
-
-
---
 -- Name: prediction_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zany
 --
 
 SELECT pg_catalog.setval('prediction_id_seq', 1, false);
-
-
---
--- Name: predictor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zany
---
-
-SELECT pg_catalog.setval('predictor_id_seq', 1, false);
 
 
 --
@@ -47,6 +26,13 @@ SELECT pg_catalog.setval('role_id_seq', 2, true);
 
 
 --
+-- Name: ticker_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zany
+--
+
+SELECT pg_catalog.setval('ticker_id_seq', 1, false);
+
+
+--
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zany
 --
 
@@ -54,26 +40,10 @@ SELECT pg_catalog.setval('users_id_seq', 1, false);
 
 
 --
--- Data for Name: confidence; Type: TABLE DATA; Schema: public; Owner: zany
+-- Data for Name: ticker; Type: TABLE DATA; Schema: public; Owner: zany
 --
 
-COPY confidence (id, name, value) FROM stdin;
-\.
-
-
---
--- Data for Name: estimate; Type: TABLE DATA; Schema: public; Owner: zany
---
-
-COPY estimate (id, name, icon) FROM stdin;
-\.
-
-
---
--- Data for Name: predictor; Type: TABLE DATA; Schema: public; Owner: zany
---
-
-COPY predictor (id, ticker, open_time, close_time) FROM stdin;
+COPY ticker (id, code, text, image) FROM stdin;
 \.
 
 
@@ -90,7 +60,7 @@ COPY users (id, username, password, upi, student_id, email, first_name, last_nam
 -- Data for Name: prediction; Type: TABLE DATA; Schema: public; Owner: zany
 --
 
-COPY prediction (id, p_id, user_id, "time", est_id, conf_id) FROM stdin;
+COPY prediction (id, t_id, user_id, "time", direction, confd) FROM stdin;
 \.
 
 

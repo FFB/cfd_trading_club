@@ -16,84 +16,16 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: confidence; Type: TABLE; Schema: public; Owner: zany; Tablespace: 
---
-
-CREATE TABLE confidence (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    value integer
-);
-
-
-ALTER TABLE public.confidence OWNER TO zany;
-
---
--- Name: confidence_id_seq; Type: SEQUENCE; Schema: public; Owner: zany
---
-
-CREATE SEQUENCE confidence_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.confidence_id_seq OWNER TO zany;
-
---
--- Name: confidence_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: zany
---
-
-ALTER SEQUENCE confidence_id_seq OWNED BY confidence.id;
-
-
---
--- Name: estimate; Type: TABLE; Schema: public; Owner: zany; Tablespace: 
---
-
-CREATE TABLE estimate (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    icon character varying
-);
-
-
-ALTER TABLE public.estimate OWNER TO zany;
-
---
--- Name: estimate_id_seq; Type: SEQUENCE; Schema: public; Owner: zany
---
-
-CREATE SEQUENCE estimate_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.estimate_id_seq OWNER TO zany;
-
---
--- Name: estimate_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: zany
---
-
-ALTER SEQUENCE estimate_id_seq OWNED BY estimate.id;
-
-
---
 -- Name: prediction; Type: TABLE; Schema: public; Owner: zany; Tablespace: 
 --
 
 CREATE TABLE prediction (
     id integer NOT NULL,
-    p_id integer,
-    user_id integer,
+    t_id integer NOT NULL,
+    user_id integer NOT NULL,
     "time" timestamp with time zone NOT NULL,
-    est_id integer,
-    conf_id integer
+    direction character varying NOT NULL,
+    confd integer NOT NULL
 );
 
 
@@ -121,47 +53,12 @@ ALTER SEQUENCE prediction_id_seq OWNED BY prediction.id;
 
 
 --
--- Name: predictor; Type: TABLE; Schema: public; Owner: zany; Tablespace: 
---
-
-CREATE TABLE predictor (
-    id integer NOT NULL,
-    ticker character varying,
-    open_time time with time zone NOT NULL,
-    close_time time with time zone NOT NULL
-);
-
-
-ALTER TABLE public.predictor OWNER TO zany;
-
---
--- Name: predictor_id_seq; Type: SEQUENCE; Schema: public; Owner: zany
---
-
-CREATE SEQUENCE predictor_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.predictor_id_seq OWNER TO zany;
-
---
--- Name: predictor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: zany
---
-
-ALTER SEQUENCE predictor_id_seq OWNED BY predictor.id;
-
-
---
 -- Name: role; Type: TABLE; Schema: public; Owner: zany; Tablespace: 
 --
 
 CREATE TABLE role (
     id integer NOT NULL,
-    rolename character varying
+    rolename character varying NOT NULL
 );
 
 
@@ -186,6 +83,41 @@ ALTER TABLE public.role_id_seq OWNER TO zany;
 --
 
 ALTER SEQUENCE role_id_seq OWNED BY role.id;
+
+
+--
+-- Name: ticker; Type: TABLE; Schema: public; Owner: zany; Tablespace: 
+--
+
+CREATE TABLE ticker (
+    id integer NOT NULL,
+    code character varying NOT NULL,
+    text character varying,
+    image character varying NOT NULL
+);
+
+
+ALTER TABLE public.ticker OWNER TO zany;
+
+--
+-- Name: ticker_id_seq; Type: SEQUENCE; Schema: public; Owner: zany
+--
+
+CREATE SEQUENCE ticker_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.ticker_id_seq OWNER TO zany;
+
+--
+-- Name: ticker_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: zany
+--
+
+ALTER SEQUENCE ticker_id_seq OWNED BY ticker.id;
 
 
 --
@@ -248,28 +180,7 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: zany
 --
 
-ALTER TABLE confidence ALTER COLUMN id SET DEFAULT nextval('confidence_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: zany
---
-
-ALTER TABLE estimate ALTER COLUMN id SET DEFAULT nextval('estimate_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: zany
---
-
 ALTER TABLE prediction ALTER COLUMN id SET DEFAULT nextval('prediction_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: zany
---
-
-ALTER TABLE predictor ALTER COLUMN id SET DEFAULT nextval('predictor_id_seq'::regclass);
 
 
 --
@@ -283,23 +194,14 @@ ALTER TABLE role ALTER COLUMN id SET DEFAULT nextval('role_id_seq'::regclass);
 -- Name: id; Type: DEFAULT; Schema: public; Owner: zany
 --
 
+ALTER TABLE ticker ALTER COLUMN id SET DEFAULT nextval('ticker_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: zany
+--
+
 ALTER TABLE users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
-
-
---
--- Name: confidence_pkey; Type: CONSTRAINT; Schema: public; Owner: zany; Tablespace: 
---
-
-ALTER TABLE ONLY confidence
-    ADD CONSTRAINT confidence_pkey PRIMARY KEY (id);
-
-
---
--- Name: estimate_pkey; Type: CONSTRAINT; Schema: public; Owner: zany; Tablespace: 
---
-
-ALTER TABLE ONLY estimate
-    ADD CONSTRAINT estimate_pkey PRIMARY KEY (id);
 
 
 --
@@ -311,19 +213,43 @@ ALTER TABLE ONLY prediction
 
 
 --
--- Name: predictor_pkey; Type: CONSTRAINT; Schema: public; Owner: zany; Tablespace: 
---
-
-ALTER TABLE ONLY predictor
-    ADD CONSTRAINT predictor_pkey PRIMARY KEY (id);
-
-
---
 -- Name: role_pkey; Type: CONSTRAINT; Schema: public; Owner: zany; Tablespace: 
 --
 
 ALTER TABLE ONLY role
     ADD CONSTRAINT role_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: role_rolename_key; Type: CONSTRAINT; Schema: public; Owner: zany; Tablespace: 
+--
+
+ALTER TABLE ONLY role
+    ADD CONSTRAINT role_rolename_key UNIQUE (rolename);
+
+
+--
+-- Name: ticker_code_key; Type: CONSTRAINT; Schema: public; Owner: zany; Tablespace: 
+--
+
+ALTER TABLE ONLY ticker
+    ADD CONSTRAINT ticker_code_key UNIQUE (code);
+
+
+--
+-- Name: ticker_image_key; Type: CONSTRAINT; Schema: public; Owner: zany; Tablespace: 
+--
+
+ALTER TABLE ONLY ticker
+    ADD CONSTRAINT ticker_image_key UNIQUE (image);
+
+
+--
+-- Name: ticker_pkey; Type: CONSTRAINT; Schema: public; Owner: zany; Tablespace: 
+--
+
+ALTER TABLE ONLY ticker
+    ADD CONSTRAINT ticker_pkey PRIMARY KEY (id);
 
 
 --
@@ -375,27 +301,11 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: prediction_conf_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zany
+-- Name: prediction_t_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zany
 --
 
 ALTER TABLE ONLY prediction
-    ADD CONSTRAINT prediction_conf_id_fkey FOREIGN KEY (conf_id) REFERENCES confidence(id) ON DELETE CASCADE;
-
-
---
--- Name: prediction_est_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zany
---
-
-ALTER TABLE ONLY prediction
-    ADD CONSTRAINT prediction_est_id_fkey FOREIGN KEY (est_id) REFERENCES estimate(id) ON DELETE CASCADE;
-
-
---
--- Name: prediction_p_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zany
---
-
-ALTER TABLE ONLY prediction
-    ADD CONSTRAINT prediction_p_id_fkey FOREIGN KEY (p_id) REFERENCES predictor(id) ON DELETE CASCADE;
+    ADD CONSTRAINT prediction_t_id_fkey FOREIGN KEY (t_id) REFERENCES ticker(id) ON DELETE CASCADE;
 
 
 --

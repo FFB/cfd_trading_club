@@ -18,7 +18,7 @@ CREATE TABLE users (
 
 CREATE TABLE role (
     id          SERIAL PRIMARY KEY,
-    rolename    VARCHAR
+    rolename    VARCHAR NOT NULL UNIQUE
 );
 
 CREATE TABLE user_role (
@@ -27,32 +27,20 @@ CREATE TABLE user_role (
     PRIMARY KEY (user_id, role_id)
 );
 
-CREATE TABLE predictor (
+CREATE TABLE ticker (
     id          SERIAL PRIMARY KEY,
-    ticker      VARCHAR,
-    open_time   TIMETZ NOT NULL,
-    close_time  TIMETZ NOT NULL
-);
-
-CREATE TABLE confidence (
-    id          SERIAL PRIMARY KEY,
-    name        VARCHAR NOT NULL,
-    value       INTEGER
-);
-
-CREATE TABLE estimate (
-    id          SERIAL PRIMARY KEY,
-    name        VARCHAR NOT NULL,
-    icon        VARCHAR
+    code        VARCHAR NOT NULL UNIQUE,
+    text        VARCHAR,
+    image       VARCHAR NOT NULL UNIQUE
 );
 
 CREATE TABLE prediction (
     id          SERIAL PRIMARY KEY,
-    p_id        INTEGER REFERENCES predictor(id) ON DELETE CASCADE,
-    user_id     INTEGER REFERENCES users(id),
+    t_id        INTEGER NOT NULL REFERENCES ticker(id) ON DELETE CASCADE,
+    user_id     INTEGER NOT NULL REFERENCES users(id),
     time        TIMESTAMPTZ NOT NULL,
-    est_id      INTEGER REFERENCES estimate(id) ON DELETE CASCADE,
-    conf_id     INTEGER REFERENCES confidence(id) ON DELETE CASCADE
+    direction   VARCHAR NOT NULL,
+    confd       INTEGER NOT NULL
 );
 
 INSERT INTO users VALUES (1, 'zane', 'z', 'zmos003', 4893512, 'zjmoser@gmail.com', 'zane', 'moser', '021 163 5403', 'BCom/BE', 'Eco, Fin, SE', '4th Year', 'experienced');

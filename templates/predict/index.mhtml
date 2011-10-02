@@ -1,6 +1,6 @@
 <%args>
     @predictors
-    @confidence_levels
+    %confidence_levels
     %time_remaining
     %next_prediction_period
 </%args>
@@ -16,7 +16,7 @@
     <& predictor.mhtml,
             ticker            => $predictor->{ticker},
             image             => $predictor->{image},
-            confidence_levels => \@confidence_levels
+            confidence_levels => \%confidence_levels
     &>
 % }
 
