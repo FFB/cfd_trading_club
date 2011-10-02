@@ -1,0 +1,39 @@
+<%args>
+    $ticker => "SPX"
+    $image => "images/SP-500.jpg";
+    @confidence_levels => ('None', 'Little', 'Some', 'A lot')
+</%args>
+
+<div class="predictor">
+    <img class ="logo" src="<% $c->cdn($image) %>">
+    <div class="arrow-box">
+        <div class="arrow down-arrow"></div>
+        <div class="arrow up-arrow"></div>
+    </div>
+    <div id="slider"></div>
+    <div id="<% $ticker %>-confd-msg"><% $confidence_levels[0] %></div>
+</div>
+
+<script>
+    var confd_array = <% encode_json(\@confidence_levels) | n %>;
+    $(function() {
+        $("#slider").slider({
+            value:  0,
+            min:    0,
+            max:    <% scalar @confidence_levels -1 %>,
+            step:   1,
+            slide:  function( event, ui ) {
+                $("#<% $ticker %>-confd-msg").html(confd_array[ui.value]);
+            }
+        });
+    });
+
+    $(".arrow").hover(
+        function() {
+            $(this).addClass("hover");
+        },
+        function() {
+            $(this).removeClass("hover");
+        }
+    );
+</script>

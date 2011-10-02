@@ -296,3 +296,54 @@ span, label, a {
     background: #99FF99;
 }
 
+
+/* Predictor styles */
+/*  TODO: replace box shadow with a background image
+ */
+.predictor {
+    width:  260px;
+    height: 260px;
+    padding: 20px;
+    border-radius:  5px;
+    box-shadow:     0px 0px 5px 5px #888;
+}
+
+/* TODO: Create standard size images and remove border */
+.predictor .logo {
+    width:  260px;
+    border: 1px solid black;
+}
+
+.predictor .arrow-box {
+    text-align: center;
+}
+
+/* TODO: create proper icons for arrows
+ */
+.predictor .arrow {
+    display: inline-block;
+    width:  60px;
+    height: 60px;
+    margin: 20px;
+}
+
+.predictor .down-arrow {
+    background: transparent url(/images/arrow_icons/down_black.png) top left no-repeat;
+    background-size:    100%;
+}
+
+.predictor .down-arrow.hover {
+    background: transparent url(/images/arrow_icons/down_red.png) top left no-repeat;
+}
+
+.predictor .up-arrow {
+    background: transparent url(/images/arrow_icons/up_black.png) top left no-repeat;
+    background-size:    100%;
+}
+
+.predictor .up-arrow.hover {
+    background: transparent url(/images/arrow_icons/up_green.png) top left no-repeat;
+}
+
+.slider {
+}

@@ -1,1 +1,14 @@
+<%args>
+    @tickers
+    %ticker_images
+    @confidence_levels
+</%args>
 Users make predictions here
+
+% for my $ticker (@tickers) {
+    <& predictor.mhtml,
+            ticker            => $ticker,
+            image             => $ticker_images{$ticker},
+            confidence_levels => \@confidence_levels
+    &>
+% }

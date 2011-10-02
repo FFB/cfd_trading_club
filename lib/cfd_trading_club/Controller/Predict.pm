@@ -24,6 +24,15 @@ Catalyst Controller.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
     $c->stash->{page} = 'predict';
+
+    my @tickers = ("SPX");
+    my %ticker_images  = ( SPX => 'images/SP-500.jpg' );
+    my @confidence_levels = ('Good guess', 'Ballsy', 'Sensei');
+
+    $c->stash(  tickers => \@tickers,
+                ticker_images  => \%ticker_images,
+                confidence_levels => \@confidence_levels,
+            );
 }
 
 =head1 AUTHOR
