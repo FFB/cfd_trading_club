@@ -56,11 +56,6 @@ sub competition :Local {
     $c->stash->{page} = 'competition';
 }
 
-sub predict :Local {
-    my ( $self, $c ) = @_;
-    $c->stash->{page} = 'predict';
-}
-
 sub stats :Local {
     my ( $self, $c ) = @_;
     $c->stash->{page} = 'stats';
