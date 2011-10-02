@@ -39,12 +39,12 @@ sub index :Path :Args(0) {
         confidence_levels => \@confidence_levels,
     );
     $c->forward('stash_time_to_close');
+    $c->forward('stash_next_prediction_period');
 }
 
 =head2 calculate_time_to_close
 
-Calculates time duration until the next 12:00 (am or pm, whichever is closest).
-Returns a hashref
+Calculates time duration until the next 12:00 from Monday 12:00pm to Saturday 12:00am
 {
     hours =>
     mins  =>
@@ -59,15 +59,66 @@ sub stash_time_to_close :Private {
     my $dt = DateTime->now;
     $dt->set_time_zone('Pacific/Auckland');
 
-    my $hours_remaning = 11 - $dt->hour_12_0;
-    my $mins_remaning  = 59 - $dt->min;
-    my $secs_remaning  = 59 - $dt->sec;
+    my $hours_remaining = 11 - $dt->hour_12_0;
+    my $mins_remaining  = 59 - $dt->min;
+    my $secs_remaining  = 59 - $dt->sec;
+
+    if ($dt->day_of_week >= 6) {
+        $hours_remaining += 12 * (8 - $dt->day_of_week);
+        if ($dt->hour < 12) {
+            $hours_remaining += 12;
+        }
+    }
 
     $c->stash->{time_remaining} = {
-        hours => $hours_remaning,
-        mins  => $mins_remaning,
-        secs  => $secs_remaning,
+        hours => $hours_remaining,
+        mins  => $mins_remaining,
+        secs  => $secs_remaining,
     };
+}
+
+=head2 stash_next_prediction_period
+
+Stashs the data describing the next prediction time period
+Prediction periods range from Monday evenings to Saturday mornings
+{
+    day_of_week => (Day of week)
+    half        => (Morning or afternoon)
+    day         => (1-31)
+    month       => (Full name of month)
+}
+
+=cut
+
+sub stash_next_prediction_period :Private {
+    my ( $self, $c ) = @_;
+
+    my $dt = DateTime->now;
+    $dt->set_time_zone('Pacific/Auckland');
+
+    my %next_prediction_period;
+
+    if ($dt->day_of_week >= 6) {
+        # Advance the time to Monday
+        $dt->add(days => (8 - $dt->day_of_week));
+        %next_prediction_period = (
+            day_of_week => 'Monday',
+            half        => 'Evening',
+            day         => $dt->day,
+            month       => $dt->month_name,
+        );
+    }
+    else {
+        $dt->add( hours => 12 );
+        %next_prediction_period = (
+            day_of_week => $dt->day_name,
+            half        => ($dt->hour < 12 ? 'Morning' : 'Evening'),
+            day         => $dt->day,
+            month       => $dt->month_name,
+        );
+    }
+
+    $c->stash->{next_prediction_period} = \%next_prediction_period;
 }
 
 =head1 AUTHOR
