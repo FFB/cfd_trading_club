@@ -1,4 +1,4 @@
-package cfd_trading_club::View::MHTML;
+package cfd_trading_club::View::Mason;
 
 use strict;
 use warnings;
@@ -13,7 +13,7 @@ __PACKAGE__->config(
 
 =head1 NAME
 
-cfd_trading_club::View::MHTML - Mason View Component for cfd_trading_club
+cfd_trading_club::View::Mason - Mason View Component for cfd_trading_club
 
 =head1 DESCRIPTION
 

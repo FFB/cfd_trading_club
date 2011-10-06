@@ -43,6 +43,8 @@ __PACKAGE__->config(
     name => 'cfd_trading_club',
     # Disable deprecated behavior needed by old applications
     disable_component_resolution_regex_fallback => 1,
+
+    default_view => 'Mason',
 );
 
 # Start the application

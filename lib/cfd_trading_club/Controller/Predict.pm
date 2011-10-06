@@ -44,6 +44,10 @@ sub index :Path :Args(0) {
     $c->forward('stash_next_prediction_period');
 }
 
+sub ajax :Local {
+    my ( $self, $c ) = @_;
+}
+
 =head2 calculate_time_to_close
 
 Calculates time duration until the next 12:00 from Monday 12:00pm to Saturday 12:00am
