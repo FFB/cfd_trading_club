@@ -1,0 +1,10 @@
+Work Requests :)
+================
+
+
+- Create logo w transparent background
+- Alignment of login fields
+- Navigation link text -> buttons
+- Home screen content
+- Arrow sprites design
+- Tab 
