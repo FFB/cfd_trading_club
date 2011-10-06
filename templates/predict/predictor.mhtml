@@ -5,35 +5,86 @@
 </%args>
 
 <div class="predictor">
-    <img class ="logo" src="<% $c->cdn($image) %>">
-    <div class="arrow-box">
-        <div class="arrow down-arrow"></div>
-        <div class="arrow up-arrow"></div>
-    </div>
-    <div id="<% $ticker %>-slider" class="sliderbox"></div>
-    <div id="<% $ticker %>-confd-msg" class="confd-msg"><% $confidence_levels{1} %></div>
+    <form id="<% $ticker %>-predictor" class="predictor-form">
+        <img class="logo" src="<% $c->cdn($image) %>">
+        <div class="arrow-box">
+            <div id="<% $ticker %>-down" class="arrow down-arrow"> </div>
+            <div id="<% $ticker %>-up"   class="arrow up-arrow"> </div>
+            <input type="hidden" name="estimate" id="<% $ticker %>-estimate" value="none">
+        </div>
+        <div id="<% $ticker %>-confd-radios" class="radiobox">
+% for my $i ( sort {$a <=> $b} keys(%confidence_levels) ) {
+            <input type="radio" id="<% $ticker %>-radio-<% $i %>" name="<% $ticker %>-radio" value="<%$i%>" <% $i == 1 ? 'checked="checked"' : '' %>>
+            <label for="<% $ticker %>-radio-<% $i %>"><%$i%></label>
+% }
+        </div>
+        <div id="<% $ticker %>-confd-msg" class="confd-msg"><% $confidence_levels{1} %></div>
+        <input type="submit" class="submit" value="Save">
+    </form>
 </div>
 
 <script>
+{
     var confd_array = <% encode_json(\%confidence_levels) | n %>;
-    $(function() {
-        $("#<% $ticker %>-slider").slider({
-            value:  1,
-            min:    1,
-            max:    <% scalar keys(%confidence_levels) %>,
-            step:   1,
-            slide:  function( event, ui ) {
-                $("#<% $ticker %>-confd-msg").html(confd_array[ui.value]);
-            }
-        });
+    var $up_arrow = $('#<% $ticker %>-up');
+    var $down_arrow = $('#<% $ticker %>-down');
+
+    $("#<% $ticker %>-confd-radios").buttonset();
+
+    // Updates display of confidence text
+    function updateConfidenceText() {
+        var current_confidence = $('input:radio[name="<% $ticker %>-radio"]:checked').val();
+        $('#<% $ticker %>-confd-msg').html(confd_array[current_confidence]);
+    }
+
+    // Updates value of hidden input to be submitted
+    function updateEstimateValue() {
+        if ( $down_arrow.hasClass('selected') ) {
+            $('#<% $ticker %>-estimate').val("down");
+        }
+        else if ( $up_arrow.hasClass('selected') ) {
+            $('#<% $ticker %>-estimate').val("up");
+        }
+        else {
+            $('#<% $ticker %>-estimate').val("none");
+        }
+    }
+
+    // Updates arrow radio buttons and values
+    function updateArrows(clicked, not_clicked) {
+        if (clicked.hasClass('selected')) {
+            clicked.removeClass('selected');
+        }
+        else {
+            not_clicked.removeClass('selected');
+            clicked.addClass('selected');
+        }
+        updateEstimateValue();
+    }
+
+    $up_arrow.click(function() {
+        updateArrows($up_arrow, $down_arrow);
     });
 
-    $(".arrow").hover(
-        function() {
-            $(this).addClass("hover");
-        },
-        function() {
-            $(this).removeClass("hover");
-        }
-    );
+    $down_arrow.click(function() {
+        updateArrows($down_arrow, $up_arrow);
+    });
+
+    //// Controls hover shit
+    //$(".arrow").hover(
+    //    function() {
+    //        $(this).addClass("hover");
+    //    },
+    //    function() {
+    //        $(this).removeClass("hover");
+    //    }
+    //);
+
+    $('input:radio[name="<% $ticker %>-radio"]').change(function() {
+        updateConfidenceText();
+    });
+
+    updateConfidenceText();
+    updateArrows();
+}
 </script>
