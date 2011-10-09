@@ -1,0 +1,147 @@
+#header {
+    background: #ffffff;
+    position: absolute;
+    top: 50px;
+    height: 80px;
+    width: 1000px;
+    left: 200px;
+}
+
+#credentials {
+    position: relative;
+    float: right;
+    right: 20px;
+    top: 30px;
+}
+
+#credentials input {
+    background: #ffffff;
+    border: 1px solid #023254;
+}
+
+#login_b {
+    position: relative;
+    float: right;
+    top: 30px;
+}
+
+#login_b input {
+    background: #ffffff;
+    border: 1px solid #023254;
+}
+
+#navbar {
+    background: #023254; /* NAVY */
+    position: absolute;
+    top: 120px;
+    left: 220px;
+    width: 1000px;
+    height: 30px;
+    font-family: verdana;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#navbar ul li {
+    text-transform: uppercase;
+    list-style-type: none;
+    display: block;
+    float: left;
+    padding: 0px 10px 0px 10px;
+    position: relative;
+    left: -40px;
+    top: -4px;
+    height: 30px;
+}
+
+#navbar ul li.current {
+    color: #ffffff;
+    font-family: verdana;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#navbar ul li a:link {
+    color: #ffffff; /*#a1d2f5 light blue */
+    text-decoration: none;
+    font-family: verdana;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #FFB453; /* orange */
+    text-decoration: none;
+}
+
+#marquee {
+    background: #eaeaea;
+    color: #023254; /*#a1d2f5 light blue */
+    text-decoration: none;
+    font-family: verdana;
+    font-size: 12px;
+    font-weight: italics;
+    position: absolute;
+    top: 160px;
+    width: 1000px;
+    height: 30px;
+    left: 220px;
+}
+
+#content {
+    background: #ffffff;
+    position: absolute;
+    top: 200px;
+    width: 1000px;
+    height: 450px;
+    left: 220px;
+}
+
+#content p {
+    color: #023254;
+    font-family: verdana;
+    font-size: 11px;
+    text-align: justify;
+    padding: 5px;
+}
+
+#left_sect {
+    background: #ffffff;
+    position: absolute;
+    width: 130px;
+    height: 400px;
+}
+
+#center_sect {
+    background: #ffffff;
+    position: absolute;
+    left: 150px;
+    width: 655px;
+    height: 400px;
+}
+
+#recent_posts {
+    background: #ffffff;
+    position: relative;
+    width: 175px;
+    float: right;
+    height: 400px;
+    color: #023254;
+    font-family: verdana;
+    font-size: 11px;
+}
+
+#pic {
+    background: #ffffff;
+    position: relative;
+    float: left;
+}
+
+#bottom {
+    background: #cccccc;
+    position: absolute;
+    width: 1000px;
+    height: 70px;
+    top: 700px;
+    left: 220px;
+}
