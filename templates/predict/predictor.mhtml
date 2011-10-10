@@ -19,53 +19,62 @@
 % }
         </div>
         <div id="<% $ticker %>-confd-msg" class="confd-msg"><% $confidence_levels{1} %></div>
-        <input type="submit" class="submit" value="Save">
+        <input type="button" class="button clear" value="Clear">
+        <input type="button" class="button save" value="Save">
+        <div class="status-msg"></div>
     </form>
 </div>
 
 <script>
 {
-    var confd_array = <% encode_json(\%confidence_levels) | n %>;
-    var $up_arrow = $('#<% $ticker %>-up');
-    var $down_arrow = $('#<% $ticker %>-down');
+    var confd_array   = <% encode_json(\%confidence_levels) | n %>;
+    var $form         = $('#<% $ticker %>-predictor');
+    var $up_arrow     = $form.find('div.up-arrow');
+    var $down_arrow   = $form.find('div.down-arrow');
+    var $estimate     = $form.find('input[name="estimate"]');
+    var $confd_radios = $('input:radio[name="<% $ticker %>-radio"]');
+    var $confd_msg    = $form.find('.confd-msg');
+    var $status_msg   = $form.find('.status-msg');
 
     $("#<% $ticker %>-confd-radios").buttonset();
 
     // Updates display of confidence text
     function updateConfidenceText() {
-        var current_confidence = $('input:radio[name="<% $ticker %>-radio"]:checked').val();
-        $('#<% $ticker %>-confd-msg').html(confd_array[current_confidence]);
+        var confd = $confd_radios.filter(':checked').val();
+        $confd_msg.html(confd_array[confd]);
     }
 
     // Updates value of hidden input to be submitted
     function updateEstimateValue() {
         if ( $down_arrow.hasClass('selected') ) {
-            $('#<% $ticker %>-estimate').val("down");
+            $estimate.val("down");
         }
         else if ( $up_arrow.hasClass('selected') ) {
-            $('#<% $ticker %>-estimate').val("up");
+            $estimate.val("up");
         }
         else {
-            $('#<% $ticker %>-estimate').val("none");
+            $estimate.val("none");
         }
     }
 
     // Updates arrow radio buttons and values
     function updateArrows(clicked, not_clicked) {
-        if (clicked.hasClass('selected')) {
-            clicked.removeClass('selected');
+        if ($(clicked).hasClass('selected')) {
+            $(clicked).removeClass('selected');
         }
         else {
-            not_clicked.removeClass('selected');
-            clicked.addClass('selected');
+            $(not_clicked).removeClass('selected');
+            $(clicked).addClass('selected');
         }
         updateEstimateValue();
     }
 
+    // ON CLICK of UP AROW
     $up_arrow.click(function() {
         updateArrows($up_arrow, $down_arrow);
     });
 
+    // ON CLICK of UP AROW
     $down_arrow.click(function() {
         updateArrows($down_arrow, $up_arrow);
     });
@@ -80,8 +89,33 @@
     //    }
     //);
 
-    $('input:radio[name="<% $ticker %>-radio"]').change(function() {
+    // ON CHANGE of CONFIDENCE RADIO
+    $confd_radios.change(function() {
         updateConfidenceText();
+    });
+
+    // ON CHANGE of any form element
+    $form.find('input').change(function() {
+        $status_msg.html('');
+    });
+
+    // ON SUBMIT
+    $form.submit(function() {
+        $.ajax({
+            type:       'POST',
+            url:        '<% $c->uri_for('ajax') %>',
+            dataType:   'json',
+            cache:      false,
+            data:       {
+                'ticker'     : '<% $ticker %>',
+                'estimate'   : $estimate.val(),
+                'confidence' : $confd_radios.filter(':checked').val()
+            },
+            success: function(json) {
+                $status_msg.html(json.status_msg);
+            }
+        });
+        return false;
     });
 
     updateConfidenceText();

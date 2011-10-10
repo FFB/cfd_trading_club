@@ -46,6 +46,9 @@ sub index :Path :Args(0) {
 
 sub ajax :Local {
     my ( $self, $c ) = @_;
+
+    $c->stash->{status_msg} = 'Prediction saved';
+    $c->detach( $c->view('JSON') );
 }
 
 =head2 calculate_time_to_close
