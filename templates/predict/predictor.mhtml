@@ -1,27 +1,38 @@
 <%args>
     $ticker => "SPX"
-    $image => "images/SP-500.jpg";
     %confidence_levels
 </%args>
 
 <div class="predictor">
+    <h2>S&P 500<a href>?</a></h2>
     <form id="<% $ticker %>-predictor" class="predictor-form">
-        <img class="logo" src="<% $c->cdn($image) %>">
-        <div class="arrow-box">
-            <div id="<% $ticker %>-down" class="arrow down-arrow"> </div>
-            <div id="<% $ticker %>-up"   class="arrow up-arrow"> </div>
-            <input type="hidden" name="estimate" id="<% $ticker %>-estimate" value="none">
+        <div class="left">
+            <div class="arrow-box">
+                <div id="<% $ticker %>-up"   class="arrow up-arrow"> </div>
+                <div id="<% $ticker %>-down" class="arrow down-arrow"> </div>
+                <input type="hidden" name="estimate" id="<% $ticker %>-estimate" value="none">
+            </div>
         </div>
-        <div id="<% $ticker %>-confd-radios" class="radiobox">
+        <div class="right">
+            <!--
+            <div class="description">
+                <p>A value-weighted index of 500 common, actively traded US stocks</p>
+            </div>
+            -->
+            <div id="<% $ticker %>-confd-radios" class="radiobox">
+                <p>Confidence Level:</p>
 % for my $i ( sort {$a <=> $b} keys(%confidence_levels) ) {
-            <input type="radio" id="<% $ticker %>-radio-<% $i %>" name="<% $ticker %>-radio" value="<%$i%>" <% $i == 1 ? 'checked="checked"' : '' %>>
-            <label for="<% $ticker %>-radio-<% $i %>"><%$i%></label>
+                <input type="radio" id="<% $ticker %>-radio-<% $i %>" name="<% $ticker %>-radio" value="<%$i%>" <% $i == 1 ? 'checked="checked"' : '' %>>
+                <label for="<% $ticker %>-radio-<% $i %>"><%$i%></label>
 % }
+            </div>
+            <div class="confd-msg"><% $confidence_levels{1} %></div>
+            <div class="button-container">
+                <input type="button" class="button reset" value="Reset">
+                <input type="button" class="button save" value="Save">
+            </div>
+            <div class="status-msg"></div>
         </div>
-        <div id="<% $ticker %>-confd-msg" class="confd-msg"><% $confidence_levels{1} %></div>
-        <input type="button" class="button clear" value="Clear">
-        <input type="button" class="button save" value="Save">
-        <div class="status-msg"></div>
     </form>
 </div>
 

@@ -1,0 +1,100 @@
+/* Predictor styles */
+/*  TODO: replace box shadow with a background image
+ */
+.predictor {
+    display:    inline-block;
+    width:  200px;
+    height: 200px;
+    padding: 10px;
+    border-left: 1px solid black;
+}
+
+.predictor h2 {
+    text-align: center;
+    /*
+    border: 1px solid red;
+    */
+}
+
+.predictor form {
+    font-size:  11px;
+    margin-top: 10px;
+}
+
+.predictor .left {
+    display:    inline-block;
+    float:      left;
+    /*
+    border: 1px solid red;
+    */
+}
+
+.predictor .right {
+    display:    inline-block;
+    float:      right;
+    /*
+    border: 1px solid red;
+    */
+}
+
+/* TODO: create proper icons for arrows
+ */
+.predictor .arrow {
+    width:  45px;
+    height: 45px;
+    margin: 10px;
+}
+
+.predictor .down-arrow {
+    background: transparent url(/images/arrow_icons/down_black.png) top left no-repeat;
+    background-size:    100%;
+}
+
+.predictor .down-arrow.hover {
+    background: transparent url(/images/arrow_icons/down_red.png) top left no-repeat;
+}
+
+.predictor .up-arrow {
+    background: transparent url(/images/arrow_icons/up_black.png) top left no-repeat;
+    background-size:    100%;
+}
+
+.predictor .up-arrow.hover {
+    background: transparent url(/images/arrow_icons/up_green.png) top left no-repeat;
+}
+
+.predictor div.selected {
+    background: transparent url(/images/arrow_icons/up_yellow.png) top left no-repeat;
+}
+
+.predictor .radiobox {
+    text-align: center;
+}
+
+/* jQuery UI radios */
+.predictor span.ui-button-text {
+    font-size: 10px;
+    padding: 3px 8px;
+}
+
+.predictor .confd-msg {
+    margin: 5px 0;
+    text-align: center;
+    font-size:  11px;
+}
+
+/* Submit buttons */
+.predictor div.button-container {
+    text-align: center;
+}
+
+.predictor .button {
+    margin-top: 5px;
+    width: 60%;
+}
+
+.predictor .reset {
+}
+
+.predictor .save {
+}

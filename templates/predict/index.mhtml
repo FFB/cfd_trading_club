@@ -18,6 +18,21 @@
             image             => $predictor->{image},
             confidence_levels => \%confidence_levels
     &>
+    <& predictor.mhtml,
+            ticker            => $predictor->{ticker},
+            image             => $predictor->{image},
+            confidence_levels => \%confidence_levels
+    &>
+    <& predictor.mhtml,
+            ticker            => $predictor->{ticker},
+            image             => $predictor->{image},
+            confidence_levels => \%confidence_levels
+    &>
+    <& predictor.mhtml,
+            ticker            => $predictor->{ticker},
+            image             => $predictor->{image},
+            confidence_levels => \%confidence_levels
+    &>
 % }
 
 <script>
