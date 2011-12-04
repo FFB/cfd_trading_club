@@ -5,7 +5,7 @@
     $username => undef
 </%args>
 
-<h1>CFD Trading Club Registration Form</h1>
+<h1>Registration Form</h1>
 <p>Registration is <b>FREE</b> so complete the form below to sign up and create an account.</p>
 <br/>
 %if ($logged_in) {
@@ -40,6 +40,8 @@
             $('#usercheck .check_message').removeClass('available');
         }
     };
+
+    $('#registration-form fieldset').addClass('smallfont');
 
     $('#check_availability').click(function() {
         checkUser();

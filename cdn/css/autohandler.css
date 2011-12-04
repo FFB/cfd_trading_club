@@ -1,0 +1,171 @@
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    -webkit-padding-before: 0;
+    -webkit-padding-after: 0;
+    -webkit-padding-start: 0;
+    -webkit-padding-end: 0;
+}
+
+#body {
+    max-width: 1000px;
+    margin: 0 auto;
+    font-family: verdana;
+}
+
+h1 {
+    color: #FFB453; /* orange */
+    font-family: ubuntu;
+    font-weight: normal;
+}
+
+#header {
+    background: #ffffff;
+    height: 80px;
+}
+
+#header #login_b {
+    position: relative;
+    float: right;
+    top: 40px;
+    right: 10px;
+}
+
+#header #login_b input {
+    background: #ffffff;
+    margin-right: 5px;
+    padding: 2px;
+    border: 1px solid #023254;
+}
+
+#header #login-error-box {
+    margin-right: 5px;
+    padding: 4px;
+}
+
+#header #login-error-box a {
+    color: #0000ff;
+}
+
+#header #login_b input.credential {
+    width: 100px;
+}
+
+#navbar {
+    background: #023254; /* NAVY */
+    height: 30px;
+    font-family: verdana;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+#navbar ul li {
+    text-transform: uppercase;
+    list-style-type: none;
+    display: block;
+    float: left;
+    padding: 7px 10px 0px 10px;
+    height: 30px;
+}
+
+#navbar ul li.current {
+    background-color: #ffffff;
+}
+
+#navbar ul li.current a {
+    color: #023254;
+    font-size: 12px;
+}
+
+#navbar ul li a {
+    color: #ffffff; /*#a1d2f5 light blue */
+    text-decoration: none;
+}
+
+#navbar a:hover {
+    color: #FFB453; /* orange */
+    text-decoration: none;
+}
+
+#marquee {
+    background: #eaeaea;
+    margin-top: 10px;
+    color: #023254; /*#a1d2f5 light blue */
+    text-decoration: none;
+    font-family: verdana;
+    font-size: 12px;
+    height: 30px;
+}
+
+#marquee marquee {
+    width: 1000px;
+    position: relative;
+    top: 6px;
+}
+
+#content {
+    background: #ffffff;
+    margin-top: 10px;
+    min-height: 450px;
+}
+
+#content p {
+    color: #023254;
+    font-family: verdana;
+    font-size: 11px;
+    text-align: justify;
+    padding: 5px;
+}
+
+#content #left_sect {
+    float: left;
+    width: 130px;
+    min-height: 400px;
+}
+
+#content #center_sect {
+    float: left;
+    margin-left: 20px;
+    width: 655px;
+    min-height: 400px;
+}
+
+#content #recent_posts {
+    float: right;
+    width: 175px;
+    min-height: 400px;
+    color: #023254;
+    font-family: verdana;
+    font-size: 11px;
+}
+
+#bottom {
+    background: #cccccc;
+    position: absolute;
+    width: 1000px;
+    height: 70px;
+    top: 700px;
+    left: 220px;
+}
+
+.error {
+    border:     1px solid #D82F2C;
+    color:      #D82F2C;
+    background: #FDE8E7;
+    font-weight:normal;
+    font-size:  11px;
+}
+
+.hidden {
+    display: none;
+}
+
+.smallfont {
+    color: #023254;
+    font-family: verdana;
+    font-size: 11px;
+}

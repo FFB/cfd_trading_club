@@ -10,73 +10,133 @@
 
 <head>
 <title>CFD Trading Club</title>
-<link rel='stylesheet' href="<% $c->cdn('css/styles.css') %>"    type='text/css'/>
-<link rel='stylesheet' href="<% $c->cdn('css/predictor.css') %>" type='text/css'/>
-<link type="text/css" href="<% $c->cdn('css/ui-lightness/jquery-ui-1.8.16.custom.css') %>" rel="Stylesheet" />
-<link rel="shortcut icon" href="<% $c->cdn('images/favico.ico') %>">
-<script type="text/javascript" src="<% $c->cdn('js/jquery-1.6.2.min.js') %>"></script>
-<script type="text/javascript" src="<% $c->cdn('js/jquery-ui-1.8.16.custom.min.js') %>"></script>
+    <link rel="stylesheet" type="text/css" href="<% $c->cdn('css/autohandler.css') %>" />
+%#  <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/styles.css') %>" />
+    <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/registration.css') %>" />
+    <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/predictor.css') %>" />
+    <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/ui-lightness/jquery-ui-1.8.16.custom.css') %>" />
+    <link rel="shortcut icon" href="<% $c->cdn('images/favico.ico') %>">
+    <script type="text/javascript" src="<% $c->cdn('js/jquery-1.6.2.min.js') %>"></script>
+    <script type="text/javascript" src="<% $c->cdn('js/jquery-ui-1.8.16.custom.min.js') %>"></script>
 </head>
 
-<body>
+<body id="body">
     <div id="header">
-        <div id="header-inner">
-            <div id="account-widget">
-                <span class="state anonymous">
-%   if (not $logged_in) {
-                    <span class="button join">
-                        <a href="register">Join now</a>
-                    </span>
-                    <span class="spacer"></span>
-%   }
-                    <span class="credentials <% $c->flash->{login_error} ? 'login-error' : '' %>">
+        <img src="<% $c->cdn('images/head.png') %>">
+        <div id="login_b">
 %   if ($logged_in) {
-                        <span class="welcome">Welcome, <% $username %>!</span>
+            <form id="login-form" action="/logout" method="POST">
+                <span class="welcome">Welcome, <% $username %>!</span>
+                <input type="submit" class="button" value="Logout">
+            </form>
 %   }
-                        <form id="login-main-form" action="/<% $logged_in ? 'logout' : 'login' %>" method="POST">
-                            <input type="hidden" name="page" value="<% $page %>">
-%   if (not $logged_in) {
-                            <p class="login">
-                                <input type="text" name="username" placeholder="Username">
-                                <input type="password" name="password" placeholder="Password">
-                            </p>
-%   }
-                            <span class="button submit">
-                                <input type="submit" value="<% $logged_in ? 'Logout' : 'Login' %>">
-                            </span>
-                        </form>
-                        <span class="error">
-                            <span class="alert">
-                                Sorry, incorrect username or password.
-                                <a class="reset" href>Try again</a>
-                            </span>
-                        </span>
-%   if (not $logged_in) {
-                        <p class="lost-account">
-                            <a href>Can't access your account?</a>
-                        </p>
-%   }
-                    </span>
+%   else {
+            <form id="login-form" class="<% $c->flash->{login_error} ? 'hidden' : '' %>" action="/login" method="POST">
+                <input type="hidden"   name="page" value="<% $page %>">
+                <input type="button"   class="button" value="Join Now">
+                <input type="text"     class="credential" name="username" placeholder="Username">
+                <input type="password" class="credential" name="password" placeholder="Password">
+                <input type="submit"   class="button" value="Login">
+            </form>
+
+            <div id="login-error-box" class="error <% $c->flash->{login_error} ? '' : 'hidden' %>">
+                <span class="alert">
+                    Sorry, incorrect username or password.
+                    <a class="reset" href>Try again</a>
                 </span>
-            </div>
+            </span>
+%   }
         </div>
-        <div id="navigation-bar">
-            <ul>
-                <li <% $page eq 'home'        ? 'class="current"' : '' %>><a href="/">Home</a></li>
-                <li <% $page eq 'about'       ? 'class="current"' : '' %>><a href="/about">About Us</a></li>
-                <li <% $page eq 'register'    ? 'class="current"' : '' %>><a href="/register">Register</a></li>
-                <li <% $page eq 'competition' ? 'class="current"' : '' %>><a href="/competition">Competiion</a></li>
-                <li <% $page eq 'predict'     ? 'class="current"' : '' %>><a href="/predict">Predict</a></li>
-                <li <% $page eq 'stats'       ? 'class="current"' : '' %>><a href="/stats">Statistics</a></li>
-                <li <% $page eq 'links'       ? 'class="current"' : '' %>><a href="/links">Links</a></li>
-                <li class="last"></li>
-            </ul>
-        </div>
+    </div><!--header-->
+
+%#            <div id="account-widget">
+%#                <span class="state anonymous">
+%#%   if (not $logged_in) {
+%#                    <span class="button join">
+%#                        <a href="register">Join now</a>
+%#                    </span>
+%#                    <span class="spacer"></span>
+%#%   }
+%#                    <span class="credentials <% $c->flash->{login_error} ? 'login-error' : '' %>">
+%#%   if ($logged_in) {
+%#                        <span class="welcome">Welcome, <% $username %>!</span>
+%#%   }
+%#                        <form id="login-main-form" action="/<% $logged_in ? 'logout' : 'login' %>" method="POST">
+%#                            <input type="hidden" name="page" value="<% $page %>">
+%#%   if (not $logged_in) {
+%#                            <p class="login">
+%#                                <input type="text" name="username" placeholder="Username">
+%#                                <input type="password" name="password" placeholder="Password">
+%#                            </p>
+%#%   }
+%#                            <span class="button submit">
+%#                                <input type="submit" value="<% $logged_in ? 'Logout' : 'Login' %>">
+%#                            </span>
+%#                        </form>
+%#                        <span class="error">
+%#                            <span class="alert">
+%#                                Sorry, incorrect username or password.
+%#                                <a class="reset" href>Try again</a>
+%#                            </span>
+%#                        </span>
+%#%   if (not $logged_in) {
+%#                        <p class="lost-account">
+%#                            <a href>Can't access your account?</a>
+%#                        </p>
+%#%   }
+%#                    </span>
+%#                </span>
+%#            </div>
+    <div id="navbar">
+        <ul>
+            <li <% $page eq 'home'        ? 'class="current"' : '' %>><a href="/">Home</a></li>
+            <li <% $page eq 'about'       ? 'class="current"' : '' %>><a href="/about">About Us</a></li>
+            <li <% $page eq 'register'    ? 'class="current"' : '' %>><a href="/register">Register</a></li>
+            <li <% $page eq 'competition' ? 'class="current"' : '' %>><a href="/competition">Competiion</a></li>
+            <li <% $page eq 'predict'     ? 'class="current"' : '' %>><a href="/predict">Predict</a></li>
+            <li <% $page eq 'stats'       ? 'class="current"' : '' %>><a href="/stats">Statistics</a></li>
+            <li <% $page eq 'links'       ? 'class="current"' : '' %>><a href="/links">Links</a></li>
+%#              <li class="last"></li>
+        </ul>
+    </div> <!-- navbar -->
+
+    <div id="marquee">
+        <marquee behavior="scroll" direction="left">Hi Zane! Breaking news and stock info goes here...This is not really that exciting.</marquee>
     </div>
+
     <div id="content">
-% use Data::Dump qw/dump/;
+% use Data::Dump qw/dump/; #for debugging purposes
+        <div id="left_sect">
+            <div align="center">
+                <img src="<% $c->cdn('images/left_100x80.jpg') %>">
+            </div>
+            <br />
+            <img src="<% $c->cdn('images/heading.png') %>">
+            <br /><p>Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here. Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here. Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here.</p>
+        </div>
+        <div id="center_sect">
+            <div align="center">
+                <img src="<% $c->cdn('images/center_650x83.jpg') %>">
+            </div>
+            <br />
+%#          <img src="<% $c->cdn('images/heading.png') %>">
 % $m->call_next;
+            <p>Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here. Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here. Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here. Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here. Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here. Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here. Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here.</p>
+        </div>
+        <div id="recent_posts">
+            <img src="<% $c->cdn('images/recent_posts.png') %>">
+            <br />
+            <p>trolol123: Omg yea trading is cool and shit</p>
+            <p>n00b321: Hoyyy i just looove to buy gold stocks</p>
+            <p>sexylady69: B==8</p>
+            <br />See more...
+        </div>
     </div>
+
+%#    <div id="bottom">
+%#    </div>
+
 </body>
+
 </html>
 
