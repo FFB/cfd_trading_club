@@ -41,8 +41,6 @@
         }
     };
 
-    $('#registration-form fieldset').addClass('smallfont');
-
     $('#check_availability').click(function() {
         checkUser();
     });

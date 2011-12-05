@@ -9,8 +9,12 @@ default_args:
         Checkboxgroup:
             auto_id: '%f-%n-%c'
 
-auto_fieldset: { id:     personal-details,
-                 legend: Personal Details }
+auto_fieldset: {
+    id:         personal-details,
+    legend:     Personal Details,
+    attributes: {class: smallfont}
+}
+
 auto_constraint_class: '%t'
 elements:
     - type: Text
@@ -128,6 +132,8 @@ elements:
     - type: Fieldset
       id: login-details
       legend: Login Details
+      attributes:
+        class: smallfont
 
     - type: Block
       id:   usercheck
