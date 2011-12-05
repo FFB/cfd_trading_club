@@ -24,19 +24,18 @@
     <div id="header">
         <img src="<% $c->cdn('images/head.png') %>">
         <div id="login_b">
+            <form id="login-form" action="/<% $logged_in ? 'logout' : 'login' %>" class="<% $c->flash->{login_error} ? 'hidden' : '' %>" method="POST">
+                <input type="hidden"   name="page" value="<% $page %>">
 %   if ($logged_in) {
-            <form id="login-form" action="/logout" method="POST">
                 <span class="welcome">Welcome, <% $username %>!</span>
                 <input type="submit" class="button" value="Logout">
-            </form>
 %   }
 %   else {
-            <form id="login-form" class="<% $c->flash->{login_error} ? 'hidden' : '' %>" action="/login" method="POST">
-                <input type="hidden"   name="page" value="<% $page %>">
                 <input type="button"   class="button" value="Join Now">
                 <input type="text"     class="credential" name="username" placeholder="Username">
                 <input type="password" class="credential" name="password" placeholder="Password">
                 <input type="submit"   class="button" value="Login">
+%   }
             </form>
 
             <div id="login-error-box" class="error <% $c->flash->{login_error} ? '' : 'hidden' %>">
@@ -44,8 +43,7 @@
                     Sorry, incorrect username or password.
                     <a class="reset" href>Try again</a>
                 </span>
-            </span>
-%   }
+            </div>
         </div>
     </div><!--header-->
 
