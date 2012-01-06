@@ -1,96 +1,85 @@
 /* Predictor styles */
 /*  TODO: replace box shadow with a background image
  */
-.predictor {
+#pred_b .predictor {
     display:    inline-block;
-    width:  200px;
-    height: 200px;
+    width:  130px;
+    height: 160px;
     padding: 10px;
-    border-left: 1px solid black;
-}
-
-.predictor h2 {
     text-align: center;
-    /*
-    border: 1px solid red;
-    */
+    border: 1px solid black;
 }
 
-.predictor form {
-    font-size:  11px;
-    margin-top: 10px;
+#pred_b .predictor .ticker {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
 }
 
-.predictor .left {
-    display:    inline-block;
-    float:      left;
-    /*
-    border: 1px solid red;
-    */
+#pred_b .predictor .ticker u {
+    vertical-align: top;
+    padding: 2px;
+    font-size: 14px;
+    color: #0000ff;
 }
 
-.predictor .right {
-    display:    inline-block;
-    float:      right;
-    /*
-    border: 1px solid red;
-    */
+#pred_b .predictor .latest-price p {
+    text-align: center;
+}
+
+#pred_b .predictor form {
 }
 
 /* TODO: create proper icons for arrows
  */
-.predictor .arrow {
+#pred_b .predictor .arrow {
+    display: inline-block;
     width:  45px;
     height: 45px;
-    margin: 10px;
+    margin: 5px;
 }
 
-.predictor .down-arrow {
+#pred_b .predictor .down-arrow {
     background: transparent url(/images/arrow_icons/down_black.png) top left no-repeat;
     background-size:    100%;
 }
 
-.predictor .down-arrow.hover {
+#pred_b .predictor .down-arrow.hover {
     background: transparent url(/images/arrow_icons/down_red.png) top left no-repeat;
 }
 
-.predictor .up-arrow {
+#pred_b .predictor .down-arrow.selected {
+    background: transparent url(/images/arrow_icons/down_red.png) top left no-repeat;
+}
+
+#pred_b .predictor .up-arrow {
     background: transparent url(/images/arrow_icons/up_black.png) top left no-repeat;
     background-size:    100%;
 }
 
-.predictor .up-arrow.hover {
+#pred_b .predictor .up-arrow.hover {
     background: transparent url(/images/arrow_icons/up_green.png) top left no-repeat;
 }
 
-.predictor div.selected {
-    background: transparent url(/images/arrow_icons/up_yellow.png) top left no-repeat;
-}
-
-.predictor .radiobox {
-    text-align: center;
-}
-
-/* jQuery UI radios */
-.predictor span.ui-button-text {
-    font-size: 10px;
-    padding: 3px 8px;
-}
-
-.predictor .confd-msg {
-    margin: 5px 0;
-    text-align: center;
-    font-size:  11px;
+#pred_b .predictor .up-arrow.selected {
+    background: transparent url(/images/arrow_icons/up_green.png) top left no-repeat;
 }
 
 /* Submit buttons */
-.predictor div.button-container {
-    text-align: center;
+#pred_b .predictor div.button-container {
 }
 
-.predictor .button {
-    margin-top: 5px;
-    width: 60%;
+#pred_b .predictor .button {
+    display: inline-block;
+    width: 45px;
+    margin: 5px;
+}
+
+#pred_b .predictor .status-msg {
+}
+
+#pred_b .predictor .status-msg p {
+    text-align: center;
 }
 
 .predictor .reset {

@@ -1,93 +1,85 @@
 <%args>
     $ticker => "SPX"
-    %confidence_levels
 </%args>
 
 <div class="predictor">
-    <h2>S&P 500<a href>?</a></h2>
+    <div class="ticker"><% $ticker %><u>?</u></div>
+    <div id="<% $ticker %>-price" class="latest-price">
+        <p>Latest: 1250.4</p>
+    </div>
     <form id="<% $ticker %>-predictor" class="predictor-form">
-        <div class="left">
-            <div class="arrow-box">
-                <div id="<% $ticker %>-up"   class="arrow up-arrow"> </div>
-                <div id="<% $ticker %>-down" class="arrow down-arrow"> </div>
-                <input type="hidden" name="estimate" id="<% $ticker %>-estimate" value="none">
-            </div>
+        <div class="arrow-box">
+            <div id="<% $ticker %>-down" class="arrow down-arrow"></div>
+            <div id="<% $ticker %>-up"   class="arrow up-arrow"></div>
+            <input type="radio" name="<% $ticker %>-estimate" value="up" class="hidden">
+            <input type="radio" name="<% $ticker %>-estimate" value="down" class="hidden">
         </div>
-        <div class="right">
-            <!--
-            <div class="description">
-                <p>A value-weighted index of 500 common, actively traded US stocks</p>
-            </div>
-            -->
-            <div id="<% $ticker %>-confd-radios" class="radiobox">
-                <p>Confidence Level:</p>
-% for my $i ( sort {$a <=> $b} keys(%confidence_levels) ) {
-                <input type="radio" id="<% $ticker %>-radio-<% $i %>" name="<% $ticker %>-radio" value="<%$i%>" <% $i == 1 ? 'checked="checked"' : '' %>>
-                <label for="<% $ticker %>-radio-<% $i %>"><%$i%></label>
-% }
-            </div>
-            <div class="confd-msg"><% $confidence_levels{1} %></div>
-            <div class="button-container">
-                <input type="button" class="button reset" value="Reset">
-                <input type="button" class="button save" value="Save">
-            </div>
-            <div class="status-msg"></div>
+        <div class="button-container">
+            <input type="button" class="button reset" value="Reset">
+            <input type="submit" class="button save" value="Save">
         </div>
+        <div class="status-msg smallfont"><p>Saved</p></div>
     </form>
 </div>
 
 <script>
 {
-    var confd_array   = <% encode_json(\%confidence_levels) | n %>;
-    var $form         = $('#<% $ticker %>-predictor');
-    var $up_arrow     = $form.find('div.up-arrow');
-    var $down_arrow   = $form.find('div.down-arrow');
-    var $estimate     = $form.find('input[name="estimate"]');
-    var $confd_radios = $('input:radio[name="<% $ticker %>-radio"]');
-    var $confd_msg    = $form.find('.confd-msg');
-    var $status_msg   = $form.find('.status-msg');
+//    // Updates value of hidden input to be submitted
+//    function updateEstimateValue() {
+//        if ( $down_arrow.hasClass('selected') ) {
+//            $estimate.val("down");
+//        }
+//        else if ( $up_arrow.hasClass('selected') ) {
+//            $estimate.val("up");
+//        }
+//        else {
+//            $estimate.val("none");
+//        }
+//    }
+//
+//    // Updates arrow radio buttons and values
+//    function updateArrows(clicked, not_clicked) {
+//        if ($(clicked).hasClass('selected')) {
+//            $(clicked).removeClass('selected');
+//        }
+//        else {
+//            $(not_clicked).removeClass('selected');
+//            $(clicked).addClass('selected');
+//        }
+//        updateEstimateValue();
+//    }
 
-    $("#<% $ticker %>-confd-radios").buttonset();
+var $form;
 
-    // Updates display of confidence text
-    function updateConfidenceText() {
-        var confd = $confd_radios.filter(':checked').val();
-        $confd_msg.html(confd_array[confd]);
+    function updateArrows(arrow_clicked) {
+        $(arrow_clicked).parent().children().removeClass('selected');
+        $(arrow_clicked).addClass('selected');
     }
 
-    // Updates value of hidden input to be submitted
-    function updateEstimateValue() {
-        if ( $down_arrow.hasClass('selected') ) {
-            $estimate.val("down");
-        }
-        else if ( $up_arrow.hasClass('selected') ) {
-            $estimate.val("up");
-        }
-        else {
-            $estimate.val("none");
-        }
-    }
-
-    // Updates arrow radio buttons and values
-    function updateArrows(clicked, not_clicked) {
-        if ($(clicked).hasClass('selected')) {
-            $(clicked).removeClass('selected');
-        }
-        else {
-            $(not_clicked).removeClass('selected');
-            $(clicked).addClass('selected');
-        }
-        updateEstimateValue();
-    }
-
-    // ON CLICK of UP AROW
-    $up_arrow.click(function() {
-        updateArrows($up_arrow, $down_arrow);
+    // ON CLICK of UP ARROW
+    $('.up-arrow').click(function() {
+        updateArrows(this);
+        $(this).parents('form').find('input[value="up"]').attr("checked", true);
+        clearStatus(this);
     });
 
-    // ON CLICK of UP AROW
-    $down_arrow.click(function() {
-        updateArrows($down_arrow, $up_arrow);
+    // ON CLICK of DOWN ARROW
+    $('.down-arrow').click(function() {
+        updateArrows(this);
+        $(this).parents('form').find('input[value="down"]').attr("checked", true);
+        clearStatus(this);
+    });
+
+    // Resets status message
+    function clearStatus(obj) {
+        $(obj).parents('form').find('.status-msg p').html('Not saved');
+    }
+
+    // RESET BUTTON
+    $('input.reset').click(function() {
+        $(this).parents('form').find('.arrow').removeClass('selected');
+        $(this).parents('form').find('input:radio').attr("checked", false);
+        clearStatus(this);
     });
 
     //// Controls hover shit
@@ -100,18 +92,10 @@
     //    }
     //);
 
-    // ON CHANGE of CONFIDENCE RADIO
-    $confd_radios.change(function() {
-        updateConfidenceText();
-    });
-
-    // ON CHANGE of any form element
-    $form.find('input').change(function() {
-        $status_msg.html('');
-    });
-
     // ON SUBMIT
-    $form.submit(function() {
+    $('.predictor-form').submit(function() {
+        var $status_msg = $(this).find('.status-msg p');
+        $status_msg.html('saving');
         $.ajax({
             type:       'POST',
             url:        '<% $c->uri_for('ajax') %>',
@@ -119,17 +103,13 @@
             cache:      false,
             data:       {
                 'ticker'     : '<% $ticker %>',
-                'estimate'   : $estimate.val(),
-                'confidence' : $confd_radios.filter(':checked').val()
             },
             success: function(json) {
+                console.log('ajax success');
                 $status_msg.html(json.status_msg);
             }
         });
         return false;
     });
-
-    updateConfidenceText();
-    updateArrows();
 }
 </script>

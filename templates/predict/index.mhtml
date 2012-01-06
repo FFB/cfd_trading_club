@@ -1,6 +1,5 @@
 <%args>
     @predictors
-    %confidence_levels
     %time_remaining
     %next_prediction_period
 </%args>
@@ -12,28 +11,16 @@
     </h1>
 </div>
 
-% for my $predictor (@predictors) {
-    <& predictor.mhtml,
-            ticker            => $predictor->{ticker},
-            image             => $predictor->{image},
-            confidence_levels => \%confidence_levels
-    &>
-    <& predictor.mhtml,
-            ticker            => $predictor->{ticker},
-            image             => $predictor->{image},
-            confidence_levels => \%confidence_levels
-    &>
-    <& predictor.mhtml,
-            ticker            => $predictor->{ticker},
-            image             => $predictor->{image},
-            confidence_levels => \%confidence_levels
-    &>
-    <& predictor.mhtml,
-            ticker            => $predictor->{ticker},
-            image             => $predictor->{image},
-            confidence_levels => \%confidence_levels
-    &>
+<div id="pred_b">
+% for my $category (@predictors) {
+    <div class="pred_category">
+        <h2><% $category->{name} %></h2>
+%   for my $predictor (@{$category->{data}}) {
+        <& predictor.mhtml, ticker => $predictor->{ticker}, &>
+%   }
+    </div>
 % }
+</div>
 
 <script>
     var countingDown = false;

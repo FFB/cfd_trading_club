@@ -27,18 +27,21 @@ sub index :Path :Args(0) {
     $c->stash->{page} = 'predict';
 
     my @predictors;
-    my %data = (
-        ticker => 'SPX',
-        image  => 'images/SP-500.jpg',
-    );
-    push @predictors, \%data;
+    push @predictors, {ticker => 'SPX'};
+    push @predictors, {ticker => 'Euro50'};
+    push @predictors, {ticker => 'FTSE'};
+    push @predictors, {ticker => 'ASX200'};
 
-    # Gets a hashref mapping confidence value to a text description
-    my $confidence_levels = $c->model('DB')->get_confidence_levels;
+    my %stocks = (
+        name => 'Equity Indicies',
+        data => \@predictors,
+    );
+
+    my @sorted_predictors;
+    push @sorted_predictors, \%stocks;
 
     $c->stash(
-        predictors        => \@predictors,
-        confidence_levels => $confidence_levels,
+        predictors => \@sorted_predictors,
     );
     $c->forward('stash_time_to_close');
     $c->forward('stash_next_prediction_period');
