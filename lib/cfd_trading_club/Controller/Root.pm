@@ -66,6 +66,16 @@ sub links :Local {
     $c->stash->{page} = 'links';
 }
 
+#sub ajax :Local {
+#    my ( $self, $c ) = @_;
+#
+#    my $ticker = $c->req->params->{ticker};
+#
+#    #$c->stash->{status_msg} = 'Prediction saved';
+#    $c->stash->{status_msg} = $ticker;
+#    $c->detach( $c->view('JSON') );
+#}
+
 sub login :Local {
     my ( $self, $c ) = @_;
 

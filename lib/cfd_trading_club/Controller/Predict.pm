@@ -26,22 +26,23 @@ sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
     $c->stash->{page} = 'predict';
 
-    my @predictors;
-    push @predictors, {ticker => 'SPX'};
-    push @predictors, {ticker => 'Euro50'};
-    push @predictors, {ticker => 'FTSE'};
-    push @predictors, {ticker => 'ASX200'};
-
-    my %stocks = (
-        name => 'Equity Indicies',
-        data => \@predictors,
+    my @predictors = (
+        {ticker => 'SPX'},
+        {ticker => 'Euro50'},
+        {ticker => 'FTSE'},
+        {ticker => 'ASX200'},
     );
 
-    my @sorted_predictors;
-    push @sorted_predictors, \%stocks;
+    my %stocks = (
+        name       => 'Equity Indicies',
+        predictors => \@predictors,
+    );
+
+    my @categories = (\%stocks);
 
     $c->stash(
-        predictors => \@sorted_predictors,
+        categories     => \@categories,
+        predictor_keys =>
     );
     $c->forward('stash_time_to_close');
     $c->forward('stash_next_prediction_period');
@@ -49,6 +50,10 @@ sub index :Path :Args(0) {
 
 sub ajax :Local {
     my ( $self, $c ) = @_;
+
+    my $ticker = $c->req->params->{ticker};
+    #$c->log->debug("AJAX REQUEST");
+    #$c->log->debug($ticker);
 
     $c->stash->{status_msg} = 'Prediction saved';
     $c->detach( $c->view('JSON') );

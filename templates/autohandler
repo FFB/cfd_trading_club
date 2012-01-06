@@ -134,7 +134,10 @@
 %#    <div id="bottom">
 %#    </div>
 
+<& SELF:load_script, time_remaining => {hours=>1, mins=>1, secs=>1} &>
+
 </body>
+
 
 </html>
 
