@@ -2,16 +2,16 @@
     use JSON::XS;
 </%once>
 <%args>
-    $logged_in
-    $page
-    $username => undef
+    $logged_in   => 0
+    $login_error => 0
+    $username    => undef
+    $path        => undef
 </%args>
 <html>
 
 <head>
 <title>CFD Trading Club</title>
     <link rel="stylesheet" type="text/css" href="<% $c->cdn('css/autohandler.css') %>" />
-%#  <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/styles.css') %>" />
     <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/registration.css') %>" />
     <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/predictor.css') %>" />
     <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/ui-lightness/jquery-ui-1.8.16.custom.css') %>" />
@@ -24,76 +24,44 @@
     <div id="header">
         <img src="<% $c->cdn('images/head.png') %>">
         <div id="login_b">
-            <form id="login-form" action="/<% $logged_in ? 'logout' : 'login' %>" class="<% $c->flash->{login_error} ? 'hidden' : '' %>" method="POST">
-                <input type="hidden"   name="page" value="<% $page %>">
+            <div id="login_content">
+                <form id="<% $logged_in ? 'logout' : 'login' %>-form"
+                      class="<% $login_error ? 'hidden' : ''%>"
+                      action="<% $logged_in ? 'logout' : 'login' %>"
+                      method="POST"
+                >
+                    <input type="hidden" name="path" value="<% $path %>">
 %   if ($logged_in) {
-                <span class="welcome">Welcome, <% $username %>!</span>
-                <input type="submit" class="button" value="Logout">
+                    <span class="welcome">Welcome, <% $username %>!</span>
+                    <input type="submit" class="button" value="Logout">
 %   }
 %   else {
-                <input type="button"   class="button" value="Join Now">
-                <input type="text"     class="credential" name="username" placeholder="Username">
-                <input type="password" class="credential" name="password" placeholder="Password">
-                <input type="submit"   class="button" value="Login">
+                    <input type="button"   class="button" value="Join Now">
+                    <input type="text"     class="credential" name="username" placeholder="Username">
+                    <input type="password" class="credential" name="password" placeholder="Password">
+                    <input type="submit"   class="button" value="Login">
 %   }
-            </form>
+                </form>
 
-            <div id="login-error-box" class="error <% $c->flash->{login_error} ? '' : 'hidden' %>">
-                <span class="alert">
-                    Sorry, incorrect username or password.
-                    <a class="reset" href>Try again</a>
-                </span>
-            </div>
-        </div>
+                <div id="login-error-box" class="error <% $login_error ? '' : 'hidden' %>">
+                    <span class="alert">
+                        Sorry, incorrect username or password.
+                        <a class="reset">Try again</a>
+                    </span>
+                </div>
+            </div><!--login_content-->
+        </div><!--login_b-->
     </div><!--header-->
 
-%#            <div id="account-widget">
-%#                <span class="state anonymous">
-%#%   if (not $logged_in) {
-%#                    <span class="button join">
-%#                        <a href="register">Join now</a>
-%#                    </span>
-%#                    <span class="spacer"></span>
-%#%   }
-%#                    <span class="credentials <% $c->flash->{login_error} ? 'login-error' : '' %>">
-%#%   if ($logged_in) {
-%#                        <span class="welcome">Welcome, <% $username %>!</span>
-%#%   }
-%#                        <form id="login-main-form" action="/<% $logged_in ? 'logout' : 'login' %>" method="POST">
-%#                            <input type="hidden" name="page" value="<% $page %>">
-%#%   if (not $logged_in) {
-%#                            <p class="login">
-%#                                <input type="text" name="username" placeholder="Username">
-%#                                <input type="password" name="password" placeholder="Password">
-%#                            </p>
-%#%   }
-%#                            <span class="button submit">
-%#                                <input type="submit" value="<% $logged_in ? 'Logout' : 'Login' %>">
-%#                            </span>
-%#                        </form>
-%#                        <span class="error">
-%#                            <span class="alert">
-%#                                Sorry, incorrect username or password.
-%#                                <a class="reset" href>Try again</a>
-%#                            </span>
-%#                        </span>
-%#%   if (not $logged_in) {
-%#                        <p class="lost-account">
-%#                            <a href>Can't access your account?</a>
-%#                        </p>
-%#%   }
-%#                    </span>
-%#                </span>
-%#            </div>
     <div id="navbar">
-        <ul>
-            <li <% $page eq 'home'        ? 'class="current"' : '' %>><a href="/">Home</a></li>
-            <li <% $page eq 'about'       ? 'class="current"' : '' %>><a href="/about">About Us</a></li>
-            <li <% $page eq 'register'    ? 'class="current"' : '' %>><a href="/register">Register</a></li>
-            <li <% $page eq 'competition' ? 'class="current"' : '' %>><a href="/competition">Competiion</a></li>
-            <li <% $page eq 'predict'     ? 'class="current"' : '' %>><a href="/predict">Predict</a></li>
-            <li <% $page eq 'stats'       ? 'class="current"' : '' %>><a href="/stats">Statistics</a></li>
-            <li <% $page eq 'links'       ? 'class="current"' : '' %>><a href="/links">Links</a></li>
+        <ul id=<% $path %>>
+            <li id="nav-home"><a href="/">Home</a></li>
+            <li id="nav-about"><a href="/about">About Us</a></li>
+            <li id="nav-register"><a href="/register">Register</a></li>
+            <li id="nav-competition"><a href="/competition">Competiion</a></li>
+            <li id="nav-predict"><a href="/predict">Predict</a></li>
+            <li id="nav-stats"><a href="/stats">Statistics</a></li>
+            <li id="nav-links"><a href="/links">Links</a></li>
 %#              <li class="last"></li>
         </ul>
     </div> <!-- navbar -->
@@ -134,7 +102,34 @@
 %#    <div id="bottom">
 %#    </div>
 
-<& SELF:load_script, time_remaining => {hours=>1, mins=>1, secs=>1} &>
+<script type="text/javascript" src="<% $c->cdn('js/autohandler.js') %>"></script>
+%#<& SELF:load_script, time_remaining => {hours=>1, mins=>1, secs=>1} &>
+<script>
+    //$("#login_b").on("submit", "#login-form", function() {
+    //    var $username = $(this).find("input[name=username]").val();
+    //    var $password = $(this).find("input[name=password]").val();
+    //    $.ajax({
+    //        type:       "POST",
+    //        url:        "login",
+    //        dataType:   "html",
+    //        cache:      false,
+    //        data:       {
+    //            username: $username,
+    //            password: $password,
+    //            path:     window.location.pathname
+    //        },
+    //        success: function(data) {
+    //            process_login(data);
+    //        }
+    //    });
+    //    return false;
+    //});
+
+    $("#login_b").on("click", "#login-error-box a", function() {
+        $("#login-error-box").addClass("hidden");
+        $("#login_b form").removeClass("hidden");
+    });
+</script>
 
 </body>
 

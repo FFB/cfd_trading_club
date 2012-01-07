@@ -49,6 +49,8 @@ h1 {
 
 #header #login-error-box a {
     color: #0000ff;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 #header #login_b input.credential {
@@ -72,11 +74,25 @@ h1 {
     height: 30px;
 }
 
-#navbar ul li.current {
+/*#navbar ul li.current {
+ */
+#navbar #home        #nav-home,
+#navbar #about       #nav-about,
+#navbar #register    #nav-register,
+#navbar #competition #nav-competition,
+#navbar #predict     #nav-predict,
+#navbar #stats       #nav-stats,
+#navbar #links       #nav-links {
     background-color: #ffffff;
 }
 
-#navbar ul li.current a {
+#navbar #home        #nav-home a,
+#navbar #about       #nav-about a,
+#navbar #register    #nav-register a,
+#navbar #competition #nav-competition a,
+#navbar #predict     #nav-predict a,
+#navbar #stats       #nav-stats a,
+#navbar #links       #nav-links a {
     color: #023254;
     font-size: 12px;
 }

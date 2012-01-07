@@ -32,12 +32,8 @@ The root page (/)
 sub auto :Private {
     my ( $self, $c ) = @_;
 
-    $c->stash->{logged_in} = 0;
-
-    if ($c->user_exists) {
-        $c->stash->{logged_in} = 1;
-        $c->stash->{username} = $c->session->{username};
-    }
+    $c->stash->{path} = $c->req->path;
+    $c->forward('prepare_user');
     return 1;
 }
 
@@ -66,23 +62,21 @@ sub links :Local {
     $c->stash->{page} = 'links';
 }
 
-#sub ajax :Local {
-#    my ( $self, $c ) = @_;
-#
-#    my $ticker = $c->req->params->{ticker};
-#
-#    #$c->stash->{status_msg} = 'Prediction saved';
-#    $c->stash->{status_msg} = $ticker;
-#    $c->detach( $c->view('JSON') );
-#}
+sub ajax :Local {
+    my ( $self, $c ) = @_;
+
+    my $ticker = $c->req->params->{ticker};
+
+    $c->stash->{status_msg} = 'Prediction saved';
+    $c->detach( $c->view('JSON') );
+}
 
 sub login :Local {
     my ( $self, $c ) = @_;
 
     my $username = $c->req->params->{username};
     my $password = $c->req->params->{password};
-    my $page     = $c->req->params->{page};
-    $page = '/' if $page eq 'home';
+    my $path     = $c->req->params->{path};
 
     if ($username and $password and $c->authenticate({username => $username, password => $password,})) {
         $c->session->{username} = $c->user->get('username');
@@ -91,16 +85,28 @@ sub login :Local {
         $c->flash->{login_error} = 1;
     }
 
-    $c->res->redirect($c->uri_for("/$page"));
+    $c->res->redirect($c->uri_for($path));
 }
 
 sub logout :Local {
     my ( $self, $c ) = @_;
-    my $page     = $c->req->params->{page};
-    $page = '/' if $page eq 'home';
+    my $path = $c->req->params->{path};
 
     $c->logout();
-    $c->res->redirect($c->uri_for("/$page"));
+    delete $c->session->{username};
+
+    $c->res->redirect($c->uri_for($path));
+}
+
+sub prepare_user :Private {
+    my ( $self, $c ) = @_;
+
+    $c->stash->{logged_in} = 0;
+
+    if ($c->user_exists) {
+        $c->stash->{logged_in} = 1;
+        $c->stash->{username}  = $c->session->{username};
+    }
 }
 
 =head2 default
