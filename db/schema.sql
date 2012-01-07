@@ -1,5 +1,11 @@
 BEGIN;
 
+CREATE DOMAIN direction AS TEXT
+CHECK(
+    UPPER(VALUE) <> 'UP'
+ OR UPPER(VALUE) <> 'DOWN'
+);
+
 CREATE TABLE users (
     id          SERIAL PRIMARY KEY,
     username    VARCHAR NOT NULL UNIQUE,
@@ -36,11 +42,10 @@ CREATE TABLE ticker (
 
 CREATE TABLE prediction (
     id          SERIAL PRIMARY KEY,
-    t_id        INTEGER NOT NULL REFERENCES ticker(id) ON DELETE CASCADE,
+    ticker_id   INTEGER NOT NULL REFERENCES ticker(id) ON DELETE CASCADE,
     user_id     INTEGER NOT NULL REFERENCES users(id),
     time        TIMESTAMPTZ NOT NULL,
-    direction   VARCHAR NOT NULL,
-    confd       INTEGER NOT NULL
+    direction   direction NOT NULL
 );
 
 INSERT INTO users VALUES (1, 'zane', 'z', 'zmos003', 4893512, 'zjmoser@gmail.com', 'zane', 'moser', '021 163 5403', 'BCom/BE', 'Eco, Fin, SE', '4th Year', 'experienced');

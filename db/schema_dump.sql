@@ -11,6 +11,16 @@ SET escape_string_warning = off;
 
 SET search_path = public, pg_catalog;
 
+--
+-- Name: direction; Type: DOMAIN; Schema: public; Owner: zany
+--
+
+CREATE DOMAIN direction AS text
+	CONSTRAINT direction_check CHECK (((upper(VALUE) <> 'UP'::text) OR (upper(VALUE) <> 'DOWN'::text)));
+
+
+ALTER DOMAIN public.direction OWNER TO zany;
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -21,11 +31,10 @@ SET default_with_oids = false;
 
 CREATE TABLE prediction (
     id integer NOT NULL,
-    t_id integer NOT NULL,
+    ticker_id integer NOT NULL,
     user_id integer NOT NULL,
     "time" timestamp with time zone NOT NULL,
-    direction character varying NOT NULL,
-    confd integer NOT NULL
+    direction direction NOT NULL
 );
 
 
@@ -301,11 +310,11 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: prediction_t_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zany
+-- Name: prediction_ticker_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zany
 --
 
 ALTER TABLE ONLY prediction
-    ADD CONSTRAINT prediction_t_id_fkey FOREIGN KEY (t_id) REFERENCES ticker(id) ON DELETE CASCADE;
+    ADD CONSTRAINT prediction_ticker_id_fkey FOREIGN KEY (ticker_id) REFERENCES ticker(id) ON DELETE CASCADE;
 
 
 --

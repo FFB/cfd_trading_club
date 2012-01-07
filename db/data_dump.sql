@@ -60,7 +60,7 @@ COPY users (id, username, password, upi, student_id, email, first_name, last_nam
 -- Data for Name: prediction; Type: TABLE DATA; Schema: public; Owner: zany
 --
 
-COPY prediction (id, t_id, user_id, "time", direction, confd) FROM stdin;
+COPY prediction (id, ticker_id, user_id, "time", direction) FROM stdin;
 \.
 
 
