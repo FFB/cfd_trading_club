@@ -103,7 +103,6 @@
 %#    </div>
 
 <script type="text/javascript" src="<% $c->cdn('js/autohandler.js') %>"></script>
-%#<& SELF:load_script, time_remaining => {hours=>1, mins=>1, secs=>1} &>
 <script>
     //$("#login_b").on("submit", "#login-form", function() {
     //    var $username = $(this).find("input[name=username]").val();
@@ -131,8 +130,14 @@
     });
 </script>
 
+<& SELF:load_script &>
+
 </body>
 
 
 </html>
+
+%# Default script if nothing implemented in child component
+<%method load_script>
+</%method>
 

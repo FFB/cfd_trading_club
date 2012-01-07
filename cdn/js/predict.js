@@ -34,12 +34,21 @@ $('input.reset').click(function() {
     clearStatus(this);
 });
 
-//// Controls hover shit
-//$(".arrow").hover(
-//    function() {
-//        $(this).addClass("hover");
-//    },
-//    function() {
-//        $(this).removeClass("hover");
-//    }
-//);
+// When a prediction is saved, submit form using ajax
+$('.predictor-form').submit(function() {
+    var $status_msg = $(this).find('.status-msg p');
+    var ticker      = $(this).children('input[type=hidden]').val();
+    $status_msg.html('saving');
+
+    $.ajax({
+        type:       'POST',
+        url:        predict.ajax_url,
+        dataType:   'json',
+        cache:      false,
+        data:       { 'ticker': ticker, },
+        success: function(json) {
+            $status_msg.html(json.status_msg);
+        }
+    });
+    return false;
+});

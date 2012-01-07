@@ -30,32 +30,10 @@
     };
 </script>
 
-
 <%method load_script>
-    <script type="text/javascript" src="<% $c->cdn('js/predict.js') %>"></script>
     <script type="text/javascript" src="<% $c->cdn('js/countdown.js') %>"></script>
+    <script type="text/javascript" src="<% $c->cdn('js/predict.js') %>"></script>
     <script>
         startCountDown(predict);
-
-        // When a prediction is saved, submit form using ajax
-        $('.predictor-form').submit(function() {
-            var $status_msg = $(this).find('.status-msg p');
-            var ticker      = $(this).children('input[type=hidden]').val();
-            console.log("Retrieved " + ticker);
-            $status_msg.html('saving');
-
-            $.ajax({
-                type:       'POST',
-                url:        predict.ajax_url,
-                dataType:   'json',
-                cache:      false,
-                data:       { 'ticker': ticker, },
-                success: function(json) {
-                    console.log('ajax success');
-                    $status_msg.html(json.status_msg);
-                }
-            });
-            return false;
-        });
     </script>
 </%method>
