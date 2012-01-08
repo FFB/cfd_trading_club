@@ -29,7 +29,7 @@ SELECT pg_catalog.setval('role_id_seq', 2, true);
 -- Name: ticker_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zany
 --
 
-SELECT pg_catalog.setval('ticker_id_seq', 1, false);
+SELECT pg_catalog.setval('ticker_id_seq', 4, true);
 
 
 --
@@ -43,7 +43,11 @@ SELECT pg_catalog.setval('users_id_seq', 1, false);
 -- Data for Name: ticker; Type: TABLE DATA; Schema: public; Owner: zany
 --
 
-COPY ticker (id, code, text, image) FROM stdin;
+COPY ticker (id, code, text) FROM stdin;
+1	SPX	S&P500
+2	EURO50	Euro50
+3	FTSE	FTSE
+4	ASX200	ASX200
 \.
 
 

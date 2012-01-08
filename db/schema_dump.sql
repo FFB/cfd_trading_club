@@ -101,8 +101,7 @@ ALTER SEQUENCE role_id_seq OWNED BY role.id;
 CREATE TABLE ticker (
     id integer NOT NULL,
     code character varying NOT NULL,
-    text character varying,
-    image character varying NOT NULL
+    text character varying
 );
 
 
@@ -246,14 +245,6 @@ ALTER TABLE ONLY ticker
 
 
 --
--- Name: ticker_image_key; Type: CONSTRAINT; Schema: public; Owner: zany; Tablespace: 
---
-
-ALTER TABLE ONLY ticker
-    ADD CONSTRAINT ticker_image_key UNIQUE (image);
-
-
---
 -- Name: ticker_pkey; Type: CONSTRAINT; Schema: public; Owner: zany; Tablespace: 
 --
 
@@ -314,7 +305,7 @@ ALTER TABLE ONLY users
 --
 
 ALTER TABLE ONLY prediction
-    ADD CONSTRAINT prediction_ticker_id_fkey FOREIGN KEY (ticker_id) REFERENCES ticker(id) ON DELETE CASCADE;
+    ADD CONSTRAINT prediction_ticker_id_fkey FOREIGN KEY (ticker_id) REFERENCES ticker(id);
 
 
 --

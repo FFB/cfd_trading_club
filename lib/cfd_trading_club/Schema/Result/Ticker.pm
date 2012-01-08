@@ -42,12 +42,6 @@ __PACKAGE__->table("ticker");
   is_nullable: 1
   original: {data_type => "varchar"}
 
-=head2 image
-
-  data_type: 'text'
-  is_nullable: 0
-  original: {data_type => "varchar"}
-
 =cut
 
 __PACKAGE__->add_columns(
@@ -70,15 +64,8 @@ __PACKAGE__->add_columns(
     is_nullable => 1,
     original    => { data_type => "varchar" },
   },
-  "image",
-  {
-    data_type   => "text",
-    is_nullable => 0,
-    original    => { data_type => "varchar" },
-  },
 );
 __PACKAGE__->set_primary_key("id");
-__PACKAGE__->add_unique_constraint("ticker_image_key", ["image"]);
 __PACKAGE__->add_unique_constraint("ticker_code_key", ["code"]);
 
 =head1 RELATIONS
@@ -99,8 +86,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2012-01-08 13:55:08
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:AMrjG2p9i9UR4xaR/Uxaog
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2012-01-08 14:22:08
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:78TRP0lIFF23PcJSFyYjrg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

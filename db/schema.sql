@@ -36,13 +36,12 @@ CREATE TABLE user_role (
 CREATE TABLE ticker (
     id          SERIAL PRIMARY KEY,
     code        VARCHAR NOT NULL UNIQUE,
-    text        VARCHAR,
-    image       VARCHAR NOT NULL UNIQUE
+    text        VARCHAR
 );
 
 CREATE TABLE prediction (
     id          SERIAL PRIMARY KEY,
-    ticker_id   INTEGER NOT NULL REFERENCES ticker(id) ON DELETE CASCADE,
+    ticker_id   INTEGER NOT NULL REFERENCES ticker(id),
     user_id     INTEGER NOT NULL REFERENCES users(id),
     time        TIMESTAMPTZ NOT NULL,
     direction   direction NOT NULL
@@ -51,5 +50,14 @@ CREATE TABLE prediction (
 INSERT INTO users VALUES (1, 'zane', 'z', 'zmos003', 4893512, 'zjmoser@gmail.com', 'zane', 'moser', '021 163 5403', 'BCom/BE', 'Eco, Fin, SE', '4th Year', 'experienced');
 INSERT INTO role (rolename) VALUES ('member'), ('admin');
 INSERT INTO user_role VALUES (1,1), (1,2);
+
+INSERT INTO ticker (code, text)
+VALUES
+    ('SPX', 'S&P500'),
+    ('EURO50', 'Euro50'),
+    ('FTSE', 'FTSE'),
+    ('ASX200', 'ASX200')
+;
+
 
 COMMIT;
