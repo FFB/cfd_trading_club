@@ -2,6 +2,7 @@ package cfd_trading_club::Controller::Predict;
 use Moose;
 use namespace::autoclean;
 use DateTime;
+use Data::Dump qw/dump/;
 
 BEGIN {extends 'Catalyst::Controller'; }
 
@@ -25,24 +26,8 @@ Catalyst Controller.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    my @predictors = (
-        {ticker => 'SPX'},
-        {ticker => 'Euro50'},
-        {ticker => 'FTSE'},
-        {ticker => 'ASX200'},
-    );
+    $c->stash->{categories} = $c->model('DB')->generate_predictors;
 
-    my %stocks = (
-        name       => 'Equity Indicies',
-        predictors => \@predictors,
-    );
-
-    my @categories = (\%stocks);
-
-    $c->stash(
-        categories     => \@categories,
-        predictor_keys =>
-    );
     $c->forward('stash_time_to_close');
     $c->forward('stash_next_prediction_period');
 }
@@ -58,7 +43,7 @@ sub ajax :Local {
     $c->detach( $c->view('JSON') );
 }
 
-=head2 calculate_time_to_close
+=head2 stash_time_to_close
 
 Calculates time duration until the next 12:00 from Monday 12:00pm to Saturday 12:00am
 {

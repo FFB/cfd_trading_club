@@ -1,11 +1,14 @@
 <%args>
-    $ticker => "SPX"
+    $ticker     => "SPX"
+    $title      => $ticker
+    $prediction => undef
+    $latest     => 1250.4
 </%args>
 
 <div class="predictor">
     <div class="ticker"><% $ticker %><u>?</u></div>
     <div id="<% $ticker %>-price" class="latest-price">
-        <p>Latest: 1250.4</p>
+        <p>Latest: <% $latest %></p>
     </div>
     <form id="<% $ticker %>-predictor" class="predictor-form">
         <div class="arrow-box">

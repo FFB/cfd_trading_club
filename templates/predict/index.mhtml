@@ -1,13 +1,19 @@
 <%args>
+    $logged_in => 0
     @categories
     %time_remaining
     %next_prediction_period
 </%args>
+%   unless ($logged_in) {
+<div id="login_warning" class="error">
+    <div>You must be logged in to make a prediction</div>
+</div>
+%   }
 <div>
     <h1>You have <span id="hours" class="time">01</span>:<span id="mins" class="time">02</span>:<span id="secs" class="time">03</span> to make your predictions for the
-        <div id="next">
+        <span id="next">
             <% sprintf "%s of %s %d %s", $next_prediction_period{half}, $next_prediction_period{day_of_week}, $next_prediction_period{day}, $next_prediction_period{month} %>
-        </div>
+        </span>
     </h1>
 </div>
 

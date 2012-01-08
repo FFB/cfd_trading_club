@@ -13,6 +13,7 @@
 <title>CFD Trading Club</title>
     <link rel="stylesheet" type="text/css" href="<% $c->cdn('css/autohandler.css') %>" />
     <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/registration.css') %>" />
+    <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/predict.css') %>" />
     <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/predictor.css') %>" />
     <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/ui-lightness/jquery-ui-1.8.16.custom.css') %>" />
     <link rel="shortcut icon" href="<% $c->cdn('images/favico.ico') %>">

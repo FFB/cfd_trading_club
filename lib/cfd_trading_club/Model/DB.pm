@@ -14,6 +14,74 @@ __PACKAGE__->config(
     }
 );
 
+my @index_tickers = (
+    'SPX',
+    'EURO50',
+    'FTSE',
+    'ASX200',
+);
+
+my @commod_tickers = (
+    'GOLD',
+    'SILVER',
+    'OIL',
+    'SUGAR',
+);
+
+my @forex_tickers = (
+    'AUDUSD',
+    'EURUSD',
+    'GBPUSD',
+    'AUDNZD',
+);
+
+sub get_user_predictions {
+    my ($self, $username) = @_;
+
+    my $earliest_time = $self->get_prediction_start_time;
+
+    my $dtf = $self->schema->storage->datetime_parser;
+    my $rs  = $self->resultset('users')->find({
+        username => $username,
+    })->prediction->search({
+        direction => { '<>', 'up' },
+    });
+}
+
+# Generates correctly formatted data for predictors based on
+# variables provided at top of page
+sub generate_predictors {
+    my $self = shift;
+
+    my %index_hash = (
+        name       => 'Equity Index Futures',
+        predictors => [],
+    );
+    for my $ticker (@index_tickers) {
+        push @{ $index_hash{predictors} }, {ticker => $ticker};
+    }
+
+    my %commod_hash = (
+        name       => 'Commodities',
+        predictors => [],
+    );
+    for my $ticker (@commod_tickers) {
+        push @{ $commod_hash{predictors} }, {ticker => $ticker};
+    }
+
+    my %forex_hash = (
+        name       => 'FX',
+        predictors => [],
+    );
+    for my $ticker (@forex_tickers) {
+        push @{ $forex_hash{predictors} }, {ticker => $ticker};
+    }
+
+    my @categories = (\%index_hash, \%commod_hash, \%forex_hash);
+
+    return \@categories;
+}
+
 # Returns the earliest datetime after which predictions
 # could have been made for the next prediction period
 sub get_prediction_start_time {
