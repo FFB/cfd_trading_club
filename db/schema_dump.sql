@@ -16,7 +16,7 @@ SET search_path = public, pg_catalog;
 --
 
 CREATE DOMAIN direction AS text
-	CONSTRAINT direction_check CHECK (((upper(VALUE) <> 'UP'::text) OR (upper(VALUE) <> 'DOWN'::text)));
+	CONSTRAINT direction_check CHECK (((VALUE <> 'up'::text) OR (VALUE <> 'down'::text)));
 
 
 ALTER DOMAIN public.direction OWNER TO zany;

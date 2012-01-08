@@ -2,8 +2,8 @@ BEGIN;
 
 CREATE DOMAIN direction AS TEXT
 CHECK(
-    UPPER(VALUE) <> 'UP'
- OR UPPER(VALUE) <> 'DOWN'
+    VALUE <> 'up'
+ OR VALUE <> 'down'
 );
 
 CREATE TABLE users (
