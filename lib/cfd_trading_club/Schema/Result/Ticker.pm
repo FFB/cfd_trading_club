@@ -1,4 +1,4 @@
-package cfd_trading_club::Schema::Result::Estimate;
+package cfd_trading_club::Schema::Result::Ticker;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
@@ -6,17 +6,20 @@ package cfd_trading_club::Schema::Result::Estimate;
 use strict;
 use warnings;
 
-use base 'DBIx::Class::Core';
+use Moose;
+use MooseX::NonMoose;
+use namespace::autoclean;
+extends 'DBIx::Class::Core';
 
 __PACKAGE__->load_components("InflateColumn::DateTime");
 
 =head1 NAME
 
-cfd_trading_club::Schema::Result::Estimate
+cfd_trading_club::Schema::Result::Ticker
 
 =cut
 
-__PACKAGE__->table("estimate");
+__PACKAGE__->table("ticker");
 
 =head1 ACCESSORS
 
@@ -25,18 +28,24 @@ __PACKAGE__->table("estimate");
   data_type: 'integer'
   is_auto_increment: 1
   is_nullable: 0
-  sequence: 'estimate_id_seq'
+  sequence: 'ticker_id_seq'
 
-=head2 name
+=head2 code
 
   data_type: 'text'
   is_nullable: 0
   original: {data_type => "varchar"}
 
-=head2 icon
+=head2 text
 
   data_type: 'text'
   is_nullable: 1
+  original: {data_type => "varchar"}
+
+=head2 image
+
+  data_type: 'text'
+  is_nullable: 0
   original: {data_type => "varchar"}
 
 =cut
@@ -47,22 +56,30 @@ __PACKAGE__->add_columns(
     data_type         => "integer",
     is_auto_increment => 1,
     is_nullable       => 0,
-    sequence          => "estimate_id_seq",
+    sequence          => "ticker_id_seq",
   },
-  "name",
+  "code",
   {
     data_type   => "text",
     is_nullable => 0,
     original    => { data_type => "varchar" },
   },
-  "icon",
+  "text",
   {
     data_type   => "text",
     is_nullable => 1,
     original    => { data_type => "varchar" },
   },
+  "image",
+  {
+    data_type   => "text",
+    is_nullable => 0,
+    original    => { data_type => "varchar" },
+  },
 );
 __PACKAGE__->set_primary_key("id");
+__PACKAGE__->add_unique_constraint("ticker_image_key", ["image"]);
+__PACKAGE__->add_unique_constraint("ticker_code_key", ["code"]);
 
 =head1 RELATIONS
 
@@ -77,14 +94,15 @@ Related object: L<cfd_trading_club::Schema::Result::Prediction>
 __PACKAGE__->has_many(
   "predictions",
   "cfd_trading_club::Schema::Result::Prediction",
-  { "foreign.est_id" => "self.id" },
+  { "foreign.ticker_id" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-09-30 14:24:59
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:+BukaH4eZsYx2S1Q7WUi/w
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2012-01-08 13:55:08
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:AMrjG2p9i9UR4xaR/Uxaog
 
 
-# You can replace this text with custom content, and it will be preserved on regeneration
+# You can replace this text with custom code or comments, and it will be preserved on regeneration
+__PACKAGE__->meta->make_immutable;
 1;

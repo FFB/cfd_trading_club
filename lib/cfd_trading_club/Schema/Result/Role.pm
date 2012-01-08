@@ -6,7 +6,10 @@ package cfd_trading_club::Schema::Result::Role;
 use strict;
 use warnings;
 
-use base 'DBIx::Class::Core';
+use Moose;
+use MooseX::NonMoose;
+use namespace::autoclean;
+extends 'DBIx::Class::Core';
 
 __PACKAGE__->load_components("InflateColumn::DateTime");
 
@@ -30,7 +33,7 @@ __PACKAGE__->table("role");
 =head2 rolename
 
   data_type: 'text'
-  is_nullable: 1
+  is_nullable: 0
   original: {data_type => "varchar"}
 
 =cut
@@ -46,11 +49,12 @@ __PACKAGE__->add_columns(
   "rolename",
   {
     data_type   => "text",
-    is_nullable => 1,
+    is_nullable => 0,
     original    => { data_type => "varchar" },
   },
 );
 __PACKAGE__->set_primary_key("id");
+__PACKAGE__->add_unique_constraint("role_rolename_key", ["rolename"]);
 
 =head1 RELATIONS
 
@@ -70,9 +74,10 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-09-30 14:24:59
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:sXp0VFcJpycLf5wXb/2OZQ
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2012-01-08 13:55:08
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:oDxHPueKsa5rOdiXrAwMyg
 
 
-# You can replace this text with custom content, and it will be preserved on regeneration
+# You can replace this text with custom code or comments, and it will be preserved on regeneration
+__PACKAGE__->meta->make_immutable;
 1;

@@ -2,6 +2,7 @@ package cfd_trading_club::Model::DB;
 
 use strict;
 use base 'Catalyst::Model::DBIC::Schema';
+use DateTime;
 
 __PACKAGE__->config(
     schema_class => 'cfd_trading_club::Schema',
@@ -13,17 +14,51 @@ __PACKAGE__->config(
     }
 );
 
-my %confidence_levels = (
-    1 => 'Complete guess',
-    2 => 'Quietly confident',
-    3 => 'You\'d bet your left testicle',
-    4 => 'You\'d bet both of your testicles',
-    5 => 'You feel like a Japanese Sensei',
-);
-
-sub get_confidence_levels {
+# Returns the earliest datetime after which predictions
+# could have been made for the next prediction period
+sub get_prediction_start_time {
     my $self = shift;
-    return \%confidence_levels;
+
+    my $dt = DateTime->now;
+    $dt->set_time_zone('Pacific/Auckland');
+
+    # Earliest prediction time for the weekend or Monday morning is Sat 00:00
+    # For all othertimes the earliest prediction time the closest previous noon or midnight
+    if ($dt->day_of_week >= 6 or ($dt->day_of_week == 1 and $dt->hour < 12)) {
+        $dt->subtract(days => 1) if $dt->day_of_week == 7;
+        $dt->subtract(days => 2) if $dt->day_of_week == 1;
+        $dt = set_time_0000($dt);
+    }
+    else {
+        if ($dt->hour < 12) {
+            $dt = set_time_0000($dt);
+        }
+        else {
+            $dt = set_time_1200($dt);
+        }
+    }
+
+    return $dt;
+}
+
+sub set_time_0000 {
+    my ($self, $dt) = @_;
+    $dt->set(
+        hour   => 0,
+        minute => 0,
+        second => 0,
+    );
+    return $dt;
+}
+
+sub set_time_1200 {
+    my ($self, $dt) = @_;
+    $dt->set(
+        hour   => 12,
+        minute => 0,
+        second => 0,
+    );
+    return $dt;
 }
 
 =head1 NAME
