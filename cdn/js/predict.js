@@ -11,14 +11,14 @@ function updateArrows(arrow_clicked) {
 // ON CLICK of UP ARROW
 $('.up-arrow').click(function() {
     updateArrows(this);
-    $(this).parents('form').find('input[value="up"]').attr("checked", true);
+    $(this).parents('form').find('input[value="up"]').click();
     clearStatus(this);
 });
 
 // ON CLICK of DOWN ARROW
 $('.down-arrow').click(function() {
     updateArrows(this);
-    $(this).parents('form').find('input[value="down"]').attr("checked", true);
+    $(this).parents('form').find('input[value="down"]').click();
     clearStatus(this);
 });
 
@@ -37,7 +37,8 @@ $('input.reset').click(function() {
 // When a prediction is saved, submit form using ajax
 $('.predictor-form').submit(function() {
     var $status_msg = $(this).find('.status-msg p');
-    var ticker      = $(this).children('input[type=hidden]').val();
+    var ticker      = $(this).find('input[name=ticker]').val();
+    var prediction  = $(this).find("input[type=radio]:checked").val();
     $status_msg.html('saving');
 
     $.ajax({
@@ -45,7 +46,10 @@ $('.predictor-form').submit(function() {
         url:        predict.ajax_url,
         dataType:   'json',
         cache:      false,
-        data:       { 'ticker': ticker, },
+        data:       {
+            'ticker'    : ticker,
+            'prediction': prediction,
+        },
         success: function(json) {
             $status_msg.html(json.status_msg);
         }

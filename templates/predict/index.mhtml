@@ -1,8 +1,10 @@
 <%args>
     $logged_in => 0
-    @categories
-    %time_remaining
-    %next_prediction_period
+    @categories              # Array of hashrefs contain predictor data for each category
+    %time_remaining          # Countdown time
+    %next_prediction_period  # 'Morning/Evening DOW Day Month' for next period
+
+    %user_predictions => ()  # hash of user's current data for each ticker if any
 </%args>
 %   unless ($logged_in) {
 <div id="login_warning" class="error">
@@ -22,7 +24,11 @@
     <div class="pred_category">
         <h2><% $category->{name} %></h2>
 %   for my $predictor (@{$category->{predictors}}) {
-        <& predictor.mhtml, ticker => $predictor->{ticker}, &>
+        <& predictor.mhtml,
+            ticker     => $predictor->{ticker},
+            prediction => $user_predictions{$predictor->{ticker}},
+            logged_in  => $logged_in,
+        &>
 %   }
     </div>
 % }

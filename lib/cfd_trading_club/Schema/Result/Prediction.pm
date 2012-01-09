@@ -30,11 +30,12 @@ __PACKAGE__->table("prediction");
   is_nullable: 0
   sequence: 'prediction_id_seq'
 
-=head2 ticker_id
+=head2 ticker
 
-  data_type: 'integer'
+  data_type: 'text'
   is_foreign_key: 1
   is_nullable: 0
+  original: {data_type => "varchar"}
 
 =head2 user_id
 
@@ -62,8 +63,13 @@ __PACKAGE__->add_columns(
     is_nullable       => 0,
     sequence          => "prediction_id_seq",
   },
-  "ticker_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "ticker",
+  {
+    data_type      => "text",
+    is_foreign_key => 1,
+    is_nullable    => 0,
+    original       => { data_type => "varchar" },
+  },
   "user_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "time",
@@ -86,7 +92,7 @@ Related object: L<cfd_trading_club::Schema::Result::Ticker>
 __PACKAGE__->belongs_to(
   "ticker",
   "cfd_trading_club::Schema::Result::Ticker",
-  { id => "ticker_id" },
+  { id => "ticker" },
   { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
@@ -106,10 +112,11 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2012-01-08 13:55:08
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:vNgsiEjlGRcytA6Rq+tBTA
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2012-01-08 21:52:53
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:TkZuQETgI2Lvt+2I3iz/zw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
+
 1;

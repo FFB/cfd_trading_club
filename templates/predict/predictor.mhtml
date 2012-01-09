@@ -1,5 +1,6 @@
 <%args>
-    $ticker     => "SPX"
+    $logged_in  => 0
+    $ticker
     $title      => $ticker
     $prediction => undef
     $latest     => 1250.4
@@ -12,16 +13,16 @@
     </div>
     <form id="<% $ticker %>-predictor" class="predictor-form">
         <div class="arrow-box">
-            <div id="<% $ticker %>-down" class="arrow down-arrow"></div>
-            <div id="<% $ticker %>-up"   class="arrow up-arrow"></div>
-            <input type="radio" name="<% $ticker %>-estimate" value="up" class="hidden">
-            <input type="radio" name="<% $ticker %>-estimate" value="down" class="hidden">
+            <div id="<% $ticker %>-down" class="arrow down-arrow <% $prediction eq 'down' ? 'selected' : '' %>"></div>
+            <div id="<% $ticker %>-up"   class="arrow up-arrow   <% $prediction eq 'up'   ? 'selected' : '' %>"></div>
+            <input type="radio" name="<% $ticker %>-prediction" value="up" class="hidden">
+            <input type="radio" name="<% $ticker %>-prediction" value="down" class="hidden">
         </div>
         <div class="button-container">
             <input type="button" class="button reset" value="Reset">
             <input type="submit" class="button save" value="Save">
         </div>
-        <div class="status-msg smallfont"><p>Saved</p></div>
-        <input type="hidden" class="hidden" value="<% $ticker %>">
+        <div class="status-msg smallfont"><p><% $logged_in ? 'Saved' : 'Login to save' %></p></div>
+        <input type="hidden" class="hidden" name="ticker" value="<% $ticker %>">
     </form>
 </div>

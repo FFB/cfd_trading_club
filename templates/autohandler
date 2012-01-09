@@ -55,7 +55,7 @@
     </div><!--header-->
 
     <div id="navbar">
-        <ul id=<% $path %>>
+        <ul id=<% $path ||= 'home' %>>
             <li id="nav-home"><a href="/">Home</a></li>
             <li id="nav-about"><a href="/about">About Us</a></li>
             <li id="nav-register"><a href="/register">Register</a></li>
