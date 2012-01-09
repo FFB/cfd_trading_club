@@ -4,6 +4,7 @@ CREATE DOMAIN direction AS TEXT
 CHECK(
     VALUE <> 'up'
  OR VALUE <> 'down'
+ OR VALUE <> 'none'
 );
 
 CREATE TABLE users (
@@ -34,14 +35,13 @@ CREATE TABLE user_role (
 );
 
 CREATE TABLE ticker (
-    id          SERIAL PRIMARY KEY,
-    code        VARCHAR NOT NULL UNIQUE,
+    id          VARCHAR PRIMARY KEY,
     text        VARCHAR
 );
 
 CREATE TABLE prediction (
     id          SERIAL PRIMARY KEY,
-    ticker_id   INTEGER NOT NULL REFERENCES ticker(id),
+    ticker      VARCHAR NOT NULL REFERENCES ticker(id),
     user_id     INTEGER NOT NULL REFERENCES users(id),
     time        TIMESTAMPTZ NOT NULL,
     direction   direction NOT NULL
@@ -51,7 +51,7 @@ INSERT INTO users VALUES (1, 'zane', 'z', 'zmos003', 4893512, 'zjmoser@gmail.com
 INSERT INTO role (rolename) VALUES ('member'), ('admin');
 INSERT INTO user_role VALUES (1,1), (1,2);
 
-INSERT INTO ticker (code, text)
+INSERT INTO ticker (id, text)
 VALUES
     ('SPX', 'S&P500'),
     ('EURO50', 'Euro50'),

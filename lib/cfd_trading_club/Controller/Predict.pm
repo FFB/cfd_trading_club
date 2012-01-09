@@ -28,6 +28,10 @@ sub index :Path :Args(0) {
 
     $c->stash->{categories} = $c->model('DB')->generate_predictors;
 
+    if ($c->user_exists) {
+        $c->stash->{user_predictions} = $c->model('DB')->get_user_predictions($c->user->id);
+    }
+
     $c->forward('stash_time_to_close');
     $c->forward('stash_next_prediction_period');
 }
@@ -35,11 +39,39 @@ sub index :Path :Args(0) {
 sub ajax :Local {
     my ( $self, $c ) = @_;
 
-    my $ticker = $c->req->params->{ticker};
-    #$c->log->debug("AJAX REQUEST");
-    #$c->log->debug($ticker);
+    my $ticker     = $c->req->params->{ticker};
+    my $prediction = $c->req->params->{prediction};
 
-    $c->stash->{status_msg} = 'Prediction saved';
+    $prediction = 'none' if not defined $prediction;
+
+    my $status_msg = 'Prediction saved';
+
+    if ($c->user_exists) {
+        #my $ticker_rs = $c->model('DB')->resultset('Ticker')->find({ id => $ticker });
+
+        if (defined $ticker) {
+            eval {
+                $c->model('DB')->resultset('Prediction')->create({
+                    ticker    => $ticker,
+                    user_id   => $c->user->id,
+                    time      => DateTime->now,
+                    direction => $prediction,
+                });
+            };
+            if ($@) {
+                $c->log->error($@);
+                $status_msg = 'Database error';
+            }
+        }
+        else {
+            $status_msg = 'js error';
+        }
+    }
+    else {
+        $status_msg = 'Please login';
+    }
+
+    $c->stash->{status_msg} = $status_msg;
     $c->detach( $c->view('JSON') );
 }
 

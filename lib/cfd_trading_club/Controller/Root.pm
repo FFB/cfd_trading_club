@@ -32,6 +32,10 @@ The root page (/)
 sub auto :Private {
     my ( $self, $c ) = @_;
 
+    if ($c->user_exists) {
+        $c->log->debug(dump($c->session));
+    }
+
     $c->stash->{path} = $c->req->path;
     $c->forward('prepare_user');
     return 1;

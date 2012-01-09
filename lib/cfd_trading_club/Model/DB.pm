@@ -35,17 +35,26 @@ my @forex_tickers = (
     'AUDNZD',
 );
 
+# Retrieves the latest user predictions inside the current prediction time, if any
 sub get_user_predictions {
-    my ($self, $username) = @_;
+    my ($self, $user_id) = @_;
 
     my $earliest_time = $self->get_prediction_start_time;
 
     my $dtf = $self->schema->storage->datetime_parser;
-    my $rs  = $self->resultset('users')->find({
-        username => $username,
-    })->prediction->search({
-        direction => { '<>', 'up' },
-    });
+    my $rs = $self->resultset('LatestPrediction')->search(
+        {},
+        {
+            bind => [$user_id, $dtf->format_datetime($self->get_prediction_start_time)],
+        },
+    );
+
+    my %latest_preds;
+    while (my $prediction = $rs->next) {
+        $latest_preds{$prediction->get_column('ticker')} = $prediction->get_column('direction');
+    }
+
+    return \%latest_preds;
 }
 
 # Generates correctly formatted data for predictors based on
@@ -95,14 +104,14 @@ sub get_prediction_start_time {
     if ($dt->day_of_week >= 6 or ($dt->day_of_week == 1 and $dt->hour < 12)) {
         $dt->subtract(days => 1) if $dt->day_of_week == 7;
         $dt->subtract(days => 2) if $dt->day_of_week == 1;
-        $dt = set_time_0000($dt);
+        $dt = $self->set_time_0000($dt);
     }
     else {
         if ($dt->hour < 12) {
-            $dt = set_time_0000($dt);
+            $dt = $self->set_time_0000($dt);
         }
         else {
-            $dt = set_time_1200($dt);
+            $dt = $self->set_time_1200($dt);
         }
     }
 
