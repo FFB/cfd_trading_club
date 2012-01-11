@@ -47,6 +47,12 @@ CREATE TABLE prediction (
     direction   direction NOT NULL
 );
 
+CREATE TABLE price (
+    ticker      VARCHAR NOT NULL REFERENCES ticker(id),
+    time        TIMESTAMPTZ NOT NULL,
+    price       NUMERIC NOT NULL
+);
+
 INSERT INTO users VALUES (1, 'zane', 'z', 'zmos003', 4893512, 'zjmoser@gmail.com', 'zane', 'moser', '021 163 5403', 'BCom/BE', 'Eco, Fin, SE', '4th Year', 'experienced');
 INSERT INTO role (rolename) VALUES ('member'), ('admin');
 INSERT INTO user_role VALUES (1,1), (1,2);
@@ -59,5 +65,16 @@ VALUES
     ('ASX200', 'ASX200')
 ;
 
+INSERT INTO ticker (id)
+VALUES
+    ('GOLD'),
+    ('SILVER'),
+    ('OIL'),
+    ('SUGAR'),
+    ('AUDUSD'),
+    ('NZDUSD'),
+    ('EURUSD'),
+    ('GBPUSD')
+;
 
 COMMIT;

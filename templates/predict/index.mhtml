@@ -20,6 +20,8 @@
 </div>
 
 <div id="pred_b">
+    <div id="button_box">
+    </div>
 % for my $category (@categories) {
     <div class="pred_category">
         <h2><% $category->{name} %></h2>
