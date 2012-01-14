@@ -82,7 +82,8 @@ h1 {
 #navbar #competition #nav-competition,
 #navbar #predict     #nav-predict,
 #navbar #stats       #nav-stats,
-#navbar #links       #nav-links {
+#navbar #links       #nav-links,
+#navbar #admin       #nav-admin {
     background-color: #ffffff;
 }
 
@@ -92,7 +93,8 @@ h1 {
 #navbar #competition #nav-competition a,
 #navbar #predict     #nav-predict a,
 #navbar #stats       #nav-stats a,
-#navbar #links       #nav-links a {
+#navbar #links       #nav-links a,
+#navbar #admin       #nav-admin a {
     color: #023254;
     font-size: 12px;
 }

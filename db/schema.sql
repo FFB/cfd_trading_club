@@ -47,7 +47,14 @@ CREATE TABLE prediction (
     direction   direction NOT NULL
 );
 
-CREATE TABLE price (
+CREATE TABLE latest_price (
+    ticker      VARCHAR NOT NULL REFERENCES ticker(id),
+    time        TIMESTAMPTZ NOT NULL,
+    price       NUMERIC NOT NULL
+);
+
+CREATE TABLE competition_price (
+    id          SERIAL PRIMARY KEY,
     ticker      VARCHAR NOT NULL REFERENCES ticker(id),
     time        TIMESTAMPTZ NOT NULL,
     price       NUMERIC NOT NULL
@@ -62,19 +69,15 @@ VALUES
     ('SPX', 'S&P500'),
     ('EURO50', 'Euro50'),
     ('FTSE', 'FTSE'),
-    ('ASX200', 'ASX200')
-;
-
-INSERT INTO ticker (id)
-VALUES
-    ('GOLD'),
-    ('SILVER'),
-    ('OIL'),
-    ('SUGAR'),
-    ('AUDUSD'),
-    ('NZDUSD'),
-    ('EURUSD'),
-    ('GBPUSD')
+    ('ASX200', 'ASX200'),
+    ('GOLD', 'Gold'),
+    ('SILVER', 'Silver'),
+    ('OIL', 'Oil'),
+    ('SUGAR', 'Sugar'),
+    ('AUDUSD', 'AUDUSD'),
+    ('NZDUSD', 'NZDUSD'),
+    ('EURUSD', 'EURUSD'),
+    ('GBPUSD', 'GBPUSD')
 ;
 
 COMMIT;

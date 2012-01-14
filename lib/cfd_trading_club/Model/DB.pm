@@ -35,6 +35,19 @@ my @forex_tickers = (
     'AUDNZD',
 );
 
+sub get_tickers {
+    my $self = shift;
+
+    my $rs = $self->resultset('Ticker')->search;
+
+    my @ticker_data = ();
+    while (my $ticker = $rs->next) {
+        push @ticker_data, { id => $ticker->id, name => $ticker->text, };
+    }
+
+    return \@ticker_data;
+}
+
 # Retrieves the latest user predictions inside the current prediction time, if any
 sub get_user_predictions {
     my ($self, $user_id) = @_;

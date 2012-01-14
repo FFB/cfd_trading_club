@@ -6,6 +6,7 @@
     $login_error => 0
     $username    => undef
     $path        => undef
+    $admin       => 0
 </%args>
 <html>
 
@@ -15,10 +16,10 @@
     <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/registration.css') %>" />
     <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/predict.css') %>" />
     <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/predictor.css') %>" />
-    <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/ui-lightness/jquery-ui-1.8.16.custom.css') %>" />
+    <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/ui-lightness/jquery-ui-1.8.17.custom.css') %>" />
     <link rel="shortcut icon" href="<% $c->cdn('images/favico.ico') %>">
     <script type="text/javascript" src="<% $c->cdn('js/jquery-1.7.1.min.js') %>"></script>
-    <script type="text/javascript" src="<% $c->cdn('js/jquery-ui-1.8.16.custom.min.js') %>"></script>
+    <script type="text/javascript" src="<% $c->cdn('js/jquery-ui-1.8.17.custom.min.js') %>"></script>
 </head>
 
 <body id="body">
@@ -63,6 +64,9 @@
             <li id="nav-predict"><a href="/predict">Predict</a></li>
             <li id="nav-stats"><a href="/stats">Statistics</a></li>
             <li id="nav-links"><a href="/links">Links</a></li>
+%   if ($admin) {
+            <li id="nav-admin"><a href="/admin">Admin</a></li>
+%   }
 %#              <li class="last"></li>
         </ul>
     </div> <!-- navbar -->

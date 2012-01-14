@@ -34,6 +34,7 @@ sub auto :Private {
 
     if ($c->user_exists) {
         $c->log->debug(dump($c->session));
+        $c->stash->{admin} = $c->assert_user_roles(qw/ admin /);
     }
 
     $c->stash->{path} = $c->req->path;
@@ -43,27 +44,22 @@ sub auto :Private {
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-    $c->stash->{page} = 'home';
 }
 
 sub about :Local {
     my ( $self, $c ) = @_;
-    $c->stash->{page} = 'about';
 }
 
 sub competition :Local {
     my ( $self, $c ) = @_;
-    $c->stash->{page} = 'competition';
 }
 
 sub stats :Local {
     my ( $self, $c ) = @_;
-    $c->stash->{page} = 'stats';
 }
 
 sub links :Local {
     my ( $self, $c ) = @_;
-    $c->stash->{page} = 'links';
 }
 
 sub ajax :Local {

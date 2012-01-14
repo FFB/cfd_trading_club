@@ -40,7 +40,7 @@ for my $key (keys %latest_values) {
 }
 
 $dbh->do(q[
-    INSERT INTO price(ticker, time, price)
+    INSERT INTO latest_price(ticker, time, price)
     VALUES ] . join(', ', map {'( ?, ?, ? )'} keys %latest_values),
     undef,
     @stmt_args

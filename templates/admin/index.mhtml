@@ -1,0 +1,37 @@
+<%args>
+    @tickers
+</%args>
+
+<h1>Admin</h1>
+
+<div id="admin-controls">
+    <h2>Insert price update</h2>
+
+    <form id="price_update" method="POST" action="/admin/upload">
+        <div>
+            <span>Time of day:</span>
+            <input type="radio" id="midnight-radio" name="time" value="am">
+            <label for="midnight-radio">12:00am</label>
+            <input type="radio" id="midday-radio" name="time" value="pm">
+            <label for="midday-radio">12:00pm</label>
+        </div>
+
+        <label for"date">Date:</label>
+        <input type="text" id="date" name="date">
+
+        <table id="ticker_data">
+%   for my $ticker (@tickers) {
+            <tr>
+                <td><% $ticker->{name} %></td>
+                <td><input type="text" name="<% $ticker->{id} %>"></td>
+            </tr>
+%   }
+        </table>
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<script>
+    $("#date").datepicker();
+</script>

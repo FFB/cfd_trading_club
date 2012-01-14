@@ -24,7 +24,6 @@ Catalyst Controller.
 
 sub index :Path :Args(0) :FormConfig('register') {
     my ( $self, $c ) = @_;
-    $c->stash->{page} = 'register';
 
     my $form = $c->stash->{form};
 
