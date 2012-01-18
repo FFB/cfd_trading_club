@@ -54,10 +54,6 @@ sub competition :Local {
     my ( $self, $c ) = @_;
 }
 
-sub stats :Local {
-    my ( $self, $c ) = @_;
-}
-
 sub links :Local {
     my ( $self, $c ) = @_;
 }

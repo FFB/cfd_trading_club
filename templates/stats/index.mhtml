@@ -1,0 +1,74 @@
+<%args>
+</%args>
+
+<%perl>
+my @data = (
+    {
+        ticker     => 'S&P500',
+        prediction => 'up',
+        actual     => 'up',
+    },
+    {
+        ticker     => 'Euro50',
+        prediction => 'down',
+        actual     => 'up',
+    },
+    {
+        ticker     => 'FTSE',
+        prediction => 'none',
+        actual     => 'down',
+    },
+    {
+        ticker     => 'ASX200',
+        prediction => 'down',
+        actual     => 'down',
+    },
+);
+
+my %prediction_image = (
+    up   => sprintf('<img src="%s" class="small_arrow">', $c->cdn('images/up_active.gif')),
+    down => sprintf('<img src="%s" class="small_arrow">', $c->cdn('images/down_active.gif')),
+    none => '-',
+);
+</%perl>
+
+<h1>Statistics</h1>
+
+<div id="outer-stat-box">
+    <div id="date-nav">
+        <h1>Date</h1>
+        <ul>
+            <li class="date current">Fri 15 Dec</li>
+            <li class="date">Thu 14 Dec</li>
+            <li class="date">Wed 13 Dec</li>
+            <li class="date">Tue 12 Dec</li>
+            <li class="date">Mon 11 Dec</li>
+        </ul>
+    </div>
+    <div id="stock-stats">
+        <h1>Individual Results</h1>
+        <table id="individual-results" class="result-table">
+            <tr>
+                <th>Ticker</th>
+                <th>Prediction</th>
+                <th>Actual</th>
+                <th>Result</th>
+            </tr>
+%   for my $ticker (@data) {
+            <tr>
+                <td><% $ticker->{ticker} %></td>
+                <td><% $prediction_image{$ticker->{prediction}} %></td>
+                <td><% $prediction_image{$ticker->{actual}} %></td>
+                <td><img src="<% $c->cdn('images/check.png') %>"</td>
+            </tr>
+%   }
+        </table>
+    </div>
+</div>
+
+<script>
+    $("li.date").click(function() {
+        $("li.date").removeClass("current");
+        $(this).addClass("current");
+    });
+</script>

@@ -16,6 +16,8 @@
     <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/registration.css') %>" />
     <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/predict.css') %>" />
     <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/predictor.css') %>" />
+    <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/predictor.css') %>" />
+    <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/stats.css') %>" />
     <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/ui-lightness/jquery-ui-1.8.17.custom.css') %>" />
     <link rel="shortcut icon" href="<% $c->cdn('images/favico.ico') %>">
     <script type="text/javascript" src="<% $c->cdn('js/jquery-1.7.1.min.js') %>"></script>
