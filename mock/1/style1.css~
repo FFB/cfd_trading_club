@@ -154,12 +154,12 @@ a:hover {
 }
 
 .arrow a:hover {
-	background-image:url(testup_hover.gif);
+	background-image:url(testup_hoverx.gif);
 }
 
 
 .arrow a:active {
-	background-image:url(testup_pressedx.gif);
+	background-image:url(testup_pressed.gif);
 }
 
 .arrowb a {
