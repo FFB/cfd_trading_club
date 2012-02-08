@@ -23,6 +23,14 @@ Catalyst Controller.
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
+
+    my $user_results;
+    #if ($c->user_exists) {
+    #    $user_results = $c->model('DB')->get_user_results($c->user->id);
+    #}
+    $user_results = $c->model('DB')->get_user_results(1);
+
+    $c->stash->{user_results} = $user_results;
 }
 
 

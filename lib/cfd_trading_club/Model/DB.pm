@@ -3,6 +3,7 @@ package cfd_trading_club::Model::DB;
 use strict;
 use base 'Catalyst::Model::DBIC::Schema';
 use DateTime;
+use Math::Round qw/round/;
 
 __PACKAGE__->config(
     schema_class => 'cfd_trading_club::Schema',
@@ -33,6 +34,15 @@ my @forex_tickers = (
     'EURUSD',
     'GBPUSD',
     'AUDNZD',
+);
+
+my %period_text = (
+    1 => 'Monday 6 Feb PM',
+    2 => 'Tuesday 7 Feb AM',
+    3 => 'Tuesday 7 Feb PM',
+    4 => 'Wednesday 8 Feb AM',
+    5 => 'Wednesday 8 Feb PM',
+
 );
 
 sub get_tickers {
@@ -68,6 +78,69 @@ sub get_user_predictions {
     }
 
     return \%latest_preds;
+}
+
+# Retrieves all of user's prediction history with results
+sub get_user_results {
+    my ($self, $user_id) = @_;
+
+    my $dtf = $self->schema->storage->datetime_parser;
+
+    my $outcome_period_ticker;
+    my @rows = $self->resultset('PeriodResult')->search()->all();
+    for my $row (@rows) {
+        $outcome_period_ticker->{$row->period_id}->{$row->ticker} = $row->direction;
+    }
+
+    @rows = $self->resultset('FinalPrediction')->search(
+        {},
+        {
+            bind => [$user_id],
+        },
+    )->all();
+
+    my $user_results;
+    for my $row (@rows) {
+        push @{ $user_results->{$row->period}->{data} }, {ticker => $row->ticker, direction => $row->direction};
+    }
+
+    for my $period (sort { $b <=> $a } keys %$user_results) {
+        my $number_of_guesses = 0;
+        my $correct_count = 0;
+
+        for my $prediction (@{ $user_results->{$period}->{data} }) {
+            # insert outcomes into user results hash
+            $prediction->{actual} = $outcome_period_ticker->{$period}->{ $prediction->{ticker} };
+
+            if (lc($prediction->{direction}) ne 'none') {
+                $number_of_guesses++;
+                $prediction->{correct} = -1;
+
+                if (lc($prediction->{direction}) eq lc($prediction->{outcome})) {
+                    $correct_count++;
+                    $prediction->{correct} = 1;
+                }
+            }
+            else {
+                $prediction->{correct} = 0;
+            }
+        }
+
+        my $pc_correct = round(100 * $correct_count / $number_of_guesses);
+
+        $user_results->{$period}->{date}     = $period_text{$period};
+        $user_results->{$period}->{pc}       = $pc_correct;
+        $user_results->{$period}->{quantity} = $number_of_guesses;
+        $user_results->{$period}->{points}   = $correct_count;
+    }
+
+    return $user_results;
+}
+
+sub get_period_text {
+    my $self = shift;
+
+    return \%period_text;
 }
 
 # Generates correctly formatted data for predictors based on

@@ -55,6 +55,51 @@ __PACKAGE__->set_primary_key("id");
 
 =head1 RELATIONS
 
+=head2 competition_prices
+
+Type: has_many
+
+Related object: L<cfd_trading_club::Schema::Result::CompetitionPrice>
+
+=cut
+
+__PACKAGE__->has_many(
+  "competition_prices",
+  "cfd_trading_club::Schema::Result::CompetitionPrice",
+  { "foreign.ticker" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 latest_prices
+
+Type: has_many
+
+Related object: L<cfd_trading_club::Schema::Result::LatestPrice>
+
+=cut
+
+__PACKAGE__->has_many(
+  "latest_prices",
+  "cfd_trading_club::Schema::Result::LatestPrice",
+  { "foreign.ticker" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 period_results
+
+Type: has_many
+
+Related object: L<cfd_trading_club::Schema::Result::PeriodResult>
+
+=cut
+
+__PACKAGE__->has_many(
+  "period_results",
+  "cfd_trading_club::Schema::Result::PeriodResult",
+  { "foreign.ticker" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 predictions
 
 Type: has_many
@@ -71,8 +116,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2012-01-08 21:52:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4qxqAA8g5aVyE7q5evj+og
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2012-02-08 09:19:05
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ZMauktdgbCtgrbngWPfz6g
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

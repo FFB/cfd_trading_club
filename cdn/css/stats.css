@@ -1,72 +1,55 @@
-#outer-stat-box {
+#result-accordion {
     font-size: 0;
-    margin-top: 20px;
 }
 
-#date-nav {
-    min-height: 400px;
-    display:    inline-block;
-    vertical-align: top;
-    font-size:  11px;
-    font-weight: bold;
-    color: #023254; /* NAVY */
+#result-accordion .accordion-handle {
+    display:        inline-block;
+    width:          100%;
+    height:        30px;
+    line-height:   30px;
+    background:    #EEE;
+    border:        1px solid #AAA;
+    border-radius: 5px;
+    cursor:        pointer;
+    font-size:      11px;
+    text-align:     center;
+    font-weight:    bold;
 }
 
-#outer-stat-box .column-heading {
-    font-size: 14px;
+#result-accordion .accordion-handle:hover {
+    background: #023254; /* NAVY */
+    color:      #FFB453;
+}
+
+#result-accordion .accordion-handle .boxed {
+    margin: 0 10px;
+    padding: 2px 5px;
+    border: 1px solid #FFB453;
+}
+
+#result-accordion .accordion-handle div {
+    display: inline-block;
     text-align: center;
-    padding: 10px;
 }
 
-#date-nav ul {
-    list-style-type: none;
-    display: block;
-    border: 1px solid #023254;
-}
-
-#date-nav ul li {
-    display:     block;
-    height:      25px;
-    line-height: 25px;
-    text-align:  left;
-    font-size:   12px;
-    padding: 0 5px;
+#result-accordion .period {
+    width: 30%;
     text-decoration: underline;
-    cursor: pointer;
 }
 
-#date-nav ul li:hover {
+#result-accordion .quantity,
+#result-accordion .pc,
+#result-accordion .points {
+    width: 20%;
 }
 
-#date-nav ul li.current {
-    color: #FFB453; /* orange */
-    font-size:        12px;
+#result-accordion .period-results-head,
+#result-accordion .period-results-body {
+    font-size: 0;
 }
 
-#stock-stats {
-    width:      75%;
-    font-size:  11px;
-    min-height: 400px;
+#result-accordion .period-results-head div,
+#result-accordion .period-results-row div {
     display:    inline-block;
-    vertical-align: top;
-    padding-left:   20px;
-}
-
-#stock-stats .small_arrow {
-    height: 25px;
-}
-
-#stock-stats .result-table {
-    width: 100%;
-    border: 1px solid #023254; /* NAVY */
-    border-spacing: 0px;
-}
-
-#stock-stats .result-table td {
-    width: 100px;
-    text-align: center;
-}
-
-#stock-stats .result-table tr:nth-child(even) {
-    background: #eaeaea;
+    font-size: 11px;
 }

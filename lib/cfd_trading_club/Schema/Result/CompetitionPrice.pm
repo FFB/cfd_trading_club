@@ -1,4 +1,4 @@
-package cfd_trading_club::Schema::Result::Prediction;
+package cfd_trading_club::Schema::Result::CompetitionPrice;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
@@ -15,11 +15,11 @@ __PACKAGE__->load_components("InflateColumn::DateTime");
 
 =head1 NAME
 
-cfd_trading_club::Schema::Result::Prediction
+cfd_trading_club::Schema::Result::CompetitionPrice
 
 =cut
 
-__PACKAGE__->table("prediction");
+__PACKAGE__->table("competition_price");
 
 =head1 ACCESSORS
 
@@ -28,7 +28,7 @@ __PACKAGE__->table("prediction");
   data_type: 'integer'
   is_auto_increment: 1
   is_nullable: 0
-  sequence: 'prediction_id_seq'
+  sequence: 'competition_price_id_seq'
 
 =head2 ticker
 
@@ -37,26 +37,14 @@ __PACKAGE__->table("prediction");
   is_nullable: 0
   original: {data_type => "varchar"}
 
-=head2 user_id
-
-  data_type: 'integer'
-  is_foreign_key: 1
-  is_nullable: 0
-
 =head2 time
 
   data_type: 'timestamp with time zone'
   is_nullable: 0
 
-=head2 period
+=head2 price
 
-  data_type: 'integer'
-  is_foreign_key: 1
-  is_nullable: 1
-
-=head2 direction
-
-  data_type: 'direction'
+  data_type: 'numeric'
   is_nullable: 0
 
 =cut
@@ -67,7 +55,7 @@ __PACKAGE__->add_columns(
     data_type         => "integer",
     is_auto_increment => 1,
     is_nullable       => 0,
-    sequence          => "prediction_id_seq",
+    sequence          => "competition_price_id_seq",
   },
   "ticker",
   {
@@ -76,14 +64,10 @@ __PACKAGE__->add_columns(
     is_nullable    => 0,
     original       => { data_type => "varchar" },
   },
-  "user_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "time",
   { data_type => "timestamp with time zone", is_nullable => 0 },
-  "period",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
-  "direction",
-  { data_type => "direction", is_nullable => 0 },
+  "price",
+  { data_type => "numeric", is_nullable => 0 },
 );
 __PACKAGE__->set_primary_key("id");
 
@@ -104,47 +88,11 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
-=head2 user
 
-Type: belongs_to
-
-Related object: L<cfd_trading_club::Schema::Result::User>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "user",
-  "cfd_trading_club::Schema::Result::User",
-  { id => "user_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
-);
-
-=head2 period
-
-Type: belongs_to
-
-Related object: L<cfd_trading_club::Schema::Result::Period>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "period",
-  "cfd_trading_club::Schema::Result::Period",
-  { id => "period" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "CASCADE",
-    on_update     => "CASCADE",
-  },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2012-02-07 18:21:21
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5tzZO8sHPu7g9cacA9wDxg
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2012-02-07 18:14:44
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:BAonx2rbseM87vBbN9IXzA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
-
 1;

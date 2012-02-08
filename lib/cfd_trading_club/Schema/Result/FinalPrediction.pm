@@ -1,4 +1,4 @@
-package cfd_trading_club::Schema::Result::LatestPrediction;
+package cfd_trading_club::Schema::Result::FinalPrediction;
 
 use strict;
 use warnings;
@@ -7,25 +7,27 @@ use base 'DBIx::Class::Core';
 
 __PACKAGE__->table_class('DBIx::Class::ResultSource::View');
 
-__PACKAGE__->table('latest_predictions');
+__PACKAGE__->table('final_predictions');
 
 __PACKAGE__->result_source_instance->is_virtual(1);
 
 __PACKAGE__->result_source_instance->view_definition(q[
-    SELECT p.ticker, p.direction
+    SELECT p.period, p.ticker, p.direction
     FROM (
-        SELECT ticker, MAX(time) as maxtime
+        SELECT ticker, period, MAX(time) as maxtime
         FROM prediction
         WHERE user_id = ?
-            AND time >= ?
-        GROUP BY ticker
+        GROUP BY ticker, period
     ) AS x
     INNER JOIN prediction p
-        ON x.ticker = p.ticker
+        ON x.ticker   = p.ticker
         AND x.maxtime = p.time
+        AND x.period  = p.period
 ]);
 
 __PACKAGE__->add_columns(
+  "period",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
   "ticker",
   {
     data_type      => "text",

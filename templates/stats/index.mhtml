@@ -1,29 +1,9 @@
 <%args>
+    $logged_in => 0
+    $user_results => 1
 </%args>
 
 <%perl>
-my @data = (
-    {
-        ticker     => 'S&P500',
-        prediction => 'up',
-        actual     => 'up',
-    },
-    {
-        ticker     => 'Euro50',
-        prediction => 'down',
-        actual     => 'up',
-    },
-    {
-        ticker     => 'FTSE',
-        prediction => 'none',
-        actual     => 'down',
-    },
-    {
-        ticker     => 'ASX200',
-        prediction => 'down',
-        actual     => 'down',
-    },
-);
 
 my %prediction_image = (
     up   => sprintf('<img src="%s" class="small_arrow">', $c->cdn('images/up_active.gif')),
@@ -32,43 +12,55 @@ my %prediction_image = (
 );
 </%perl>
 
+%   unless ($logged_in) {
+<div class="login_warning error">
+    <div>Login to view your results</div>
+</div>
+%   }
+
 <h1>Statistics</h1>
 
-<div id="outer-stat-box">
-    <div id="date-nav">
-        <h1>Date</h1>
-        <ul>
-            <li class="date current">Fri 15 Dec</li>
-            <li class="date">Thu 14 Dec</li>
-            <li class="date">Wed 13 Dec</li>
-            <li class="date">Tue 12 Dec</li>
-            <li class="date">Mon 11 Dec</li>
-        </ul>
+<div id="result-accordion">
+%#    <div class="table-head">
+%#        <div class="period">Prediction Period</div>
+%#        <div class="quantity">Guesses</div>
+%#        <div class="pc">Win %</div>
+%#        <div class="points">Points</div>
+%#    </div>
+%   for my $period (sort {$b <=> $a} keys %$user_results) {
+    <div class="accordion-handle">
+        <div class="period"  ><% $user_results->{$period}->{date}     %></div>
+        <div class="quantity">Guesses: <span class="boxed"><% $user_results->{$period}->{quantity} %></span></div>
+        <div class="pc"      >Correct %:<span class="boxed"><% $user_results->{$period}->{pc}       %></span></div>
+        <div class="points"  >Points: <span class="boxed"><% $user_results->{$period}->{points}   %></span></div>
     </div>
-    <div id="stock-stats">
-        <h1>Individual Results</h1>
-        <table id="individual-results" class="result-table">
-            <tr>
-                <th>Ticker</th>
-                <th>Prediction</th>
-                <th>Actual</th>
-                <th>Result</th>
-            </tr>
-%   for my $ticker (@data) {
-            <tr>
-                <td><% $ticker->{ticker} %></td>
-                <td><% $prediction_image{$ticker->{prediction}} %></td>
-                <td><% $prediction_image{$ticker->{actual}} %></td>
-                <td><img src="<% $c->cdn('images/check.png') %>"</td>
-            </tr>
+    <div class="period-results">
+        <div class="period-results-head">
+            <div class="ticker">Ticker</div>
+            <div class="prediction">You Guessed</div>
+            <div class="actual">Market Move</div>
+            <div class="correct">Result</div>
+        </div>
+        <div class="period-results-body">
+%       for my $prediction (@{ $user_results->{$period}->{data} }) {
+            <div class="period-results-row">
+                <div class="ticker"><% $prediction->{ticker} %></div>
+                <div class="prediction"><% $prediction->{direction} %></div>
+                <div class="actual"><% $prediction->{actual} %></div>
+                <div class="correct"><% $prediction->{result} %></div>
+            </div>
+%       }
+        </div>
+    </div>
 %   }
-        </table>
-    </div>
 </div>
+
+
 
 <script>
     $("li.date").click(function() {
         $("li.date").removeClass("current");
         $(this).addClass("current");
     });
+
 </script>

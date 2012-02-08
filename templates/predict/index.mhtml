@@ -7,7 +7,7 @@
     %user_predictions => ()  # hash of user's current data for each ticker if any
 </%args>
 %   unless ($logged_in) {
-<div id="login_warning" class="error">
+<div class="login_warning error">
     <div>You must be logged in to make a prediction</div>
 </div>
 %   }
