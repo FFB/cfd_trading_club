@@ -89,7 +89,7 @@ sub get_user_results {
     my $outcome_period_ticker;
     my @rows = $self->resultset('PeriodResult')->search()->all();
     for my $row (@rows) {
-        $outcome_period_ticker->{$row->period_id}->{$row->ticker} = $row->direction;
+        $outcome_period_ticker->{$row->period_id}->{$row->ticker->id} = $row->direction;
     }
 
     @rows = $self->resultset('FinalPrediction')->search(
@@ -114,15 +114,15 @@ sub get_user_results {
 
             if (lc($prediction->{direction}) ne 'none') {
                 $number_of_guesses++;
-                $prediction->{correct} = -1;
+                $prediction->{result} = -1;
 
                 if (lc($prediction->{direction}) eq lc($prediction->{outcome})) {
                     $correct_count++;
-                    $prediction->{correct} = 1;
+                    $prediction->{result} = 1;
                 }
             }
             else {
-                $prediction->{correct} = 0;
+                $prediction->{result} = 0;
             }
         }
 

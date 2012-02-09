@@ -18,49 +18,172 @@ my %prediction_image = (
 </div>
 %   }
 
+<script type="text/javascript" src="<% $c->cdn('farbtastic.js') %>"></script>
+<link rel="stylesheet" href="<% $c->cdn('farbtastic.css') %>" type="text/css" />
+
 <h1>Statistics</h1>
 
-<div id="result-accordion">
-%#    <div class="table-head">
-%#        <div class="period">Prediction Period</div>
-%#        <div class="quantity">Guesses</div>
-%#        <div class="pc">Win %</div>
-%#        <div class="points">Points</div>
-%#    </div>
+<table id="result-accordion">
+%   my $id = 0;
 %   for my $period (sort {$b <=> $a} keys %$user_results) {
-    <div class="accordion-handle">
-        <div class="period"  ><% $user_results->{$period}->{date}     %></div>
-        <div class="quantity">Guesses: <span class="boxed"><% $user_results->{$period}->{quantity} %></span></div>
-        <div class="pc"      >Correct %:<span class="boxed"><% $user_results->{$period}->{pc}       %></span></div>
-        <div class="points"  >Points: <span class="boxed"><% $user_results->{$period}->{points}   %></span></div>
-    </div>
-    <div class="period-results">
-        <div class="period-results-head">
-            <div class="ticker">Ticker</div>
-            <div class="prediction">You Guessed</div>
-            <div class="actual">Market Move</div>
-            <div class="correct">Result</div>
-        </div>
-        <div class="period-results-body">
+    <tr id="acc-handle-<% $id %>" class="accordion-handle">
+        <th class="period"  ><% $user_results->{$period}->{date}     %></th>
+        <th class="quantity">Guesses: <span class="boxed"><% $user_results->{$period}->{quantity} %></span></th>
+        <th class="pc"      >Correct %:<span class="boxed"><% $user_results->{$period}->{pc}       %></span></th>
+        <th class="points"  >Points: <span class="boxed"><% $user_results->{$period}->{points}   %></span></th>
+    </tr>
+    <tr class="acc-handle-<% $id %> period-results-head smallfont top-spacer">
+        <th class="ticker">Ticker</th>
+        <th class="prediction">You Guessed</th>
+        <th class="actual">Market Move</th>
+        <th class="correct">Result</th>
+    </tr>
+%       my $n = scalar @{ $user_results->{$period}->{data} };
 %       for my $prediction (@{ $user_results->{$period}->{data} }) {
-            <div class="period-results-row">
-                <div class="ticker"><% $prediction->{ticker} %></div>
-                <div class="prediction"><% $prediction->{direction} %></div>
-                <div class="actual"><% $prediction->{actual} %></div>
-                <div class="correct"><% $prediction->{result} %></div>
-            </div>
+    <tr class="acc-handle-<% $id %> period-results-body smallfont <% --$n ? '' : 'bot-spacer' %>">
+        <td class="ticker"><% $prediction->{ticker} %></td>
+        <td class="prediction"><% $prediction->{direction} %></td>
+        <td class="actual"><% $prediction->{actual} %></td>
+        <td class="correct"><% $prediction->{result} %></td>
+    </tr>
 %       }
-        </div>
-    </div>
+%       ++$id;
 %   }
+</table>
+
+<div id="colors" class="smallfont">
+    <div id="button-box">
+        <button id="but-navy">Navy
+        <button id="but-orange">Orange</button>
+        <button id="but-marquee">Marquee</button>
+    </div>
+    <table id="color-controller" class="smallfont">
+        <tr>
+            <td>Handle BG</td>
+            <td><div class="preview"></div></td>
+            <td><input type="checkbox"></td>
+            <td class="elmt-selector">.accordion-handle</td>
+            <td class="css-selector">background-color</td>
+        </tr>
+        <tr>
+            <td>Handle Font</td>
+            <td><div class="preview"></div></td>
+            <td><input type="checkbox"></td>
+            <td class="elmt-selector">.accordion-handle</td>
+            <td class="css-selector">color</td>
+        </tr>
+        <tr>
+            <td>Handle Border</td>
+            <td><div class="preview"></div></td>
+            <td><input type="checkbox"></td>
+            <td class="elmt-selector">.accordion-handle</td>
+            <td class="css-selector">border-color</td>
+        </tr>
+        <tr>
+            <td>Handle Box BG</td>
+            <td><div class="preview"></div></td>
+            <td><input type="checkbox"></td>
+            <td class="elmt-selector">.boxed</td>
+            <td class="css-selector">background-color</td>
+        </tr>
+        <tr>
+            <td>Handle Box Border</td>
+            <td><div class="preview"></div></td>
+            <td><input type="checkbox"></td>
+            <td class="elmt-selector">.boxed</td>
+            <td class="css-selector">border-color</td>
+        </tr>
+        <tr>
+            <td>Table BG</td>
+            <td><div class="preview"></div></td>
+            <td><input type="checkbox"></td>
+            <td class="elmt-selector">tr.smallfont, tr.top-spacer, tr.bot-spacer</td>
+            <td class="css-selector">background-color</td>
+        </tr>
+    </table>
+    <div id="colorpicker"></div>
 </div>
+
+<style>
+    #button-box {
+        right: 300px;
+        text-align: right;
+        margin: 10px 0;
+    }
+
+    #button-box button {
+        margin: 0 15px;
+    }
+
+    #colors {
+        margin-top: 20px;
+        padding: 20px;
+        position: relative;
+        min-height: 250px;
+        width: 500px;
+        border: 1px solid black;
+    }
+
+    #colorpicker {
+        position: absolute;
+        left: 300px;
+    }
+
+    #color-controller {
+        position: absolute;
+    }
+
+    #color-controller td {
+        padding: 0 10px;
+    }
+
+    .preview {
+        width: 15px;
+        height:15px;
+        border: 1px solid #000;
+    }
+
+    .elmt-selector, .css-selector {
+        display: none;
+    }
+</style>
+
+<script>
+    $("#colorpicker").farbtastic(updateColors);
+
+    function updateColors(color) {
+        var $tr = $("#color-controller tr").has(":checked")
+        $tr.find(".preview").css("background-color", color);
+        $tr.each(function(index) {
+            var elmt = $(this).find(".elmt-selector").html();
+            var css  = $(this).find(".css-selector").html();
+            $(elmt).css(css, color);
+        });
+    }
+
+    $("#but-navy").click(function(event) {
+        $.farbtastic("#colorpicker").setColor("#ffffff");
+        $.farbtastic("#colorpicker").setColor("#023254");
+    });
+
+    $("#but-orange").click(function(event) {
+        $.farbtastic("#colorpicker").setColor("#ffffff");
+        $.farbtastic("#colorpicker").setColor("#FFB453");
+    });
+
+    $("#but-marquee").click(function(event) {
+        $.farbtastic("#colorpicker").setColor("#ffffff");
+        $.farbtastic("#colorpicker").setColor("#EAEAEA");
+    });
+</script>
 
 
 
 <script>
-    $("li.date").click(function() {
-        $("li.date").removeClass("current");
-        $(this).addClass("current");
+    $(".accordion-handle").click(function() {
+        $("#result-accordion tr").not(".accordion-handle").hide();
+        $("#result-accordion ." + $(this).attr("id")).show();
     });
 
+    $("#acc-handle-0").click();
 </script>
