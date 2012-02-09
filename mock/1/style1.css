@@ -159,7 +159,7 @@ a:hover {
 
 
 .arrow a:active {
-	background-image:url(testup_pressedx.gif);
+	background-image:url(testup_pressed.gif);
 }
 
 .arrowb a {
@@ -175,5 +175,5 @@ a:hover {
 
 
 .arrowb a:active {
-	background-image:url(testdown_pressedx.gif);
+	background-image:url(testdown_pressed.gif);
 }
