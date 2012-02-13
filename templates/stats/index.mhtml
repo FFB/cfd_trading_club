@@ -10,6 +10,13 @@ my %prediction_image = (
     down => sprintf('<img src="%s" class="small_arrow">', $c->cdn('images/down_active.gif')),
     none => '-',
 );
+
+my %result_image = (
+    1    => sprintf('<img src="%s" >', $c->cdn('images/check.png')),
+    -1   => sprintf('<img src="%s" >', $c->cdn('images/cross.png')),
+    0    => '-',
+);
+
 </%perl>
 
 %   unless ($logged_in) {
@@ -23,35 +30,45 @@ my %prediction_image = (
 
 <h1>Statistics</h1>
 
-<table id="result-accordion">
-%   my $id = 0;
+<div id="result-accordion">
 %   for my $period (sort {$b <=> $a} keys %$user_results) {
-    <tr id="acc-handle-<% $id %>" class="accordion-handle">
-        <th class="period"  ><% $user_results->{$period}->{date}     %></th>
-        <th class="quantity">Guesses: <span class="boxed"><% $user_results->{$period}->{quantity} %></span></th>
-        <th class="pc"      >Correct %:<span class="boxed"><% $user_results->{$period}->{pc}       %></span></th>
-        <th class="points"  >Points: <span class="boxed"><% $user_results->{$period}->{points}   %></span></th>
-    </tr>
-    <tr class="acc-handle-<% $id %> period-results-head smallfont top-spacer">
-        <th class="ticker">Ticker</th>
-        <th class="prediction">You Guessed</th>
-        <th class="actual">Market Move</th>
-        <th class="correct">Result</th>
-    </tr>
-%       my $n = scalar @{ $user_results->{$period}->{data} };
+    <div class="accordion-key">
+        <div class="handle-box">
+            <ul class="aggregated">
+                <li class="expand"    ><button class="button plus-button"></button></li>
+                <li class="period"    ><% $user_results->{$period}->{date} %></li>
+                <li class="quant"     >Guesses:</li>
+                <li class="quant-box" ><span class="boxed"><% $user_results->{$period}->{quantity} %></span></li>
+                <li class="pc"        >Correct:</li>
+                <li class="pc-box"    ><span class="boxed"><% $user_results->{$period}->{pc} %></span></li>
+                <li class="points"    >Points:</li>
+                <li class="points-box"><span class="boxed"><% $user_results->{$period}->{points} %></span></li>
+            </ul>
+        </div>
+        <div class="data-box">
+            <table class="verbose">
+                <tr class="period-results-head smallfont">
+                    <th class="ticker">Ticker</th>
+                    <th class="prediction">You Guessed</th>
+                    <th class="actual">Market Move</th>
+                    <th class="correct">Result</th>
+                </tr>
 %       for my $prediction (@{ $user_results->{$period}->{data} }) {
-    <tr class="acc-handle-<% $id %> period-results-body smallfont <% --$n ? '' : 'bot-spacer' %>">
-        <td class="ticker"><% $prediction->{ticker} %></td>
-        <td class="prediction"><% $prediction->{direction} %></td>
-        <td class="actual"><% $prediction->{actual} %></td>
-        <td class="correct"><% $prediction->{result} %></td>
-    </tr>
+                <tr class="period-results-body smallfont">
+                    <td class="ticker"><% $prediction->{ticker} %></td>
+                    <td class="prediction"><% $prediction_image{$prediction->{direction}} %></td>
+                    <td class="actual"><% $prediction_image{$prediction->{actual}} %></td>
+                    <td class="correct"><% $result_image{$prediction->{result}} %></td>
+                </tr>
 %       }
-%       ++$id;
+            </table>
+        </div>
+    </div>
 %   }
-</table>
+</div>
 
 <div id="colors" class="smallfont">
+
     <div id="button-box">
         <button id="but-navy">Navy
         <button id="but-orange">Orange</button>
@@ -62,21 +79,21 @@ my %prediction_image = (
             <td>Handle BG</td>
             <td><div class="preview"></div></td>
             <td><input type="checkbox"></td>
-            <td class="elmt-selector">.accordion-handle</td>
+            <td class="elmt-selector">.handle-box</td>
             <td class="css-selector">background-color</td>
         </tr>
         <tr>
             <td>Handle Font</td>
             <td><div class="preview"></div></td>
             <td><input type="checkbox"></td>
-            <td class="elmt-selector">.accordion-handle</td>
+            <td class="elmt-selector">.handle-box th</td>
             <td class="css-selector">color</td>
         </tr>
         <tr>
             <td>Handle Border</td>
             <td><div class="preview"></div></td>
             <td><input type="checkbox"></td>
-            <td class="elmt-selector">.accordion-handle</td>
+            <td class="elmt-selector">.handle-box</td>
             <td class="css-selector">border-color</td>
         </tr>
         <tr>
@@ -97,7 +114,7 @@ my %prediction_image = (
             <td>Table BG</td>
             <td><div class="preview"></div></td>
             <td><input type="checkbox"></td>
-            <td class="elmt-selector">tr.smallfont, tr.top-spacer, tr.bot-spacer</td>
+            <td class="elmt-selector">.data-box</td>
             <td class="css-selector">background-color</td>
         </tr>
     </table>
@@ -180,10 +197,27 @@ my %prediction_image = (
 
 
 <script>
-    $(".accordion-handle").click(function() {
-        $("#result-accordion tr").not(".accordion-handle").hide();
-        $("#result-accordion ." + $(this).attr("id")).show();
+    var open_key = -1;
+
+    $(".accordion-key").click(function(event) {
+        updateAccordion($(this).index(".accordion-key"));
     });
 
-    $("#acc-handle-0").click();
+    function updateAccordion(key_index) {
+        $(".accordion-key .data-box").hide();
+        $(".accordion-key .button").removeClass("minus-button");
+
+        // Close open accordion key
+        if (key_index == open_key) {
+            open_key = -1;
+        }
+        else {
+            $(".accordion-key").eq(key_index).find(".data-box").show();
+            $(".accordion-key").eq(key_index).find(".button").addClass("minus-button");
+            open_key = key_index;
+        }
+    }
+
+    updateAccordion(0);
+
 </script>

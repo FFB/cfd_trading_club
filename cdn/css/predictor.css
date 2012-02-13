@@ -40,29 +40,21 @@
 }
 
 #pred_b .predictor .down-arrow {
-    background: transparent url(/images/arrow_icons/down_black.png) top left no-repeat;
+    background: transparent url(/images/down_inactive.gif) top left no-repeat;
     background-size:    100%;
-}
-
-#pred_b .predictor .down-arrow.hover {
-    background: transparent url(/images/arrow_icons/down_red.png) top left no-repeat;
 }
 
 #pred_b .predictor .down-arrow.selected {
-    background: transparent url(/images/arrow_icons/down_red.png) top left no-repeat;
+    background: transparent url(/images/down_active.gif) top left no-repeat;
 }
 
 #pred_b .predictor .up-arrow {
-    background: transparent url(/images/arrow_icons/up_black.png) top left no-repeat;
+    background: transparent url(/images/up_inactive.gif) top left no-repeat;
     background-size:    100%;
 }
 
-#pred_b .predictor .up-arrow.hover {
-    background: transparent url(/images/arrow_icons/up_green.png) top left no-repeat;
-}
-
 #pred_b .predictor .up-arrow.selected {
-    background: transparent url(/images/arrow_icons/up_green.png) top left no-repeat;
+    background: transparent url(/images/up_active.gif) top left no-repeat;
 }
 
 /* Submit buttons */

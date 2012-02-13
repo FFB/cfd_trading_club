@@ -37,12 +37,16 @@ my @forex_tickers = (
 );
 
 my %period_text = (
-    1 => 'Monday 6 Feb PM',
-    2 => 'Tuesday 7 Feb AM',
-    3 => 'Tuesday 7 Feb PM',
-    4 => 'Wednesday 8 Feb AM',
-    5 => 'Wednesday 8 Feb PM',
-
+    1  => 'Mon  6 Feb PM',
+    2  => 'Tue  7 Feb AM',
+    3  => 'Tue  7 Feb PM',
+    4  => 'Wed  8 Feb AM',
+    5  => 'Wed  8 Feb PM',
+    6  => 'Thu  9 Feb AM',
+    7  => 'Thu  9 Feb PM',
+    8  => 'Fri 10 Feb AM',
+    9  => 'Fri 10 Feb PM',
+    10 => 'Sat 11 Feb AM',
 );
 
 sub get_tickers {
@@ -84,24 +88,27 @@ sub get_user_predictions {
 sub get_user_results {
     my ($self, $user_id) = @_;
 
-    my $dtf = $self->schema->storage->datetime_parser;
-
-    my $outcome_period_ticker;
-    my @rows = $self->resultset('PeriodResult')->search()->all();
-    for my $row (@rows) {
-        $outcome_period_ticker->{$row->period_id}->{$row->ticker->id} = $row->direction;
-    }
-
-    @rows = $self->resultset('FinalPrediction')->search(
+    my @rows = $self->resultset('FinalPrediction')->search(
         {},
         {
             bind => [$user_id],
         },
     )->all();
 
+    my $final_user_prediction;
+    for my $row (@rows) {
+        $final_user_prediction->{$row->period}->{$row->ticker} = $row->direction;
+    }
+
+    @rows = $self->resultset('PeriodResult')->search()->all();
+
     my $user_results;
     for my $row (@rows) {
-        push @{ $user_results->{$row->period}->{data} }, {ticker => $row->ticker, direction => $row->direction};
+        push @{ $user_results->{$row->period_id}->{data} }, {
+            ticker     => $row->ticker->id,
+            direction  => $final_user_prediction->{$row->period_id}->{$row->ticker->id},
+            actual     => $row->direction,
+        };
     }
 
     for my $period (sort { $b <=> $a } keys %$user_results) {
@@ -109,24 +116,22 @@ sub get_user_results {
         my $correct_count = 0;
 
         for my $prediction (@{ $user_results->{$period}->{data} }) {
-            # insert outcomes into user results hash
-            $prediction->{actual} = $outcome_period_ticker->{$period}->{ $prediction->{ticker} };
 
+            $prediction->{result} = 0;
+            $prediction->{direction} = 'none' unless defined $prediction->{direction};
             if (lc($prediction->{direction}) ne 'none') {
                 $number_of_guesses++;
                 $prediction->{result} = -1;
 
-                if (lc($prediction->{direction}) eq lc($prediction->{outcome})) {
+                if (lc($prediction->{direction}) eq lc($prediction->{actual})) {
                     $correct_count++;
                     $prediction->{result} = 1;
                 }
             }
-            else {
-                $prediction->{result} = 0;
-            }
         }
 
-        my $pc_correct = round(100 * $correct_count / $number_of_guesses);
+        my $pc_correct = $number_of_guesses > 0 ? round(100 * $correct_count / $number_of_guesses) . '%'
+                       : '-';
 
         $user_results->{$period}->{date}     = $period_text{$period};
         $user_results->{$period}->{pc}       = $pc_correct;

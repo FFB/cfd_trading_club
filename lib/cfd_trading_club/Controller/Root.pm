@@ -80,6 +80,10 @@ sub login :Local {
     else {
         $c->flash->{login_error} = 1;
     }
+    $c->forward('prepare_user');
+
+    $c->log->debug(dump($c->session));
+    $c->log->debug("PATH: $path");
 
     $c->res->redirect($c->uri_for($path));
 }

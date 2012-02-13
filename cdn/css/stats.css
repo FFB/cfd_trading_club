@@ -1,56 +1,114 @@
-#result-accordion {
+#result-accordion table {
     width: 100%;
     border-collapse: collapse;
     text-align: center;
 }
 
-#result-accordion tr.accordion-handle {
-    height:         35px;
+#result-accordion .accordion-key {
+    margin-top: 2px;
+    padding: 0 20px;
     background:     #EEE;
+    cursor:         pointer;
     border:         1px solid #AAA;
     border-radius:  5px;
-    cursor:         pointer;
-    font-size:      14px;
+    font-size:      18px;
 }
 
-#result-accordion .accordion-handle:hover {
-    /*
-    background: #023254; /* NAVY */
-    /*
+#result-accordion .accordion-key.active {
+    cursor:         default;
+}
+
+/*
+#result-accordion .handle-box:hover {
+    background: #023254;
     color:      #FFB453;
-    */
+}
+*/
+
+#result-accordion ul.aggregated {
+    height:             50px;
+    list-style-type:    none;
+    text-align:         left;
 }
 
-#result-accordion .accordion-handle .boxed {
-    margin: 0 5px;
+#result-accordion ul.aggregated li {
+    display: inline-block;
+    line-height:    50px;
+}
+
+#result-accordion ul.aggregated li.expand button {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+#result-accordion ul.aggregated li .plus-button {
+    background-image: url('/css/ui-lightness/images/ui-icons_222222_256x240.png');
+    background-position: -16px -128px;
+    background-repeat: no-repeat;
+}
+
+#result-accordion ul.aggregated li .minus-button {
+    background-image: url('/css/ui-lightness/images/ui-icons_222222_256x240.png');
+    background-position: -48px -128px;
+    background-repeat: no-repeat;
+}
+
+#result-accordion ul.aggregated .boxed {
+    width:  60px;
     padding: 2px 5px;
     background: #FFF;
     border: 2px solid #FFB453;
 }
 
-#result-accordion .period {
-    width: 30%;
-    text-decoration: underline;
+#result-accordion ul.aggregated li.period {
+    width: 150px;
 }
 
-#result-accordion .quantity,
-#result-accordion .pc,
-#result-accordion .points {
-    width: 20%;
+#result-accordion ul.aggregated li.quant,
+#result-accordion ul.aggregated li.pc,
+#result-accordion ul.aggregated li.points {
+    padding-right: 0px;
+}
+
+#result-accordion ul.aggregated li.quant-box {
+    width: 40px;
+    text-align: center;
+    padding-right: 10px;
+}
+
+#result-accordion ul.aggregated li.pc-box {
+    width: 60px;
+    text-align: center;
+    padding-right: 10px;
+}
+
+#result-accordion ul.aggregated li.points-box {
+    width: 30px;
+    text-align: center;
+    padding-right: 10px;
 }
 
 /*
-#result-accordion .top-spacer,
-#result-accordion .bot-spacer {
-    height: 10px;
-    background-color: black;
+ * Inner accordion table styles
+ */
+#result-accordion .data-box {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #AAA;
+    border-radius: 5;
 }
-*/
 
-#result-accordion .top-spacer th {
-    padding-top: 10px;
+#result-accordion .data-box table img {
+    height: 25px;
 }
 
-#result-accordion .bot-spacer td {
-    padding-bottom: 10px;
+#result-accordion table.verbose td {
+    width: 25%;
+    padding: 2px;
+}
+
+#result-accordion table.verbose tr {
+    border-bottom: 1px solid #DDE;
 }

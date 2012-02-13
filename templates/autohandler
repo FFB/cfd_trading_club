@@ -62,7 +62,7 @@
             <li id="nav-home"><a href="/">Home</a></li>
             <li id="nav-about"><a href="/about">About Us</a></li>
             <li id="nav-register"><a href="/register">Register</a></li>
-            <li id="nav-competition"><a href="/competition">Competiion</a></li>
+            <li id="nav-competition"><a href="/competition">Competition</a></li>
             <li id="nav-predict"><a href="/predict">Predict</a></li>
             <li id="nav-stats"><a href="/stats">Statistics</a></li>
             <li id="nav-links"><a href="/links">Links</a></li>
