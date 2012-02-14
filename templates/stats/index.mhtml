@@ -30,6 +30,8 @@ my %result_image = (
 
 <h1>Statistics</h1>
 
+<& result_graph.mhtml, user_results => $user_results &>
+
 <div id="result-accordion">
 %   for my $period (sort {$b <=> $a} keys %$user_results) {
     <div class="accordion-key">

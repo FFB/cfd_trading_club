@@ -1,0 +1,62 @@
+<%args>
+    $user_results => 1
+</%args>
+
+<ul class="result-graph">
+%   for my $period (sort {$a <=> $b} keys %$user_results) {
+%       my $pc = $user_results->{$period}->{pc};
+%       $pc =~ s/%//;
+
+%       $user_results->{$period}->{date} =~ m/\A (\w*) \s* (\d*) \s* (\w*) \s* (\w*) \z/xms;
+%       my ($day, $date, $month, $time) = ($1, $2, $3, $4);
+    <li>
+        <div class="day-letter smallfont"><% $day %></div>
+        <div class="half-day smallfont"><% $time %></div>
+        <div class="barspace">
+            <div class="bar" style="height: <% $pc %>px"></div>
+        </div>
+        <div class="day-number"><% $date %></div>
+    </li>
+%   }
+</ul>
+
+<style>
+    ul.result-graph {
+        list-style-type: none;
+        height: 200px;
+    }
+
+    ul.result-graph li {
+        float: left;
+        display: inline-block;
+        width: 27px;
+        height: 100px;
+        text-align: center;
+        font-size: 11px;
+    }
+
+    ul.result-graph li div.day-letter {
+        border-top: 1px solid #DDD;
+        background-color: #EAEAEA;
+    }
+
+    ul.result-graph li div.half-day {
+        border-bottom: 1px solid #DDD;
+        background-color: #EAEAEA;
+        font-size: 8px;
+    }
+
+    ul.result-graph li div.barspace {
+        height: 100px;
+        width: 25px;
+        margin: 0 1px;
+        position: relative;
+    }
+
+    ul.result-graph li div.bar {
+        background-color: #023254;
+        position: absolute;
+        width: 100%;
+        bottom: 0px;
+    }
+</style>
