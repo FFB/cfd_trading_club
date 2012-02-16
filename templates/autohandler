@@ -26,7 +26,8 @@
 
 <body id="body">
     <div id="header">
-        <img src="<% $c->cdn('images/head.png') %>">
+		<img src="<% $c->cdn('images/logo.png') %>" id="headerimg">
+        <img src="<% $c->cdn('images/hbanner.png') %>" id="headerimg">
         <div id="login_b">
             <div id="login_content">
                 <form id="<% $logged_in ? 'logout' : 'login' %>-form"
@@ -60,18 +61,29 @@
     <div id="navbar">
         <ul id=<% $path ||= 'home' %>>
             <li id="nav-home"><a href="/">Home</a></li>
-            <li id="nav-about"><a href="/about">About Us</a></li>
+            <li id="nav-about"><a href="/about">About</a></li>
             <li id="nav-register"><a href="/register">Register</a></li>
-            <li id="nav-competition"><a href="/competition">Competition</a></li>
-            <li id="nav-predict"><a href="/predict">Predict</a></li>
-            <li id="nav-stats"><a href="/stats">Statistics</a></li>
-            <li id="nav-links"><a href="/links">Links</a></li>
+            <li id="nav-competition"><a href="#">Competitions</a></li>
+            <li id="nav-results"><a href="#">Results</a></li>
+            <li id="nav-forum"><a href="/forum">Forum</a></li>
 %   if ($admin) {
             <li id="nav-admin"><a href="/admin">Admin</a></li>
 %   }
 %#              <li class="last"></li>
         </ul>
     </div> <!-- navbar -->
+
+	<div id="nav-xpand"></div>
+
+	<div id="nav-competition-xpand">
+		<a href="/competition/ooc">Open Outcry</a>
+		&nbsp;&nbsp;
+		<a href="/competition/mm">Market Movement</a>
+	</div>
+
+	<div id="nav-results-xpand">
+		<a href="/results/ooc">Open Outcry</a>&nbsp;&nbsp;<a href="/results/mm">Market Movement</a>
+	</div>
 
     <div id="marquee">
         <marquee behavior="scroll" direction="left">Hi Zane! Breaking news and stock info goes here...This is not really that exciting.</marquee>
@@ -83,21 +95,23 @@
             <div align="center">
                 <img src="<% $c->cdn('images/left_100x80.jpg') %>">
             </div>
-            <br />
-            <img src="<% $c->cdn('images/heading.png') %>">
-            <br /><p>Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here. Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here. Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here.</p>
+			<br />
+            <img src="<% $c->cdn('images/head-lboard.png') %>">
+            <br /><br />
+			<img src="<% $c->cdn('images/lboard.png') %>" id="lboard">
         </div>
         <div id="center_sect">
             <div align="center">
                 <img src="<% $c->cdn('images/center_650x83.jpg') %>">
             </div>
-            <br />
-%#          <img src="<% $c->cdn('images/heading.png') %>">
+			<br />
 % $m->call_next;
             <p>Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here. Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here. Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here. Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here. Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here. Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here. Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here.</p>
+			<br /><hr />
+			<p>Upcoming events and competitions</p>
         </div>
         <div id="recent_posts">
-            <img src="<% $c->cdn('images/recent_posts.png') %>">
+            <img src="<% $c->cdn('images/head-recent.png') %>">
             <br />
             <p>trolol123: Omg yea trading is cool and shit</p>
             <p>n00b321: Hoyyy i just looove to buy gold stocks</p>
@@ -135,6 +149,22 @@
         $("#login-error-box").addClass("hidden");
         $("#login_b form").removeClass("hidden");
     });
+
+	$("#nav-competition").click(function () {
+		$("#nav-xpand").show("slow");		
+		$("#nav-competition-xpand").toggle(true);
+		$("#nav-results-xpand").toggle(false);
+		$("#nav-competition").toggleClass("xpanded", true);
+		$("#nav-results").toggleClass("xpanded", false);
+	});
+
+	$("#nav-results").click(function () {
+		$("#nav-xpand").show("slow");
+		$("#nav-results-xpand").toggle(true);
+		$("#nav-competition-xpand").toggle(false);
+		$("#nav-results").toggleClass("xpanded", true);
+		$("#nav-competition").toggleClass("xpanded", false);
+	});
 </script>
 
 <& SELF:load_script &>

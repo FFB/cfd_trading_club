@@ -35,6 +35,11 @@ h1 {
     right: 10px;
 }
 
+#header #headerimg {
+	position: relative;
+	top: 25px;
+}
+
 #header #login_b input {
     background: #ffffff;
     margin-right: 5px;
@@ -65,6 +70,36 @@ h1 {
     font-weight: bold;
 }
 
+#nav-competition-xpand {
+	display: none;
+	position: absolute;
+	left: 390px;
+	top: 110px;
+}
+
+#nav-results-xpand {
+	display: none;
+	position: absolute;
+	left: 500px;
+	top: 110px;
+}
+
+#nav-xpand {
+	display: none;
+    background: #FFB453;
+	height: 25px;
+}
+
+#nav-competition-xpand a,
+#nav-results-xpand a {
+	color: #023254;
+	font-family: verdana;
+    font-size: 11px;
+    font-weight: bold;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
 #navbar ul li {
     text-transform: uppercase;
     list-style-type: none;
@@ -84,7 +119,13 @@ h1 {
 #navbar #stats       #nav-stats,
 #navbar #links       #nav-links,
 #navbar #admin       #nav-admin {
-    background-color: #ffffff;
+    background-color: #FFFFFF;
+	height: 24px;
+}
+
+.xpanded {
+	background-color: #FFB453;
+	height: 24px;
 }
 
 #navbar #home        #nav-home a,
@@ -143,6 +184,11 @@ p {
     float: left;
     width: 130px;
     min-height: 400px;
+}
+
+#content #left_sect #lboard {
+	border: 1px solid #cccccc;
+	padding: 2px 2px 2px 2px;
 }
 
 #content #center_sect {
