@@ -1,0 +1,82 @@
+<%args>
+    $path => 'home';
+</%args>
+
+<h1>Login</h1>
+
+<div id="login-main">
+%   if ($c->flash->{login_error}) {
+    <div id="login-error-box">
+        <div class="error">Incorrect username or password.<br/>Please try again.</div>
+    </div>
+%   }
+    <form id="login-retry" action="login" method="POST">
+        <div id="inner-login-box">
+            <div>
+                <input type="text"     class="credential" name="username" placeholder="Username">
+            </div>
+            <div>
+                <input type="password" class="credential" name="password" placeholder="Password">
+            </div>
+            <div class="button-box">
+                <input type="submit"   class="float-left  button" value="Login">
+                <input type="button"   class="float-right button" value="Join Now">
+            </div>
+            <a href id="forgot-link">Forgot your password?</a>
+            <div id="forgot-info">
+                <p>Please send an email to aucklandtrading@gmail.co.nz</p>
+            </div>
+        </div>
+    </form>
+</div>
+
+<style>
+    #login-main {
+        width: 350px;
+        margin: 50px auto;
+        border: 1px solid #023254;
+        border-radius: 10px;
+        padding-top: 25px;
+        padding-bottom: 20px;
+    }
+
+    #login-main div div {
+        margin: 10px auto;
+        text-align: center;
+    }
+
+    #login-main #login-error-box div {
+        width: 200px;
+        padding: 5px;
+        text-align: center;
+    }
+
+    #login-main #inner-login-box {
+        margin: 0 auto;
+        width: 180px;
+        font-size: 11px;
+        text-align: left;
+    }
+
+    #login-retry input {
+        background: #ffffff;
+        padding: 2px;
+        border: 1px solid #023254;
+    }
+
+    #login-main div.button-box {
+        height: 30px;
+    }
+
+    #forgot-info {
+        display: none;
+        text-align: center;
+    }
+</style>
+
+<script>
+    $("#forgot-link").click(function() {
+        $("#forgot-info").show();
+        return false;
+    });
+</script>

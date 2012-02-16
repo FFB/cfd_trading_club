@@ -33,11 +33,13 @@ sub auto :Private {
     my ( $self, $c ) = @_;
 
     if ($c->user_exists) {
-        $c->log->debug(dump($c->session));
         $c->stash->{admin} = $c->assert_user_roles(qw/ admin /);
     }
 
-    $c->stash->{path} = $c->req->path;
+    $c->session->{path} = $c->req->path unless grep { $c->req->path =~ /$_/ } 'login', 'logout';
+    $c->stash->{path}   = $c->session->{path};
+
+    $c->log->debug(dump($c->session));
     $c->forward('prepare_user');
     return 1;
 }
@@ -65,27 +67,6 @@ sub ajax :Local {
 
     $c->stash->{status_msg} = 'Prediction saved';
     $c->detach( $c->view('JSON') );
-}
-
-sub login :Local {
-    my ( $self, $c ) = @_;
-
-    my $username = $c->req->params->{username};
-    my $password = $c->req->params->{password};
-    my $path     = $c->req->params->{path};
-
-    if ($username and $password and $c->authenticate({username => $username, password => $password,})) {
-        $c->session->{username} = $c->user->get('username');
-    }
-    else {
-        $c->flash->{login_error} = 1;
-    }
-    $c->forward('prepare_user');
-
-    $c->log->debug(dump($c->session));
-    $c->log->debug("PATH: $path");
-
-    $c->res->redirect($c->uri_for($path));
 }
 
 sub logout :Local {
