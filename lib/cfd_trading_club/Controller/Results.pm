@@ -1,4 +1,4 @@
-package cfd_trading_club::Controller::Stats;
+package cfd_trading_club::Controller::Results;
 use Moose;
 use namespace::autoclean;
 
@@ -6,7 +6,7 @@ BEGIN {extends 'Catalyst::Controller'; }
 
 =head1 NAME
 
-cfd_trading_club::Controller::Stats - Catalyst Controller
+cfd_trading_club::Controller::Results - Catalyst Controller
 
 =head1 DESCRIPTION
 
@@ -21,7 +21,10 @@ Catalyst Controller.
 
 =cut
 
-sub index :Path :Args(0) {
+sub open_outcry :Path('/results/open-outcry') :Args(0) {
+}
+
+sub market_move :Path('/results/market-move') :Args(0) {
     my ( $self, $c ) = @_;
 
     my $user_results;
@@ -32,7 +35,6 @@ sub index :Path :Args(0) {
 
     $c->stash->{user_results} = $user_results;
 }
-
 
 =head1 AUTHOR
 

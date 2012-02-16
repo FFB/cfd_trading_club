@@ -83,12 +83,12 @@ h1 {
 #navbar #home        #nav-home,
 #navbar #about       #nav-about,
 #navbar #register    #nav-register,
-#navbar #competition #nav-competition,
 #navbar #predict     #nav-predict,
-#navbar #stats       #nav-stats,
-#navbar #links       #nav-links,
+#navbar #forum       #nav-forum,
 #navbar #admin       #nav-admin {
     background-color: #FFFFFF;
+    color: #023254;
+    font-size: 12px;
 }
 
 #navbar #home        #nav-home a,
@@ -96,11 +96,24 @@ h1 {
 #navbar #register    #nav-register a,
 #navbar #competition #nav-competition a,
 #navbar #predict     #nav-predict a,
-#navbar #stats       #nav-stats a,
-#navbar #links       #nav-links a,
+#navbar #results     #nav-results a,
+#navbar #forum       #nav-forum a,
 #navbar #admin       #nav-admin a {
+    color:      inherit;
+    font-size:  inherit;
+}
+
+#navbar #competition #nav-competition,
+#navbar #results     #nav-results {
+    background-color: #FFFFFF;
     color: #023254;
     font-size: 12px;
+}
+
+#navbar #competition #nav-competition.xpanded,
+#navbar #results     #nav-results.xpanded {
+    background-color: #FFB453;
+    color:  #FFFFFF;
 }
 
 #navbar ul li a {

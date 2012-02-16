@@ -8,6 +8,9 @@
     $path        => undef
     $admin       => 0
 </%args>
+
+%   my @args = split(/\//, $path);
+%   $path    = $args[0];
 <html>
 
 <head>
@@ -66,8 +69,10 @@
 	<div id="nav-xpand">
         <ul id="competition-links">
             <li id="left-spacer"></li>
-            <li><a href="/competition/open-outcry">Open Outcry</a></li>
-            <li><a href="/competition/market-move">Market Movement</a></li>
+            <li class="competition"><a href="/competition/open-outcry">Open Outcry</a></li>
+            <li class="results"><a href="/results/open-outcry">Open Outcry</a></li>
+            <li class="competition"><a href="/competition/market-move">Market Movement</a></li>
+            <li class="results"><a href="/results/market-move">Market Movement</a></li>
         </ul>
     </div>
 
@@ -76,7 +81,6 @@
     </div>
 
     <div id="content">
-% use Data::Dump qw/dump/; #for debugging purposes
         <div id="left_sect">
             <div align="center">
                 <img src="<% $c->cdn('images/left_100x80.jpg') %>">
@@ -111,17 +115,16 @@
 
 <script type="text/javascript" src="<% $c->cdn('js/autohandler.js') %>"></script>
 <script>
-    $("#login_b").on("click", "#login-error-box a", function() {
-        $("#login-error-box").addClass("hidden");
-        $("#login_b form").removeClass("hidden");
-    });
-
 	$("#nav-competition").click(function () {
+        $("#nav-xpand ul li.results").hide();
+        $("#nav-xpand ul li.competition").show();
         updateXpand(this, 3);
         return false;
 	});
 
 	$("#nav-results").click(function () {
+        $("#nav-xpand ul li.results").show();
+        $("#nav-xpand ul li.competition").hide();
         updateXpand(this, 4);
         return false;
 	});
