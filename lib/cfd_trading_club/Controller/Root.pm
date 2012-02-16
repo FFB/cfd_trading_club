@@ -52,11 +52,15 @@ sub about :Local {
     my ( $self, $c ) = @_;
 }
 
-sub competition :Local {
+sub open_outcry :Path('/competition/open-outcry') {
     my ( $self, $c ) = @_;
 }
 
-sub links :Local {
+sub market_move :Path('/competition/market-move') {
+    my ( $self, $c ) = @_;
+}
+
+sub forum :Local {
     my ( $self, $c ) = @_;
 }
 
