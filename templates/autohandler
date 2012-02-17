@@ -15,7 +15,6 @@
 
 <head>
     <title>Auckland University Trading Club</title>
-    <meta name="google-site-verification" content="RJgziGzFeiSTJqbieu6PQjyg8vNylqpEW5hGe23zS8M" />
     <link rel="stylesheet" type="text/css" href="<% $c->cdn('css/autohandler.css') %>" />
     <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/registration.css') %>" />
     <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/predict.css') %>" />

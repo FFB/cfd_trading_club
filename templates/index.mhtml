@@ -1,1 +1,3 @@
-<img src="<% $c->cdn('images/welcome.png') %>">
+<img src="<% $c->cdn('images/welcome.png') %>" alt="Welcome">
+
+<p>Welcome to the Auckland University Trading Club home page. This webpage is still under construction but feel free to watch it over the next few days.</p>
