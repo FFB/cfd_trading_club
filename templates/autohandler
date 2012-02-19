@@ -11,6 +11,9 @@
 
 %   my @args = split(/\//, $path);
 %   $path    = $args[0];
+
+<!DOCTYPE html>
+
 <html>
 
 <head>
