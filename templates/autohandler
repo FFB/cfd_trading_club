@@ -22,7 +22,6 @@
     <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/registration.css') %>" />
     <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/predict.css') %>" />
     <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/predictor.css') %>" />
-    <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/predictor.css') %>" />
     <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/stats.css') %>" />
     <link rel='stylesheet' type="text/css" href="<% $c->cdn('css/ui-lightness/jquery-ui-1.8.17.custom.css') %>" />
     <link rel="shortcut icon" href="<% $c->cdn('images/favico.ico') %>">
@@ -45,7 +44,7 @@
                     <input type="submit" class="button" value="Logout">
 %   }
 %   else {
-                    <input type="button"   class="button" value="Join Now">
+                    <button type="button"  class="button join-now" value="Join Now"><a href="/register">Join Now</a></button>
                     <input type="text"     class="credential" name="username" placeholder="Username">
                     <input type="password" class="credential" name="password" placeholder="Password">
                     <input type="submit"   class="button" value="Login">
@@ -62,7 +61,7 @@
             <li id="nav-register"><a href="/register">Register</a></li>
             <li id="nav-competition"><a href>Competitions</a></li>
             <li id="nav-results"><a href>Results</a></li>
-            <li id="nav-forum"><a href="/forum">Forum</a></li>
+%#          <li id="nav-forum"><a href="/forum">Forum</a></li>
 %   if ($admin) {
             <li id="nav-admin"><a href="/admin">Admin</a></li>
 %   }
@@ -76,6 +75,8 @@
             <li class="results"><a href="/results/open-outcry">Open Outcry</a></li>
             <li class="competition"><a href="/competition/market-move">Market Movement</a></li>
             <li class="results"><a href="/results/market-move">Market Movement</a></li>
+            <li class="competition"><a href="/competition/portfolio-planner">Portfolio Planner</a></li>
+            <li class="results"><a href="/results/portfolio-planner">Portfolio Planner</a></li>
         </ul>
     </div>
 
@@ -99,17 +100,14 @@
             </div>
 			<br />
 % $m->call_next;
-            <p>Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here. Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here. Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here. Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here. Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here. Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here. Lorem ipsum dolor amet. Stuff goes here and here and here. More stuff goes here and here and here.</p>
 			<br /><hr />
-			<p>Upcoming events and competitions</p>
         </div>
         <div id="recent_posts">
             <img src="<% $c->cdn('images/head-recent.png') %>">
             <br />
-            <p>trolol123: Omg yea trading is cool and shit</p>
-            <p>n00b321: Hoyyy i just looove to buy gold stocks</p>
-            <p>sexylady69: B==8</p>
-            <br />See more...
+            <p><span class="event-date">Week 3:</span> First Meeting!</p>
+            <p><span class="event-date">Week 4:</span> Open Outcry competition begins</p>
+            <br />
         </div>
     </div>
 
@@ -152,6 +150,10 @@
             }
         link_position = li_index;
     }
+
+    $("input.join-now").click(function(event) {
+        
+    });
 
 </script>
 

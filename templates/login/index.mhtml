@@ -20,7 +20,7 @@
             </div>
             <div class="button-box">
                 <input type="submit"   class="float-left  button" value="Login">
-                <input type="button"   class="float-right button" value="Join Now">
+                <input type="button"   class="float-right button join-now" value="Join Now">
             </div>
             <a href id="forgot-link">Forgot your password?</a>
             <div id="forgot-info">

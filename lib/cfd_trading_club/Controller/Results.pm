@@ -36,6 +36,9 @@ sub market_move :Path('/results/market-move') :Args(0) {
     $c->stash->{user_results} = $user_results;
 }
 
+sub portfolio :Path('/results/portfolio-planner') :Args(0) {
+}
+
 =head1 AUTHOR
 
 Zane Moser,,,

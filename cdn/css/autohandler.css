@@ -40,11 +40,18 @@ h1 {
 	top: 25px;
 }
 
+#header #login_b button,
 #header #login_b input {
     background: #ffffff;
     margin-right: 5px;
     padding: 2px;
     border: 1px solid #023254;
+    cursor: pointer;
+}
+
+#header #login_b button a {
+    color: #000000;
+    text-decoration: none;
 }
 
 #header #login-error-box {
@@ -225,6 +232,16 @@ p {
     color: #023254;
     font-family: verdana;
     font-size: 11px;
+    text-align: left;
+}
+
+#content #recent_posts p {
+    text-align: inherit;
+}
+
+#content #recent_posts .event-date {
+    font-weight: bold;
+    padding-right: 2px;
 }
 
 #bottom {

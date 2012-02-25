@@ -60,6 +60,10 @@ sub market_move :Path('/competition/market-move') :Args(0) {
     my ( $self, $c ) = @_;
 }
 
+sub portfolio :Path('/competition/portfolio-planner') :Args(0) {
+    my ( $self, $c ) = @_;
+}
+
 sub forum :Local {
     my ( $self, $c ) = @_;
 }
