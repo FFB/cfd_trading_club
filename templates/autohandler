@@ -81,7 +81,7 @@
     </div>
 
     <div id="marquee">
-        <marquee behavior="scroll" direction="left">Hi Zane! Breaking news and stock info goes here...This is not really that exciting.</marquee>
+        <marquee behavior="scroll" direction="left"></marquee>
     </div>
 
     <div id="content">

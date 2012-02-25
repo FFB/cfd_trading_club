@@ -98,6 +98,12 @@ sub prepare_user :Private {
     }
 }
 
+sub load_banner :Private {
+    my ( $self, $c ) = @_;
+
+    $c->stash->{banner} = $c->model('DB')->get_banner_string;
+}
+
 =head2 default
 
 Standard 404 error page
