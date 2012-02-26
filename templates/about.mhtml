@@ -1,1 +1,16 @@
 <img src="<% $c->cdn('images/head-about.png') %>">
+
+<p>
+If you are interested in a career in Financial Analysis, Investment Banking, Fund Management or similar – this is the club for you. You will learn a lot about what the industry is all about.
+</p>
+<p>
+Club Objectives:
+<ol style="margin-left: 40px" class="smallfont">
+<br/>
+    <li>To provide students with an interest in investing and trading to interact and learn. This will be achieved through regular meetings, speakers, and competitions.</li>
+    <br/>
+    <li>To give students the opportunity to integrate classroom knowledge with practical application. This will be achieved through participation in competitions, industry and analysis, and portfolio performance analysis.</li>
+    <br/>
+    <li>Educate students about the industry and offer an opportunity for students to come and ask questions that may be helpful for obtaining internships.</li>
+</ol>
+</p>
