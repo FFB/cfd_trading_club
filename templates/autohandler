@@ -110,15 +110,10 @@
         </div>
         <div id="recent_posts">
             <img src="<% $c->cdn('images/head-upcoming.png') %>">
-            <br /><br />
+            <br />
             <p><span class="event-date">Week 3:</span> First Meeting!</p>
             <p><span class="event-date">Week 4:</span> Open Outcry competition begins</p>
             <br />
-			<hr />
-			<img src="<% $c->cdn('images/head-connect.png') %>">
-			<br />
-			<a href="http://www.facebook.com/groups/AU.TradingClub" target="_blank"><img src="<% $c->cdn('images/fb.png') %>"></a>
-			&nbsp;&nbsp;&nbsp;<a href="mailto:aucklandtrading@gmail.com"><img src="<% $c->cdn('images/email.jpg') %>"></a>
         </div>
     </div>
 

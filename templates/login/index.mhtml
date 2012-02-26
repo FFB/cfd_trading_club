@@ -19,8 +19,8 @@
                 <input type="password" class="credential" name="password" placeholder="Password">
             </div>
             <div class="button-box">
-                <input type="submit"   class="float-left  button" value="Login">
-                <input type="button"   class="float-right button join-now" value="Join Now">
+                <input type="submit"   class="float-right  button" value="Login">
+                <button class="float-left button join-now" value="Join Now"><a href="/register">Join Now</a></button>
             </div>
             <a href id="forgot-link">Forgot your password?</a>
             <div id="forgot-info">
@@ -68,10 +68,24 @@
         height: 30px;
     }
 
+    #login-main button.join-now {
+        background: #ffffff;
+        margin-right: 5px;
+        padding: 2px;
+        border: 1px solid #023254;
+        cursor: pointer;
+    }
+
+    #login-main button a {
+        color: #000000;
+        text-decoration: none;
+    }
+
     #forgot-info {
         display: none;
         text-align: center;
     }
+
 </style>
 
 <script>
