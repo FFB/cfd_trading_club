@@ -61,7 +61,7 @@
             <li id="nav-about"><a href="/about">About</a></li>
             <li id="nav-register"><a href="/register">Register</a></li>
             <li id="nav-competition"><a href>Competitions</a></li>
-            <li id="nav-results"><a href>Results</a></li>
+%#          <li id="nav-results"><a href>Results</a></li>
 %#          <li id="nav-forum"><a href="/forum">Forum</a></li>
 %   if ($admin) {
             <li id="nav-admin"><a href="/admin">Admin</a></li>
