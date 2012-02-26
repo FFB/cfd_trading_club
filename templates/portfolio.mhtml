@@ -1,1 +1,1 @@
-<h1>Portfolio Prediction</h1>
+<img src="<% $c->cdn('images/head-comp-pp.png') %>">

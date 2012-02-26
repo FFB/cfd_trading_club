@@ -5,7 +5,7 @@
     $username => undef
 </%args>
 
-<h1>Registration Form</h1>
+<img src="<% $c->cdn('images/head-register.png') %>">
 <p>Registration is <b>$5</b> so complete the form below to sign up and create an account then make a bank deposit to account <b>xx-xxxx-xxxxxxx-xx</b> with your UPI in the comment on the bank statement.</p>
 <br/>
 %if ($logged_in) {

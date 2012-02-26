@@ -1,4 +1,4 @@
-<h1>Market Movement</h1>
+<img src="<% $c->cdn('images/head-comp-mm.png') %>">
 
 <p>
 
