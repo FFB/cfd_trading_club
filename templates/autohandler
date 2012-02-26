@@ -109,7 +109,7 @@
 			<br /><hr />
         </div>
         <div id="recent_posts">
-            <img src="<% $c->cdn('images/head-recent.png') %>">
+            <img src="<% $c->cdn('images/head-upcoming.png') %>">
             <br />
             <p><span class="event-date">Week 3:</span> First Meeting!</p>
             <p><span class="event-date">Week 4:</span> Open Outcry competition begins</p>
