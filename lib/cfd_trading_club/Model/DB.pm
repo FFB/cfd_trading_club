@@ -4,6 +4,7 @@ use strict;
 use base 'Catalyst::Model::DBIC::Schema';
 use DateTime;
 use Math::Round qw/round/;
+use Math::SigFigs;
 
 __PACKAGE__->config(
     schema_class => 'cfd_trading_club::Schema',
@@ -85,7 +86,7 @@ sub get_banner_string {
         my $banner_string = $x . ': ' . $price_data->{$x};
         if ($x eq 'AUDNZD') {
             my $rate = $price_data->{AUDUSD} / $price_data->{NZDUSD};
-            $banner_string = $x . ': ' . $rate;
+            $banner_string = $x . ': ' . FormatSigFigs($rate, 5);
         }
         push @banner_things, $banner_string;
     }
