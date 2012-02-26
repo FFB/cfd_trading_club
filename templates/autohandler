@@ -83,6 +83,7 @@
 
     <div id="marquee">
         <marquee behavior="scroll" direction="left">
+            Delayed ---
 %   for my $block (@banner) {
         <span class="banner"><% $block %></span>
 %   }
