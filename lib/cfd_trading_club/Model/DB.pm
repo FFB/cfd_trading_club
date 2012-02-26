@@ -65,25 +65,28 @@ sub get_tickers {
 sub get_banner_string {
     my $self = shift;
 
-    #my $ticker_data = $self->get_tickers;
-
-    my $rs = $self->resultset('Latest_Price')->search(
+    my $rs = $self->resultset('LatestPrice')->search(
         {},
         {
             order_by => { -desc => 'time' },
         },
     );
 
-    my $banner_string = '';
+    my @banner_things;
+    my $price_data;
 
     my $i = 0;
-    while ($i < 12) {
-        my $latest_price = $rs->next;
-        $banner_string .= $latest_price->ticker . ': ';
-        $banner_string .= $latest_price->ticker;
+    while ((my $price = $rs->next) && $i < 13) {
+        $price_data->{$price->get_column('ticker')} = $price->get_column('price');
+        $i++;
     }
 
-    return $banner_string;
+    for my $x (@index_tickers, @commod_tickers, @forex_tickers) {
+        my $banner_string = $x . ': ' . $price_data->{$x};
+        push @banner_things, $banner_string;
+    }
+
+    return \@banner_things;
 }
 
 # Retrieves the latest user predictions inside the current prediction time, if any

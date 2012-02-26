@@ -41,6 +41,7 @@ sub auto :Private {
 
     $c->log->debug(dump($c->session));
     $c->forward('prepare_user');
+    $c->forward('load_banner');
     return 1;
 }
 

@@ -7,6 +7,7 @@
     $username    => undef
     $path        => undef
     $admin       => 0
+    @banner      => ('hi')
 </%args>
 
 %   my @args = split(/\//, $path);
@@ -81,7 +82,11 @@
     </div>
 
     <div id="marquee">
-        <marquee behavior="scroll" direction="left"></marquee>
+        <marquee behavior="scroll" direction="left">
+%   for my $block (@banner) {
+        <span class="banner"><% $block %></span>
+%   }
+        </marquee>
     </div>
 
     <div id="content">

@@ -193,6 +193,10 @@ h1 {
     top: 6px;
 }
 
+#marquee span.banner {
+    padding: 0 10px;
+}
+
 #content {
     background: #ffffff;
     margin-top: 10px;
