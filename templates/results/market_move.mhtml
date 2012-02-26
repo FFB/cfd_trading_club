@@ -28,7 +28,7 @@ my %result_image = (
 <script type="text/javascript" src="<% $c->cdn('farbtastic.js') %>"></script>
 <link rel="stylesheet" href="<% $c->cdn('farbtastic.css') %>" type="text/css" />
 
-<h1>Statistics</h1>
+<img src="<% $c->cdn('images/head-res-mm.png') %>">
 
 <& result_graph.mhtml, user_results => $user_results &>
 
