@@ -76,8 +76,8 @@
             <li class="results"><a href="/results/open-outcry">Open Outcry</a></li>
             <li class="competition"><a href="/competition/market-move">Market Movement</a></li>
             <li class="results"><a href="/results/market-move">Market Movement</a></li>
-            <li class="competition"><a href="/competition/portfolio-planner">Portfolio Planner</a></li>
-            <li class="results"><a href="/results/portfolio-planner">Portfolio Planner</a></li>
+            <li class="competition"><a href="/competition/portfolio-planner">Portfolio Prediction</a></li>
+            <li class="results"><a href="/results/portfolio-planner">Portfolio Prediction</a></li>
         </ul>
     </div>
 
