@@ -83,6 +83,10 @@ sub get_banner_string {
 
     for my $x (@index_tickers, @commod_tickers, @forex_tickers) {
         my $banner_string = $x . ': ' . $price_data->{$x};
+        if ($x eq 'AUDNZD') {
+            my $rate = $price_data->{AUDUSD} / $price_data->{NZDUSD};
+            $banner_string = $x . ': ' . $rate;
+        }
         push @banner_things, $banner_string;
     }
 

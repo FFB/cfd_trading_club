@@ -1,1 +1,1 @@
-<h1>Portfolio Planner</h1>
+<img src="<% $c->cdn('images/head-res-pp.png') %>">
