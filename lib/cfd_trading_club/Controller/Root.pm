@@ -33,7 +33,7 @@ sub auto :Private {
     my ( $self, $c ) = @_;
 
     if ($c->user_exists) {
-        $c->stash->{admin} = $c->assert_user_roles(qw/ admin /);
+        $c->stash->{admin} = $c->check_user_roles(qw/ admin /);
     }
 
     $c->session->{path} = $c->req->path unless grep { $c->req->path =~ /$_/ } 'login', 'logout';
