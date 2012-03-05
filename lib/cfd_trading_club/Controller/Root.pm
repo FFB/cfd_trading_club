@@ -65,6 +65,10 @@ sub portfolio :Path('/competition/portfolio-planner') :Args(0) {
     my ( $self, $c ) = @_;
 }
 
+sub liars_poker :Path('/competition/liars-poker') :Args(0) {
+    my ( $self, $c ) = @_;
+}
+
 sub forum :Local {
     my ( $self, $c ) = @_;
 }

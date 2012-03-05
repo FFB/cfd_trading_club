@@ -1,0 +1,18 @@
+<div id="news-banner">
+    <a href="/register">Sign up</a> at OGGB Level 0 11am - 2pm this week!
+</div>
+
+<style>
+    #news-banner {
+        background-color: #FFEEEE;
+        border: 2px solid red;
+        padding: 10px;
+        margin-bottom: 20px;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    #news-banner a {
+        color: blue;
+    }
+</style>

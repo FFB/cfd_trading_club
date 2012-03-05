@@ -78,6 +78,8 @@
             <li class="results"><a href="/results/market-move">Market Movement</a></li>
             <li class="competition"><a href="/competition/portfolio-planner">Portfolio Prediction</a></li>
             <li class="results"><a href="/results/portfolio-planner">Portfolio Prediction</a></li>
+            <li class="competition"><a href="/competition/liars-poker">Liar's Poker</a></li>
+            <li class="results"><a href="/results/liars-poker">Liar's Poker</a></li>
         </ul>
     </div>
 
@@ -105,6 +107,7 @@
                 <img src="<% $c->cdn('images/center_650x83.jpg') %>">
             </div>
 			<br />
+            <& banner.mhtml &>
 % $m->call_next;
 			<br /><hr />
         </div>
