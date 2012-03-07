@@ -114,7 +114,7 @@
         <div id="recent_posts">
             <img src="<% $c->cdn('images/head-upcoming.png') %>">
             <br />
-            <p><span class="event-date">Week 3:</span> First Meeting!</p>
+            <p><span class="event-date">Week 3:</span> First Meeting Wed 14 March 6:00pm in OGGB4!</p>
             <p><span class="event-date">Week 4:</span> Open Outcry competition begins</p>
             <br />
             <p>Contact us by sending an email to <span class="event-date">aucklandtrading@gmail.com</span></p>
